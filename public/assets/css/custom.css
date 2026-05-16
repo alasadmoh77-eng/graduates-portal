@@ -1,0 +1,189 @@
+/* Core Custom Styles */
+:root {
+    --primary-blue: #1a237e;
+    --secondary-blue: #0d47a1;
+    --accent-gold: #d4af37;
+    --soft-bg: #f8fafc;
+}
+
+body {
+    background-color: var(--soft-bg);
+}
+
+.navbar {
+    background: linear-gradient(135deg, var(--primary-blue) 0%, var(--secondary-blue) 100%);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.navbar-brand, .nav-link {
+    color: white !important;
+}
+
+/* Notification Pulse */
+@keyframes pulse-red {
+    0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(220, 53, 69, 0.7); }
+    70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(220, 53, 69, 0); }
+    100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(220, 53, 69, 0); }
+}
+.pulse-notify {
+    animation: pulse-red 2s infinite;
+}
+
+/* Responsive Notification Dropdown */
+.dropdown-menu {
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1) !important;
+}
+
+@media (max-width: 991.98px) {
+    .dropdown-menu-md-end {
+        max-width: 100vw;
+        width: 100% !important;
+    }
+}
+
+.card {
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    transition: all 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.btn-primary {
+    background-color: var(--secondary-blue);
+    border: none;
+}
+
+footer {
+    background-color: #212121;
+    color: #bdbdbd;
+    padding: 30px 0;
+    margin-top: 50px;
+}
+
+/* Graduate Dashboard Styles */
+.welcome-card {
+    background: linear-gradient(135deg, var(--primary-blue) 0%, var(--secondary-blue) 100%);
+    border-radius: 20px;
+    color: white;
+    padding: 2.5rem;
+    position: relative;
+    overflow: hidden;
+    border: none;
+}
+
+.welcome-card::after {
+    content: '';
+    position: absolute;
+    top: -50px;
+    left: -50px;
+    width: 200px;
+    height: 200px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 50%;
+}
+
+.stat-card {
+    border: 1px solid rgba(0,0,0,0.05);
+    border-radius: 16px;
+    transition: all 0.3s ease;
+    background: white;
+}
+
+.stat-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.08) !important;
+}
+
+.icon-box {
+    width: 54px;
+    height: 54px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.25rem;
+}
+
+.quick-action-btn {
+    border-radius: 12px;
+    padding: 0.8rem 1.5rem;
+    font-weight: 700;
+    transition: all 0.2s;
+}
+
+.status-badge {
+    padding: 0.5rem 1rem;
+    border-radius: 50px;
+    font-size: 0.75rem;
+    font-weight: 700;
+}
+
+.btn-gradient {
+    background: linear-gradient(135deg, var(--accent-gold) 0%, #b8860b 100%);
+    color: white;
+    border: none;
+}
+.btn-gradient:hover {
+    color: white;
+    filter: brightness(1.1);
+}
+
+.progress-custom {
+    height: 8px;
+    border-radius: 10px;
+    background: rgba(255,255,255,0.2);
+}
+
+.academic-pill {
+    background: rgba(255,255,255,0.1);
+    padding: 0.5rem 1.25rem;
+    border-radius: 50px;
+    font-size: 0.85rem;
+    backdrop-filter: blur(10px);
+}
+
+/* Active nav link indicator */
+.navbar .nav-link.border-bottom {
+    border-bottom-width: 2px !important;
+    padding-bottom: calc(0.5rem - 2px) !important;
+}
+
+/* Responsive Notification Dropdown */
+.notification-dropdown {
+    width: 320px;
+    max-width: calc(100vw - 2rem);
+}
+
+@media (max-width: 575.98px) {
+    .notification-dropdown {
+        width: 100vw;
+        max-width: 100vw;
+        left: 0 !important;
+        right: 0 !important;
+        position: fixed !important;
+        top: auto !important;
+        border-radius: 12px 12px 0 0 !important;
+    }
+    .toast-container {
+        width: 100%;
+        max-width: 100%;
+        padding: 0 !important;
+    }
+    #liveToast {
+        width: 100% !important;
+        border-radius: 12px 12px 0 0 !important;
+    }
+}
+
+/* Coming soon disabled state */
+.btn-disabled-state {
+    opacity: 0.55;
+    cursor: not-allowed;
+    pointer-events: none;
+}

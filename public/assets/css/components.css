@@ -1,0 +1,394 @@
+/* ============================================================
+   GRADUATES PORTAL — Component Design System
+   ============================================================ */
+
+/* ----------------------------------------------------------
+   STATUS BADGE SYSTEM — Centralized status colors
+   ---------------------------------------------------------- */
+.ds-status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.78rem;
+    font-weight: 800;
+    padding: 0.35rem 0.85rem;
+    border-radius: 2rem;
+    letter-spacing: 0.3px;
+    white-space: nowrap;
+}
+
+.ds-status-submitted   { background: rgba(14, 165, 233, 0.1); color: #0ea5e9; }
+.ds-status-under_review{ background: rgba(245, 158, 11, 0.1); color: #d97706; }
+.ds-status-approved    { background: rgba(34, 197, 94, 0.1);  color: #16a34a; }
+.ds-status-ready       { background: rgba(99, 102, 241, 0.1); color: #4f46e5; }
+.ds-status-issued      { background: rgba(100, 116, 139, 0.1);color: #475569; }
+.ds-status-rejected    { background: rgba(239, 68, 68, 0.1);  color: #dc2626; }
+.ds-status-default     { background: rgba(0,0,0,0.05);        color: #64748b; }
+
+/* ----------------------------------------------------------
+   WORKFLOW PROGRESS — Request status timeline bar
+   ---------------------------------------------------------- */
+.ds-workflow {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    padding: 1.5rem 1rem;
+    overflow-x: auto;
+}
+
+.ds-workflow-step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    flex: 1;
+    min-width: 80px;
+}
+
+.ds-workflow-step:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    top: 20px;
+    left: calc(50% + 20px);
+    right: calc(-50% + 20px);
+    height: 2px;
+    background: #e2e8f0;
+    z-index: 0;
+}
+
+.ds-workflow-step.completed:not(:last-child)::after,
+.ds-workflow-step.active:not(:last-child)::after {
+    background: linear-gradient(90deg, #1a237e, #e2e8f0);
+}
+
+.ds-workflow-step.completed:not(:last-child)::after {
+    background: #1a237e;
+}
+
+.ds-workflow-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+    border: 3px solid #e2e8f0;
+    background: white;
+    position: relative;
+    z-index: 1;
+    transition: all 0.3s ease;
+}
+
+.ds-workflow-step.completed .ds-workflow-icon {
+    background: #1a237e;
+    border-color: #1a237e;
+    color: white;
+}
+
+.ds-workflow-step.active .ds-workflow-icon {
+    background: white;
+    border-color: #1a237e;
+    color: #1a237e;
+    box-shadow: 0 0 0 4px rgba(26, 35, 126, 0.15);
+}
+
+.ds-workflow-step.pending .ds-workflow-icon {
+    background: white;
+    border-color: #e2e8f0;
+    color: #cbd5e1;
+}
+
+.ds-workflow-step.rejected .ds-workflow-icon {
+    background: #fef2f2;
+    border-color: #dc2626;
+    color: #dc2626;
+}
+
+.ds-workflow-label {
+    margin-top: 0.6rem;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-align: center;
+    color: #94a3b8;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    max-width: 70px;
+    line-height: 1.2;
+}
+
+.ds-workflow-step.completed .ds-workflow-label { color: #1a237e; }
+.ds-workflow-step.active .ds-workflow-label    { color: #1a237e; }
+.ds-workflow-step.rejected .ds-workflow-label  { color: #dc2626; }
+
+/* ----------------------------------------------------------
+   EMPTY STATE
+   ---------------------------------------------------------- */
+.ds-empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 4rem 2rem;
+    text-align: center;
+}
+
+.ds-empty-state .ds-empty-icon {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: #f1f5f9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    color: #94a3b8;
+    margin: 0 auto 1.5rem;
+}
+
+.ds-empty-state h5 {
+    font-weight: 800;
+    color: #334155;
+    margin-bottom: 0.5rem;
+}
+
+.ds-empty-state p {
+    color: #94a3b8;
+    font-size: 0.9rem;
+    max-width: 320px;
+}
+
+/* ----------------------------------------------------------
+   SECTION CARD — Standardized content card
+   ---------------------------------------------------------- */
+.ds-card {
+    background: white;
+    border-radius: 1rem;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
+    overflow: hidden;
+}
+
+.ds-card-header {
+    background: white;
+    border-bottom: 2px solid #f1f5f9;
+    padding: 1.25rem 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.ds-card-header h5,
+.ds-card-header h6 {
+    margin-bottom: 0;
+    font-weight: 700;
+}
+
+/* ----------------------------------------------------------
+   PAGE HEADER — Standard top-of-page header
+   ---------------------------------------------------------- */
+.ds-page-header {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 1rem;
+    margin-bottom: 1.75rem;
+}
+
+.ds-page-header h2 {
+    font-weight: 800;
+    margin-bottom: 0.15rem;
+}
+
+.ds-page-header p {
+    color: #64748b;
+    margin-bottom: 0;
+    font-size: 0.9rem;
+}
+
+/* ----------------------------------------------------------
+   DASHBOARD STAT CARD
+   ---------------------------------------------------------- */
+.ds-stat-card {
+    background: white;
+    border-radius: 1rem;
+    border: none;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.04);
+    transition: all 0.3s ease;
+    overflow: hidden;
+    position: relative;
+}
+
+.ds-stat-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.08);
+}
+
+.ds-stat-icon {
+    width: 52px;
+    height: 52px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+    flex-shrink: 0;
+}
+
+/* ----------------------------------------------------------
+   ALERT MESSAGE — Contextual alert banner
+   ---------------------------------------------------------- */
+.ds-alert {
+    border-radius: 0.875rem;
+    border: none;
+    border-left: 4px solid transparent;
+    padding: 1rem 1.25rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.875rem;
+}
+
+.ds-alert-info    { background: #eff6ff; border-left-color: #3b82f6; }
+.ds-alert-success { background: #f0fdf4; border-left-color: #22c55e; }
+.ds-alert-warning { background: #fffbeb; border-left-color: #f59e0b; }
+.ds-alert-danger  { background: #fef2f2; border-left-color: #ef4444; }
+
+.ds-alert-icon {
+    font-size: 1.25rem;
+    flex-shrink: 0;
+    margin-top: 0.1rem;
+}
+
+/* ----------------------------------------------------------
+   FORM SYSTEM — Standardized form elements
+   ---------------------------------------------------------- */
+.ds-form-label {
+    font-size: 0.82rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    color: #475569;
+    margin-bottom: 0.4rem;
+    display: block;
+}
+
+.ds-form-control {
+    background-color: #f8fafc;
+    border: 1.5px solid #e2e8f0;
+    border-radius: 0.625rem;
+    padding: 0.65rem 1rem;
+    font-size: 0.9rem;
+    transition: all 0.2s;
+    width: 100%;
+}
+
+.ds-form-control:focus {
+    border-color: #1a237e;
+    box-shadow: 0 0 0 3px rgba(26, 35, 126, 0.1);
+    background-color: white;
+    outline: none;
+}
+
+.ds-form-group {
+    margin-bottom: 1.25rem;
+}
+
+.ds-form-help {
+    font-size: 0.78rem;
+    color: #94a3b8;
+    margin-top: 0.3rem;
+}
+
+.ds-form-error {
+    font-size: 0.8rem;
+    color: #dc2626;
+    margin-top: 0.3rem;
+    font-weight: 600;
+}
+
+/* ----------------------------------------------------------
+   TABLE SYSTEM — Professional responsive tables
+   ---------------------------------------------------------- */
+.ds-table-wrapper {
+    background: white;
+    border-radius: 1rem;
+    border: 1px solid rgba(0,0,0,0.05);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+    overflow: hidden;
+}
+
+.ds-table {
+    width: 100%;
+    margin-bottom: 0;
+    border-collapse: collapse;
+}
+
+.ds-table thead th {
+    background-color: #f8fafc;
+    font-weight: 700;
+    color: #475569;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 0.5px;
+    padding: 0.875rem 1rem;
+    border-bottom: 2px solid #e2e8f0;
+    white-space: nowrap;
+}
+
+.ds-table tbody td {
+    padding: 1.1rem 1rem;
+    vertical-align: middle;
+    border-bottom: 1px solid #f1f5f9;
+    color: #1e293b;
+}
+
+.ds-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.ds-table tbody tr:hover td {
+    background: #fafafa;
+}
+
+/* ----------------------------------------------------------
+   LOADING SKELETON
+   ---------------------------------------------------------- */
+.ds-skeleton {
+    background: linear-gradient(90deg, #f1f5f9 25%, #e2e8f0 50%, #f1f5f9 75%);
+    background-size: 200% 100%;
+    animation: ds-shimmer 1.5s infinite;
+    border-radius: 0.5rem;
+}
+
+@keyframes ds-shimmer {
+    0%   { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+.ds-skeleton-text {
+    height: 0.9rem;
+    margin-bottom: 0.5rem;
+}
+
+.ds-skeleton-text.wide  { width: 80%; }
+.ds-skeleton-text.medium{ width: 60%; }
+.ds-skeleton-text.short { width: 40%; }
+
+/* ----------------------------------------------------------
+   RTL Adjustments
+   ---------------------------------------------------------- */
+[dir="rtl"] .ds-workflow-step:not(:last-child)::after {
+    left: calc(-50% + 20px);
+    right: calc(50% + 20px);
+}
+
+[dir="rtl"] .ds-alert {
+    border-left: none;
+    border-right: 4px solid transparent;
+}
+[dir="rtl"] .ds-alert-info    { border-right-color: #3b82f6; }
+[dir="rtl"] .ds-alert-success { border-right-color: #22c55e; }
+[dir="rtl"] .ds-alert-warning { border-right-color: #f59e0b; }
+[dir="rtl"] .ds-alert-danger  { border-right-color: #ef4444; }
