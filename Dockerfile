@@ -1,5 +1,7 @@
 FROM richarvey/nginx-php-fpm:3.1.6
 
+RUN docker-php-ext-install calendar
+
 WORKDIR /var/www/html
 
 COPY . .
