@@ -5,8 +5,6 @@ WORKDIR /var/www/html
 COPY . .
 
 RUN composer install --no-dev --optimize-autoloader --ignore-platform-req=ext-calendar \
-    && npm install \
-    && npm run build \
     && chmod -R 775 storage bootstrap/cache
 
 ENV WEBROOT=/var/www/html/public
