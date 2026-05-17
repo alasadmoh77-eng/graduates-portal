@@ -1,12 +1,12 @@
 FROM richarvey/nginx-php-fpm:3.1.6
 
-RUN docker-php-ext-install calendar
-
 WORKDIR /var/www/html
 
 COPY . .
 
 RUN composer install --no-dev --optimize-autoloader --ignore-platform-req=ext-calendar \
+    && php artisan optimize:clear \
+    && php artisan storage:link \
     && chmod -R 775 storage bootstrap/cache
 
 ENV WEBROOT=/var/www/html/public
