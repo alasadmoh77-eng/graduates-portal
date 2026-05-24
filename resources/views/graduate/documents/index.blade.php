@@ -2,8 +2,6 @@
 
 @section('title', __('app.documents_my_requests_title'))
 
-@endsection
-
 @section('content')
 <div class="container py-4">
     
