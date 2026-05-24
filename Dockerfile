@@ -4,8 +4,14 @@ WORKDIR /var/www/html
 
 COPY . .
 
-RUN composer install --no-dev --optimize-autoloader --ignore-platform-req=ext-calendar \
-    && chmod -R 775 storage bootstrap/cache
+RUN apk add --no-cache nodejs npm
+
+RUN composer install --no-dev --optimize-autoloader --ignore-platform-req=ext-calendar
+
+RUN npm install
+RUN npm run build
+
+RUN chmod -R 775 storage bootstrap/cache
 
 ENV WEBROOT=/var/www/html/public
 
