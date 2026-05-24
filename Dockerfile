@@ -5,13 +5,11 @@ WORKDIR /var/www/html
 COPY . .
 
 RUN composer install --no-dev --optimize-autoloader --ignore-platform-req=ext-calendar \
-    && mkdir -p database \
-    && touch database/database.sqlite \
-    && php artisan config:clear \
-    && php artisan route:clear \
-    && php artisan view:clear \
-    && chmod -R 775 storage bootstrap/cache database
+    && php artisan optimize:clear \
+    && chmod -R 775 storage bootstrap/cache
 
 ENV WEBROOT=/var/www/html/public
+
+CMD php artisan migrate --force && php artisan db:seed --force && php artisan storage:link || true && /start.sh
 
 EXPOSE 80
