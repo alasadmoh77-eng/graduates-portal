@@ -96,7 +96,7 @@
                 </div>
                 <div class="card-body p-0">
                     <div class="table-responsive">
-                        <table class="table table-hover align-middle mb-0">
+                        <table class="table table-hover align-middle mb-0 responsive-card-table">
                             <thead class="bg-light">
                                 <tr>
                                     <th class="ps-4 border-0">{{ __('app.document_name') }}</th>
@@ -107,39 +107,39 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td class="ps-4">
+                                    <td class="ps-4" data-label="{{ __('app.document_name') }}">
                                         <div class="d-flex align-items-center gap-3">
                                             <div class="bg-primary bg-opacity-10 p-2 rounded text-primary">
                                                 <i class="fas fa-scroll"></i>
                                             </div>
                                             <div>
-                                                <div class="fw-bold">{{ __('app.grades_certificate') }}</div>
+                                                <div class="fw-bold text-dark">{{ __('app.grades_certificate') }}</div>
                                                 <div class="small text-muted">{{ __('app.certified_electronic_copy') }}</div>
                                             </div>
                                         </div>
                                     </td>
-                                    <td><span class="status-badge bg-success bg-opacity-10 text-success">{{ __('app.ready_for_download') }}</span></td>
-                                    <td>2024/04/01</td>
-                                    <td class="text-end pe-4">
+                                    <td data-label="{{ __('app.status') }}"><span class="status-badge bg-success bg-opacity-10 text-success">{{ __('app.ready_for_download') }}</span></td>
+                                    <td data-label="{{ __('app.issue_date') }}">2024/04/01</td>
+                                    <td class="text-end pe-4" data-label="{{ __('app.actions') }}">
                                         <a href="{{ route('graduate.documents.index') }}" class="btn btn-sm btn-outline-primary rounded-pill px-3">{{ __('app.view') }}</a>
                                         <button class="btn btn-sm btn-primary rounded-pill px-3"><i class="fas fa-download me-1"></i> {{ __('app.download') }}</button>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td class="ps-4">
+                                    <td class="ps-4" data-label="{{ __('app.document_name') }}">
                                         <div class="d-flex align-items-center gap-3">
                                             <div class="bg-primary bg-opacity-10 p-2 rounded text-primary">
                                                 <i class="fas fa-clipboard-list"></i>
                                             </div>
                                             <div>
-                                                <div class="fw-bold">{{ __('app.academic_record_doc') }}</div>
+                                                <div class="fw-bold text-dark">{{ __('app.academic_record_doc') }}</div>
                                                 <div class="small text-muted">{{ __('app.annual_review_copy') }}</div>
                                             </div>
                                         </div>
                                     </td>
-                                    <td><span class="status-badge bg-success bg-opacity-10 text-success">{{ __('app.ready_for_download') }}</span></td>
-                                    <td>2024/04/05</td>
-                                    <td class="text-end pe-4">
+                                    <td data-label="{{ __('app.status') }}"><span class="status-badge bg-success bg-opacity-10 text-success">{{ __('app.ready_for_download') }}</span></td>
+                                    <td data-label="{{ __('app.issue_date') }}">2024/04/05</td>
+                                    <td class="text-end pe-4" data-label="{{ __('app.actions') }}">
                                         <a href="{{ route('graduate.documents.index') }}" class="btn btn-sm btn-outline-primary rounded-pill px-3">{{ __('app.view') }}</a>
                                         <button class="btn btn-sm btn-primary rounded-pill px-3"><i class="fas fa-download me-1"></i> {{ __('app.download') }}</button>
                                     </td>
@@ -193,7 +193,7 @@
                     </div>
                     <h6 class="fw-bold">{{ __('app.are_your_documents_official') }}</h6>
                     <p class="small text-muted">{{ __('app.qr_verification_desc') }}</p>
-                    <a href="{{ route('verify.show') }}" class="btn btn-sm btn-outline-primary rounded-pill px-4">{{ __('app.try_verification') }}</a>
+                    <a href="{{ route('verify.search') }}" class="btn btn-sm btn-outline-primary rounded-pill px-4">{{ __('app.try_verification') }}</a>
                 </div>
             </div>
         </div>

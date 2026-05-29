@@ -358,6 +358,24 @@
 
 <body x-data="gradesCertificateManager()">
 
+    <!-- Document Type Selector -->
+    <div class="container my-3 d-print-none" style="max-width: 210mm;">
+        <div class="card p-3 shadow-sm" style="border: 1px solid #ddd; border-radius: 8px; background: white;">
+            <div class="row align-items-center">
+                <div class="col-md-5 text-end">
+                    <label for="docTypeSelect" class="form-label fw-bold text-secondary mb-1" style="font-size: 0.85rem;">اختر نوع الوثيقة:</label>
+                    <select id="docTypeSelect" class="form-select" x-model="document_type" style="font-size: 0.9rem; font-weight: bold; border-color: #1a4a7c; color: #1a4a7c;">
+                        <option value="grades_certificate">شهادة درجات وتقديرات (Grades Certificate)</option>
+                        <option value="academic_record">السجل الأكاديمي (Academic Record)</option>
+                    </select>
+                </div>
+                <div class="col-md-7 text-start text-muted" style="font-size: 0.8rem;">
+                    تتيح لك هذه الأداة اختيار نوع الوثيقة للتبديل التلقائي بين التصاميم والمقدمة الرسمية وتعديل البيانات بسهولة.
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="certificate-container">
         <!-- 1) Official Header -->
         <header class="official-header">
@@ -382,8 +400,8 @@
             </div>
         </header>
 
-        <!-- 2) Dynamic Intro Paragraph -->
-        <section class="intro-paragraph-box">
+        <!-- 2) Dynamic Intro Paragraph (shown when document_type is academic_record) -->
+        <section class="intro-paragraph-box" x-show="document_type == 'academic_record'">
             تشهد جامعة إقليم سبأ كلية تكنولوجيا المعلومات وعلوم الحاسوب بأن الطالب /
             <input type="text" class="intro-input" style="width: 200px;" x-model="student.name">
             المولود في
@@ -401,6 +419,31 @@
             مع مرتبة الشرف <input type="text" class="intro-input" style="width: 90px;" x-model="student.honors">
             و بمعدل <input type="text" class="intro-input" style="width: 50px;" x-model="student.gpa"> %
             وقد درس المقررات الآتية:
+        </section>
+
+        <!-- 2) New Official Grades Certificate Intro (shown when document_type is grades_certificate) -->
+        <section class="intro-paragraph-box" x-show="document_type == 'grades_certificate'" style="text-align: center; padding: 12px 18px;">
+            <div style="font-size: 1.1rem; font-weight: 800; margin-bottom: 4px; color: #000;">جامعة إقليم سبأ</div>
+            <div style="font-size: 1.0rem; font-weight: 800; margin-bottom: 12px; text-decoration: underline; color: #000;">شهادة درجات وتقديرات</div>
+            
+            <div style="text-align: right; font-size: 0.82rem; line-height: 2.2; margin-top: 10px;">
+                تشهد جامعة إقليم سبأ - كلية تكنولوجيا المعلومات وعلوم الحاسوب أن الطالب /
+                <input type="text" class="intro-input" style="width: 250px;" x-model="student.name">
+                <br>
+                رقم القيد: <input type="text" class="intro-input" style="width: 120px;" x-model="student.id">
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                للعام الجامعي: <input type="text" class="intro-input" style="width: 120px;" x-model="student.joinYear">
+                <br>
+                وقد حصل على درجة بكالوريوس في تخصص <input type="text" class="intro-input" style="width: 180px;" x-model="student.major">
+                <br>
+                في دور <input type="text" class="intro-input" style="width: 90px;" x-model="student.attemptMonth">
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                للعام <input type="text" class="intro-input" style="width: 90px;" x-model="student.gradYear">م
+                <br>
+                بتقدير: <input type="text" class="intro-input" style="width: 120px;" x-model="student.rating">
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                وبمعدل: <input type="text" class="intro-input" style="width: 80px;" x-model="student.gpa"> %
+            </div>
         </section>
 
         <!-- 3) Academic Levels and Tables -->
@@ -502,6 +545,7 @@
     <script>
         function gradesCertificateManager() {
             return {
+                document_type: 'grades_certificate',
                 student: {
                     name: 'محمد ناجي راجح يحيئ الاسد',
                     birthPlace: 'صنعاء',

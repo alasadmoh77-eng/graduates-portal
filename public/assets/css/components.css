@@ -3,7 +3,7 @@
    ============================================================ */
 
 /* ----------------------------------------------------------
-   STATUS BADGE SYSTEM — Centralized status colors
+   1. STATUS BADGE SYSTEM — Centralized status colors
    ---------------------------------------------------------- */
 .ds-status-badge {
     display: inline-flex;
@@ -15,6 +15,7 @@
     border-radius: 2rem;
     letter-spacing: 0.3px;
     white-space: nowrap;
+    transition: all 0.2s ease;
 }
 
 .ds-status-submitted   { background: rgba(14, 165, 233, 0.1); color: #0ea5e9; }
@@ -26,7 +27,7 @@
 .ds-status-default     { background: rgba(0,0,0,0.05);        color: #64748b; }
 
 /* ----------------------------------------------------------
-   WORKFLOW PROGRESS — Request status timeline bar
+   2. WORKFLOW PROGRESS — Request status timeline bar
    ---------------------------------------------------------- */
 .ds-workflow {
     display: flex;
@@ -58,11 +59,11 @@
 
 .ds-workflow-step.completed:not(:last-child)::after,
 .ds-workflow-step.active:not(:last-child)::after {
-    background: linear-gradient(90deg, #1a237e, #e2e8f0);
+    background: linear-gradient(90deg, #0b2545, #e2e8f0);
 }
 
 .ds-workflow-step.completed:not(:last-child)::after {
-    background: #1a237e;
+    background: #0b2545;
 }
 
 .ds-workflow-icon {
@@ -81,16 +82,16 @@
 }
 
 .ds-workflow-step.completed .ds-workflow-icon {
-    background: #1a237e;
-    border-color: #1a237e;
+    background: #0b2545;
+    border-color: #0b2545;
     color: white;
 }
 
 .ds-workflow-step.active .ds-workflow-icon {
     background: white;
-    border-color: #1a237e;
-    color: #1a237e;
-    box-shadow: 0 0 0 4px rgba(26, 35, 126, 0.15);
+    border-color: #0b2545;
+    color: #0b2545;
+    box-shadow: 0 0 0 4px rgba(11, 37, 69, 0.15);
 }
 
 .ds-workflow-step.pending .ds-workflow-icon {
@@ -117,12 +118,12 @@
     line-height: 1.2;
 }
 
-.ds-workflow-step.completed .ds-workflow-label { color: #1a237e; }
-.ds-workflow-step.active .ds-workflow-label    { color: #1a237e; }
+.ds-workflow-step.completed .ds-workflow-label { color: #0b2545; }
+.ds-workflow-step.active .ds-workflow-label    { color: #0b2545; }
 .ds-workflow-step.rejected .ds-workflow-label  { color: #dc2626; }
 
 /* ----------------------------------------------------------
-   EMPTY STATE
+   3. EMPTY STATE COMPONENTS
    ---------------------------------------------------------- */
 .ds-empty-state {
     display: flex;
@@ -159,7 +160,7 @@
 }
 
 /* ----------------------------------------------------------
-   SECTION CARD — Standardized content card
+   4. SECTION CARDS — Unified visual box
    ---------------------------------------------------------- */
 .ds-card {
     background: white;
@@ -186,7 +187,7 @@
 }
 
 /* ----------------------------------------------------------
-   PAGE HEADER — Standard top-of-page header
+   5. PAGE HEADER BAR
    ---------------------------------------------------------- */
 .ds-page-header {
     display: flex;
@@ -209,7 +210,7 @@
 }
 
 /* ----------------------------------------------------------
-   DASHBOARD STAT CARD
+   6. PORTAL STATISTIC CARDS
    ---------------------------------------------------------- */
 .ds-stat-card {
     background: white;
@@ -238,7 +239,7 @@
 }
 
 /* ----------------------------------------------------------
-   ALERT MESSAGE — Contextual alert banner
+   7. DISMISSIBLE ALERTS
    ---------------------------------------------------------- */
 .ds-alert {
     border-radius: 0.875rem;
@@ -262,7 +263,7 @@
 }
 
 /* ----------------------------------------------------------
-   FORM SYSTEM — Standardized form elements
+   8. INPUTS & COMPONENT FORMS
    ---------------------------------------------------------- */
 .ds-form-label {
     font-size: 0.82rem;
@@ -285,8 +286,8 @@
 }
 
 .ds-form-control:focus {
-    border-color: #1a237e;
-    box-shadow: 0 0 0 3px rgba(26, 35, 126, 0.1);
+    border-color: #0b2545;
+    box-shadow: 0 0 0 3px rgba(11, 37, 69, 0.1);
     background-color: white;
     outline: none;
 }
@@ -309,7 +310,7 @@
 }
 
 /* ----------------------------------------------------------
-   TABLE SYSTEM — Professional responsive tables
+   9. MODERN HIGH-END TABLE SYSTEM & RESPONSIVE CARDS
    ---------------------------------------------------------- */
 .ds-table-wrapper {
     background: white;
@@ -352,8 +353,63 @@
     background: #fafafa;
 }
 
+/* Dynamic CSS Card layout transformation for mobile screens (< 768px) */
+@media (max-width: 767.98px) {
+    .responsive-card-table {
+        border: 0;
+    }
+    
+    .responsive-card-table thead {
+        display: none; /* Hide header completely */
+    }
+    
+    .responsive-card-table tbody tr {
+        display: block;
+        margin-bottom: 1rem;
+        background: #ffffff;
+        border: 1px solid rgba(11, 37, 69, 0.07);
+        border-radius: 12px;
+        padding: 1rem;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+    }
+    
+    .responsive-card-table tbody td {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px dashed #f1f5f9;
+        padding: 0.75rem 0.5rem;
+        font-size: 0.88rem;
+    }
+    
+    .responsive-card-table tbody td:last-child {
+        border-bottom: 0;
+    }
+    
+    /* Display labels from custom HTML attribute 'data-label' */
+    .responsive-card-table tbody td::before {
+        content: attr(data-label);
+        font-weight: 700;
+        color: #475569;
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        margin-left: 1rem;
+    }
+    
+    [dir="ltr"] .responsive-card-table tbody td::before {
+        margin-left: 0;
+        margin-right: 1rem;
+    }
+
+    .responsive-card-table tbody td.text-end,
+    .responsive-card-table tbody td.text-start {
+        text-align: inherit !important;
+        justify-content: space-between;
+    }
+}
+
 /* ----------------------------------------------------------
-   LOADING SKELETON
+   10. LOADING SKELETON
    ---------------------------------------------------------- */
 .ds-skeleton {
     background: linear-gradient(90deg, #f1f5f9 25%, #e2e8f0 50%, #f1f5f9 75%);
@@ -377,7 +433,7 @@
 .ds-skeleton-text.short { width: 40%; }
 
 /* ----------------------------------------------------------
-   RTL Adjustments
+   11. RTL CONFIGURATION & ADJUSTMENTS
    ---------------------------------------------------------- */
 [dir="rtl"] .ds-workflow-step:not(:last-child)::after {
     left: calc(-50% + 20px);

@@ -3,45 +3,44 @@
 <head>
     <meta charset="utf-8">
     <style>
-        body { font-family: 'DejaVu Sans', sans-serif; direction: ltr; text-align: left; padding: 12px; color: #111; font-size: 10px; }
-        .page-border { border: 2px double #1a237e; padding: 12px 14px; }
-        .masthead-top { width: 100%; border-bottom: 1px solid #1a237e; padding-bottom: 6px; margin-bottom: 8px; }
-        .masthead-top td { vertical-align: top; font-size: 8px; font-weight: bold; line-height: 1.35; }
+        @page { margin: 5mm 10mm; }
+        body { font-family: 'DejaVu Sans', sans-serif; direction: ltr; text-align: left; padding: 0; color: #000; font-size: 8px; line-height: 1.1; }
+        .page-border { border: 2px solid #1a237e; padding: 2px 4px; }
+        .masthead-top { width: 100%; border-bottom: 1px solid #1a237e; padding-bottom: 2px; margin-bottom: 4px; }
+        .masthead-top td { vertical-align: top; font-size: 7px; font-weight: bold; line-height: 1.2; }
         .masthead-brand-en { text-align: left; width: 50%; }
         .masthead-brand-ar { text-align: right; width: 50%; direction: rtl; font-family: 'DejaVu Sans', sans-serif; }
-        .masthead-body { width: 100%; margin-bottom: 8px; }
+        .masthead-body { width: 100%; margin-bottom: 4px; table-layout: fixed; }
         .masthead-body td { vertical-align: top; padding: 0; }
-        .masthead-main { padding-right: 8px; }
-        .masthead-side { width: 108px; text-align: center; vertical-align: top; padding-left: 4px; border-right: 1px solid #cbd5e1; }
-        .doc-title-inline {
-            font-size: 12px; font-weight: bold; color: #1a237e; text-align: center;
-            border: 1px solid #1a237e; background: #f8fafc; padding: 4px 10px; margin-bottom: 6px;
-            text-transform: uppercase; letter-spacing: 0.5px;
-        }
-        .student-compact { width: 100%; border-collapse: collapse; font-size: 8px; margin-bottom: 4px; }
-        .student-compact th, .student-compact td { border: 1px solid #cbd5e1; padding: 4px 6px; text-align: left; }
-        .student-compact th { background: #f1f5f9; font-weight: bold; color: #0f172a; width: 18%; }
-        .transcript-lead { font-size: 8px; font-weight: bold; color: #334155; margin: 6px 0 4px; }
-        .detail-block { margin-bottom: 12px; page-break-inside: avoid; }
-        .detail-level-title { font-size: 9px; font-weight: bold; color: #1a237e; margin: 6px 0 3px; }
-        .detail-sem-title { font-size: 8px; font-weight: bold; margin: 4px 0 2px; color: #0f172a; }
-        .detail-table { width: 100%; border-collapse: collapse; font-size: 8px; margin-bottom: 6px; }
-        .detail-table th, .detail-table td { border: 1px solid #94a3b8; padding: 3px 5px; text-align: center; }
+        .masthead-main { padding-right: 6px; width: 78%; }
+        .masthead-side { width: 22%; text-align: center; vertical-align: top; border-left: 1px solid #cbd5e1; padding-left: 4px; }
+        .doc-title-inline { font-size: 9px; font-weight: bold; color: #1a237e; text-align: center; border: 1px solid #1a237e; background: #f8fafc; padding: 2px; margin-bottom: 4px; text-transform: uppercase; }
+        .student-compact { width: 100%; border-collapse: collapse; font-size: 7px; margin-bottom: 2px; table-layout: fixed; }
+        .student-compact th, .student-compact td { border: 1px solid #cbd5e1; padding: 1px 2px; text-align: left; }
+        .student-compact th { background: #f1f5f9; font-weight: bold; width: 18%; color: #0f172a; }
+        .transcript-lead { font-size: 8px; font-weight: bold; color: #334155; margin: 2px 0 1px; text-align: center; text-decoration: underline; }
+        .detail-block { margin-bottom: 2px; }
+        .detail-level-title { font-size: 8px; font-weight: bold; color: #1a237e; margin: 1px 0; border-bottom: 1px solid #cbd5e1; padding-bottom: 1px; }
+        .detail-sem-title { font-size: 7px; font-weight: bold; margin: 1px 0; color: #0f172a; }
+        .detail-table { width: 100%; border-collapse: collapse; font-size: 6.5px; margin-bottom: 2px; table-layout: fixed; }
+        .detail-table th, .detail-table td { border: 1px solid #94a3b8; padding: 1px; text-align: center; }
         .detail-table th { background: #f1f5f9; font-weight: bold; }
-        .detail-table .col-subject { text-align: left; unicode-bidi: isolate; }
-        .level-footer { font-size: 8px; font-weight: bold; color: #334155; margin-bottom: 4px; }
-        .qr-mini img { width: 88px; height: auto; border: 1px solid #1a237e; padding: 2px; background: #fff; display: block; margin: 0 auto 4px; }
-        .meta-mini { font-size: 7px; color: #475569; line-height: 1.45; text-align: left; font-family: 'DejaVu Sans Mono', monospace; }
-        .meta-mini div { margin-bottom: 2px; }
-        .verify-hint { font-size: 7px; font-weight: bold; color: #1a237e; margin-top: 4px; }
-        .closing-sig { width: 100%; margin-top: 14px; padding-top: 10px; border-top: 1px solid #1a237e; page-break-inside: avoid; }
-        .closing-sig td { text-align: center; font-size: 9px; font-weight: bold; color: #1a237e; width: 50%; vertical-align: bottom; padding: 4px 8px; }
-        .sig-line { border-top: 1px dotted #1a237e; margin-top: 36px; font-size: 7px; font-weight: normal; color: #64748b; text-transform: uppercase; padding-top: 2px; }
-        .footer-verify { text-align: center; font-size: 7px; color: #64748b; font-family: monospace; margin-top: 10px; padding-top: 6px; border-top: 1px dashed #cbd5e1; }
+        .detail-table .col-subject { text-align: left; unicode-bidi: isolate; width: 50%; }
+        .level-footer { font-size: 6.5px; font-weight: bold; color: #334155; margin-bottom: 2px; background: #f8fafc; border: 1px solid #e2e8f0; padding: 1px; text-align: center; }
+        .qr-mini img { width: 55px; height: auto; border: 1px solid #1a237e; padding: 1px; background: #fff; display: block; margin: 0 auto 2px; }
+        .meta-mini { font-size: 5.5px; color: #475569; line-height: 1.1; text-align: left; font-family: 'DejaVu Sans Mono', monospace; }
+        .meta-mini div { margin-bottom: 1px; }
+        .verify-hint { font-size: 5.5px; font-weight: bold; color: #1a237e; margin-top: 1px; }
+        .closing-sig { width: 100%; margin-top: 8px; padding-top: 4px; page-break-inside: avoid; table-layout: fixed; }
+        .closing-sig td { text-align: center; font-size: 8px; font-weight: bold; color: #1a237e; width: 50%; vertical-align: bottom; }
+        .sig-line { border-top: 1px dotted #1a237e; margin-top: 18px; font-size: 6px; font-weight: normal; color: #64748b; padding-top: 2px; width: 60%; margin-left: auto; margin-right: auto; }
+        .footer-verify { text-align: center; font-size: 6px; color: #64748b; font-family: monospace; margin-top: 6px; padding-top: 3px; border-top: 1px dashed #cbd5e1; }
     </style>
 </head>
 @php
-    function ar($text) { return \App\Helpers\ArabicReshaper::utf8Glyphs($text); }
+    if (!function_exists('ar')) {
+        function ar($text) { return \App\Helpers\ArabicReshaper::utf8Glyphs($text); }
+    }
     $enName = trim((string) ($academic_record->student_name_en ?? '')) !== ''
         ? $academic_record->student_name_en
         : ($request->user->name ?? '—');
@@ -66,7 +65,7 @@
                     Student Affairs — Registration Gen. Dept.
                 </td>
                 <td class="masthead-brand-ar">
-                    {{ ar('الجمهورية اليمنية') }} — {{ ar('جامعة إقليم سبأ') }}<br>
+                    {{ ar('الجمهورية اليمنية — جامعة إقليم سبأ') }}<br>
                     {{ ar('نيابة شؤون الطلاب — الإدارة العامة للقبول والتسجيل') }}
                 </td>
             </tr>
@@ -75,7 +74,7 @@
         <table class="masthead-body">
             <tr>
                 <td class="masthead-main">
-                    <div class="doc-title-inline">Academic Record <span style="font-size:9px;font-weight:normal;">(Certified Summary)</span></div>
+                    <div class="doc-title-inline">Grades &amp; Estimates Certificate <span style="font-size:7.5px;font-weight:normal;">(Certified Summary)</span></div>
                     <table class="student-compact">
                         <tr>
                             <th>Graduate Name</th>
@@ -119,55 +118,13 @@
 
         <div class="transcript-lead">Course work and grades — official academic record</div>
 
-        @foreach($academic_record->levels as $level)
-            <div class="detail-block">
-                <div class="detail-level-title">
-                    {{ \App\Support\AcademicRecordEnglishPdf::levelName($level->name ?? '', $loop->index) }}
-                    @if($level->academic_year)
-                        — Academic year: {{ $level->academic_year }}
-                    @endif
-                    @if($level->level_avg)
-                        — Average %: {{ $level->level_avg }}
-                    @endif
-                </div>
-                @foreach($level->semesters as $semester)
-                    <div class="detail-sem-title">
-                        {{ \App\Support\AcademicRecordEnglishPdf::semesterName((int) $semester->sort_order) }}
-                    </div>
-                    <table class="detail-table">
-                        <thead>
-                            <tr>
-                                <th style="width:7%;">#</th>
-                                <th class="col-subject">Course</th>
-                                <th style="width:11%;">Cr.</th>
-                                <th style="width:11%;">Score</th>
-                                <th style="width:16%;">Grade</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @forelse($semester->subjects as $idx => $subject)
-                                <tr>
-                                    <td>{{ $idx + 1 }}</td>
-                                    <td class="col-subject" dir="auto">{{ \App\Support\AcademicRecordEnglishPdf::courseName($subject->catalog_key ?? null, $subject->name) }}</td>
-                                    <td>{{ $subject->credit_hours ?? '—' }}</td>
-                                    <td>{{ $subject->score ?? '—' }}</td>
-                                    <td>{{ \App\Support\AcademicRecordEnglishPdf::rating($subject->rating ?? null) }}</td>
-                                </tr>
-                            @empty
-                                <tr><td colspan="5">No courses recorded.</td></tr>
-                            @endforelse
-                        </tbody>
-                    </table>
-                @endforeach
-                @if($level->total_points || $level->final_result)
-                    <div class="level-footer">
-                        Level total: {{ $level->total_points ?? '—' }}
-                        &nbsp;|&nbsp;
-                        Result: {{ \App\Support\AcademicRecordEnglishPdf::result($level->final_result ?? null) }}
-                    </div>
-                @endif
-            </div>
-        @endforeach
+        @if($academic_record && $academic_record->levels)
+            @include('pdf.documents._transcript_tables')
+        @else
+            <p style="text-align: center; font-size: 14px; color: red;">
+                No academic record data available.
+            </p>
+        @endif
 
         <table class="closing-sig">
             <tr>
@@ -183,7 +140,7 @@
         </table>
 
         <div class="footer-verify">
-            Verify this document: {{ config('app.url') }}/verify/{{ $qr_token }}
+            Verify this document: {{ route('verify.show', ['token' => $qr_token]) }}
         </div>
     </div>
 </body>

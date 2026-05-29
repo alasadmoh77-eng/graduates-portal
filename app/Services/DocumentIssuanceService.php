@@ -53,7 +53,17 @@ class DocumentIssuanceService
         $qrCodeBase64 = base64_encode($qrCodeData);
 
         // 6. Render PDF
+        $templateMap = [
+            'academic_record' => 'academic_record',
+            'grades_certificate' => 'grades_certificate',
+            'grade_certificate' => 'grades_certificate',
+            'grades' => 'grades_certificate',
+            'certificate_grades' => 'grades_certificate',
+        ];
+
         $typeCode = strtolower($request->documentType->code);
+        $typeCode = $templateMap[$typeCode] ?? $typeCode;
+
         $lang = strtolower($request->language);
         $specificTemplate = "pdf.documents.{$typeCode}.{$lang}";
 

@@ -7,6 +7,11 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title') | {{ __('app.app_name') }}</title>
 
+    <!-- Google Fonts - Cairo for Arabic, Inter for English -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800;900&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
     <!-- Bootstrap CSS -->
     @if(app()->getLocale() == 'ar')
         <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.rtl.min.css') }}">
@@ -28,37 +33,45 @@
 </head>
 
 <body>
+    <!-- Navbar -->
     <nav class="navbar navbar-expand-lg sticky-top">
         <div class="container">
-            <a class="navbar-brand fw-bold" href="/">
-                <i class="fas fa-university me-2"></i> {{ __('app.app_name') }}
+            <!-- Branding / Logo -->
+            <a class="navbar-brand fw-bold d-flex align-items-center gap-2" href="/">
+                <img src="{{ asset('assets/images/university-logo.gif') }}" alt="Saba Region University Logo" class="university-logo">
+                <span class="d-none d-lg-inline logo-title">{{ __('app.app_name') }}</span>
+                <span class="d-inline d-lg-none logo-title-mobile">{{ app()->getLocale() == 'ar' ? 'بوابة الخريجين' : 'Graduates Portal' }}</span>
             </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
+
+            <!-- Mobile Offcanvas Toggle Button -->
+            <button class="navbar-toggler border-0 text-white" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobileNavbarOffcanvas" aria-controls="mobileNavbarOffcanvas">
+                <i class="fas fa-bars fa-lg"></i>
             </button>
+
+            <!-- Desktop Collapse Menu -->
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto align-items-center">
+                <ul class="navbar-nav ms-auto align-items-center gap-2">
                     <li class="nav-item">
                         <a class="nav-link {{ request()->is('/') ? 'fw-bold text-white border-bottom border-2 border-white' : '' }}"
                             href="/">{{ __('app.home') }}</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link {{ request()->routeIs('verify.*') ? 'fw-bold text-white border-bottom border-2 border-white' : '' }}"
-                            href="{{ route('verify.show') }}">{{ __('app.verify_doc') }}</a>
+                            href="{{ route('verify.search') }}">{{ __('app.verify_doc') }}</a>
                     </li>
 
                     @guest
-                        <li class="nav-item ms-lg-3">
+                        <li class="nav-item ms-lg-2">
                             <a class="btn btn-outline-light rounded-pill px-4"
                                 href="{{ route('login') }}">{{ __('app.login') }}</a>
                         </li>
-                        <li class="nav-item ms-lg-2">
-                            <a class="btn btn-light rounded-pill px-4 text-primary fw-bold"
+                        <li class="nav-item ms-lg-1">
+                            <a class="btn btn-gradient rounded-pill px-4 text-white fw-bold"
                                 href="{{ route('register') }}">{{ __('app.register') }}</a>
                         </li>
                     @else
-                        <!-- Notifications Bell -->
-                        <li class="nav-item dropdown ms-lg-3">
+                        <!-- Notifications Bell Dropdown -->
+                        <li class="nav-item dropdown ms-lg-2">
                             <a class="nav-link position-relative" href="#" data-bs-toggle="dropdown">
                                 <i class="fas fa-bell fa-lg"></i>
                                 @php $unreadCount = Auth::user()->unreadNotifications->count(); @endphp
@@ -103,9 +116,11 @@
                             </div>
                         </li>
 
-                        <li class="nav-item dropdown ms-lg-3">
-                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" data-bs-toggle="dropdown">
-                                <i class="fas fa-user-circle fa-lg me-1"></i> {{ Auth::user()->name }}
+                        <!-- User Profile Dropdown -->
+                        <li class="nav-item dropdown ms-lg-2">
+                            <a class="nav-link dropdown-toggle d-flex align-items-center gap-1" href="#" id="userDropdown" data-bs-toggle="dropdown">
+                                <i class="fas fa-user-circle fa-lg"></i> 
+                                <span>{{ Auth::user()->name }}</span>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end shadow border-0">
                                 <li>
@@ -143,18 +158,21 @@
                                     <form action="{{ route('logout') }}" method="POST">
                                         @csrf
                                         <button type="submit"
-                                            class="dropdown-item text-danger">{{ __('app.logout') }}</button>
+                                            class="dropdown-item text-danger d-flex align-items-center gap-2">
+                                            <i class="fas fa-sign-out-alt"></i> {{ __('app.logout') }}
+                                        </button>
                                     </form>
                                 </li>
                             </ul>
                         </li>
                     @endguest
 
-                    <li class="nav-item ms-lg-3">
+                    <!-- Language Switcher -->
+                    <li class="nav-item ms-lg-2">
                         @if(app()->getLocale() == 'ar')
-                            <a class="nav-link" href="{{ route('lang.switch', 'en') }}">English</a>
+                            <a class="nav-link text-warning fw-bold" href="{{ route('lang.switch', 'en') }}">EN</a>
                         @else
-                            <a class="nav-link" href="{{ route('lang.switch', 'ar') }}">العربية</a>
+                            <a class="nav-link text-warning fw-bold" href="{{ route('lang.switch', 'ar') }}">عربي</a>
                         @endif
                     </li>
                 </ul>
@@ -162,19 +180,151 @@
         </div>
     </nav>
 
+    <!-- Mobile RTL/LTR Offcanvas Navigation Drawer -->
+    <div class="offcanvas offcanvas-start offcanvas-navbar d-lg-none" tabindex="-1" id="mobileNavbarOffcanvas" aria-labelledby="mobileNavbarOffcanvasLabel">
+        <div class="offcanvas-header d-flex justify-content-between align-items-center">
+            <h5 class="offcanvas-title fw-bold d-flex align-items-center gap-2" id="mobileNavbarOffcanvasLabel">
+                <img src="{{ asset('assets/images/university-logo.gif') }}" alt="Logo" style="height: 38px; width: auto;">
+                <span>{{ app()->getLocale() == 'ar' ? 'بوابة الخريجين' : 'Graduates Portal' }}</span>
+            </h5>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body d-flex flex-column justify-content-between">
+            <ul class="navbar-nav gap-2">
+                <!-- Global Links -->
+                <li class="nav-item">
+                    <a class="nav-link {{ request()->is('/') ? 'active-mobile' : '' }}" href="/">
+                        <i class="fas fa-home"></i> {{ __('app.home') }}
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {{ request()->routeIs('verify.*') ? 'active-mobile' : '' }}" href="{{ route('verify.search') }}">
+                        <i class="fas fa-shield-alt"></i> {{ __('app.verify_doc') }}
+                    </a>
+                </li>
+
+                <!-- Logged In / Specific Links -->
+                @auth
+                    <hr class="border-light opacity-10 my-2">
+                    
+                    @if(Auth::user()->role == 'admin')
+                        <li class="nav-item">
+                            <a class="nav-link {{ request()->routeIs('admin.dashboard') ? 'active-mobile' : '' }}" href="{{ route('admin.dashboard') }}">
+                                <i class="fas fa-tachometer-alt"></i> {{ __('app.dashboard') }}
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {{ request()->routeIs('admin.requests.*') ? 'active-mobile' : '' }}" href="{{ route('admin.requests.index') }}">
+                                <i class="fas fa-file-invoice"></i> {{ __('app.manage_requests') }}
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {{ request()->routeIs('admin.jobs.*') ? 'active-mobile' : '' }}" href="{{ route('admin.jobs.index') }}">
+                                <i class="fas fa-briefcase"></i> {{ __('app.manage_jobs') }}
+                            </a>
+                        </li>
+                    @elseif(Auth::user()->role == 'graduate')
+                        <li class="nav-item">
+                            <a class="nav-link {{ request()->routeIs('graduate.dashboard') ? 'active-mobile' : '' }}" href="{{ route('graduate.dashboard') }}">
+                                <i class="fas fa-tachometer-alt"></i> {{ __('app.dashboard') }}
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {{ request()->routeIs('graduate.profile.*') ? 'active-mobile' : '' }}" href="{{ route('graduate.profile.show') }}">
+                                <i class="fas fa-user"></i> {{ __('app.my_profile') }}
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {{ request()->routeIs('graduate.documents.*') ? 'active-mobile' : '' }}" href="{{ route('graduate.documents.index') }}">
+                                <i class="fas fa-file-alt"></i> {{ __('app.my_documents') }}
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {{ request()->routeIs('graduate.jobs.*') ? 'active-mobile' : '' }}" href="{{ route('graduate.jobs.index') }}">
+                                <i class="fas fa-briefcase"></i> {{ __('app.job_opportunities') }}
+                            </a>
+                        </li>
+                    @else
+                        <li class="nav-item">
+                            <a class="nav-link {{ request()->routeIs('employer.dashboard') ? 'active-mobile' : '' }}" href="{{ route('employer.dashboard') }}">
+                                <i class="fas fa-tachometer-alt"></i> {{ __('app.dashboard') }}
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {{ request()->routeIs('employer.jobs.*') ? 'active-mobile' : '' }}" href="{{ route('employer.jobs.index') }}">
+                                <i class="fas fa-bullhorn"></i> {{ __('app.my_announced_jobs') }}
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {{ request()->routeIs('employer.applications.*') ? 'active-mobile' : '' }}" href="{{ route('employer.applications.index') }}">
+                                <i class="fas fa-user-tie"></i> {{ __('app.job_applications') }}
+                            </a>
+                        </li>
+                    @endif
+
+                    <li class="nav-item">
+                        <a class="nav-link d-flex align-items-center justify-content-between" href="{{ route('notifications.index') }}">
+                            <span><i class="fas fa-bell"></i> {{ __('app.notifications') }}</span>
+                            @if($unreadCount > 0)
+                                <span class="badge bg-danger rounded-pill">{{ $unreadCount }}</span>
+                            @endif
+                        </a>
+                    </li>
+                @endauth
+            </ul>
+
+            <!-- Mobile Auth Action Drawer Footer -->
+            <div class="mt-4 pt-3 border-top border-light border-opacity-10">
+                @guest
+                    <div class="d-grid gap-2">
+                        <a class="btn btn-outline-light w-100 rounded-pill" href="{{ route('login') }}">{{ __('app.login') }}</a>
+                        <a class="btn btn-gradient w-100 rounded-pill" href="{{ route('register') }}">{{ __('app.register') }}</a>
+                    </div>
+                @else
+                    <div class="d-flex align-items-center gap-2 mb-3">
+                        <i class="fas fa-user-circle fa-2x text-warning"></i>
+                        <span class="fw-bold">{{ Auth::user()->name }}</span>
+                    </div>
+                    <form action="{{ route('logout') }}" method="POST">
+                        @csrf
+                        <button type="submit" class="btn btn-danger w-100 rounded-pill d-flex align-items-center justify-content-center gap-2">
+                            <i class="fas fa-sign-out-alt"></i> {{ __('app.logout') }}
+                        </button>
+                    </form>
+                @endguest
+
+                <!-- Mobile Language Switch -->
+                <div class="text-center mt-3">
+                    @if(app()->getLocale() == 'ar')
+                        <a class="text-warning fw-bold text-decoration-none" href="{{ route('lang.switch', 'en') }}">Switch to English</a>
+                    @else
+                        <a class="text-warning fw-bold text-decoration-none" href="{{ route('lang.switch', 'ar') }}">التحويل إلى العربية</a>
+                    @endif
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Container -->
     <main class="py-5">
         <div class="container">
             @if(session('success'))
-                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    {{ session('success') }}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                <div class="alert alert-success ds-alert ds-alert-success alert-dismissible fade show" role="alert">
+                    <i class="fas fa-check-circle ds-alert-icon"></i>
+                    <div>
+                        {{ session('success') }}
+                    </div>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
             @endif
 
             @if(session('error'))
-                <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                    {{ session('error') }}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                <div class="alert alert-danger ds-alert ds-alert-danger alert-dismissible fade show" role="alert">
+                    <i class="fas fa-exclamation-circle ds-alert-icon"></i>
+                    <div>
+                        {{ session('error') }}
+                    </div>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
             @endif
 
@@ -182,12 +332,80 @@
         </div>
     </main>
 
+    <!-- Professional Multi-Column University Footer -->
     <footer>
-        <div class="container text-center">
-            <p class="mb-0">&copy; {{ date('Y') }} {{ __('app.app_name') }}. All rights reserved.</p>
+        <div class="container">
+            <div class="row g-4">
+                <!-- Branding and Description Column -->
+                <div class="col-lg-4 col-md-6">
+                    <h5 class="fw-bold text-white mb-3 d-flex align-items-center gap-2">
+                        <img src="{{ asset('assets/images/university-logo.gif') }}" alt="Logo" style="height: 38px; width: auto;">
+                        <span>{{ __('app.app_name') }}</span>
+                    </h5>
+                    <p class="small text-muted mb-4">
+                        {{ app()->getLocale() == 'ar' 
+                            ? 'بوابة الخدمات الرقمية لجامعة إقليم سبأ، لتيسير شؤون الخريجين، والربط الفعال مع الجهات الموظفة، وتأمين صحة الوثائق إلكترونياً.' 
+                            : 'Digital services portal of Saba Region University to streamline graduate requests, enable employer connection, and digitally verify records.' }}
+                    </p>
+                    <!-- Social icons -->
+                    <div class="d-flex gap-3">
+                        <a href="#" class="btn btn-outline-light btn-sm rounded-circle p-0 d-flex align-items-center justify-content-center" style="width: 36px; height: 36px;" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="btn btn-outline-light btn-sm rounded-circle p-0 d-flex align-items-center justify-content-center" style="width: 36px; height: 36px;" title="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="btn btn-outline-light btn-sm rounded-circle p-0 d-flex align-items-center justify-content-center" style="width: 36px; height: 36px;" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" class="btn btn-outline-light btn-sm rounded-circle p-0 d-flex align-items-center justify-content-center" style="width: 36px; height: 36px;" title="YouTube"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+
+                <!-- Quick links Column -->
+                <div class="col-lg-4 col-md-6">
+                    <h5 class="fw-bold text-white mb-3">{{ app()->getLocale() == 'ar' ? 'روابط سريعة' : 'Quick Links' }}</h5>
+                    <div class="row">
+                        <div class="col-6">
+                            <ul class="list-unstyled d-flex flex-column gap-2 small">
+                                <li><a href="/"><i class="fas fa-angle-left me-1"></i> {{ __('app.home') }}</a></li>
+                                <li><a href="{{ route('verify.search') }}"><i class="fas fa-angle-left me-1"></i> {{ __('app.verify_doc') }}</a></li>
+                                <li><a href="{{ route('register') }}"><i class="fas fa-angle-left me-1"></i> {{ __('app.register') }}</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-6">
+                            <ul class="list-unstyled d-flex flex-column gap-2 small">
+                                <li><a href="{{ route('login') }}"><i class="fas fa-angle-left me-1"></i> {{ __('app.login') }}</a></li>
+                                <li><a href="{{ route('employer.register') }}"><i class="fas fa-angle-left me-1"></i> {{ __('app.employers') }}</a></li>
+                                <li><a href="#"><i class="fas fa-angle-left me-1"></i> {{ __('app.support') }}</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contact & Information Column -->
+                <div class="col-lg-4 col-md-12">
+                    <h5 class="fw-bold text-white mb-3">{{ app()->getLocale() == 'ar' ? 'شؤون الخريجين' : 'Alumni Affairs Office' }}</h5>
+                    <ul class="list-unstyled d-flex flex-column gap-2 small text-muted">
+                        <li class="d-flex align-items-start gap-2">
+                            <i class="fas fa-map-marker-alt text-warning mt-1"></i>
+                            <span>{{ app()->getLocale() == 'ar' ? 'الجمهورية اليمنية، مأرب، الحرم الجامعي' : 'University Campus, Marib, Republic of Yemen' }}</span>
+                        </li>
+                        <li class="d-flex align-items-center gap-2">
+                            <i class="fas fa-phone text-warning"></i>
+                            <span>+967 6 300 000</span>
+                        </li>
+                        <li class="d-flex align-items-center gap-2">
+                            <i class="fas fa-envelope text-warning"></i>
+                            <span>graduates@usr.edu.ye</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <hr class="border-light opacity-10 my-4">
+            
+            <div class="text-center small text-muted">
+                <p class="mb-0">&copy; {{ date('Y') }} {{ __('app.app_name') }} - {{ app()->getLocale() == 'ar' ? 'جامعة إقليم سبأ' : 'Saba Region University' }}. {{ app()->getLocale() == 'ar' ? 'جميع الحقوق محفوظة.' : 'All rights reserved.' }}</p>
+            </div>
         </div>
     </footer>
 
+    <!-- Toast Notifications Container -->
     <div class="toast-container position-fixed bottom-0 end-0 p-3">
         @if(Auth::check() && Auth::user()->unreadNotifications->count() > 0)
             @php $latest = Auth::user()->unreadNotifications->first(); @endphp
@@ -209,6 +427,7 @@
         @endif
     </div>
 
+    <!-- Scripts -->
     <script src="{{ asset('assets/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('assets/js/jquery-3.7.0.min.js') }}"></script>
 

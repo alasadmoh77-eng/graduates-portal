@@ -22,63 +22,58 @@
                     </div>
                 </form>
 
-                @if(isset($document))
-                    @if($document->is_valid)
-                        <!-- VALID DOCUMENT RESULT -->
-                        <div class="alert alert-success border-0 shadow-sm p-4 rounded-4 mb-0 animate__animated animate__fadeIn">
-                            <div class="text-center mb-4">
-                                <i class="fas fa-check-circle text-success" style="font-size: 4rem;"></i>
-                                <h2 class="fw-bold mt-2">مستند صالح وصحيح</h2>
-                                <p class="text-muted">تم إصدار هذا المستند من قبل الأنظمة الرسمية للجامعة</p>
+                @if(isset($document) && $document->is_valid)
+                    <!-- VALID DOCUMENT RESULT -->
+                    <div class="alert alert-success border-0 shadow-sm p-4 rounded-4 mb-0 animate__animated animate__fadeIn">
+                        <div class="text-center mb-4">
+                            <i class="fas fa-check-circle text-success" style="font-size: 4rem;"></i>
+                            <h2 class="fw-bold mt-2">مستند صالح وصحيح</h2>
+                            <p class="text-muted">تم التحقق من صحة المستند بنجاح</p>
+                        </div>
+                        
+                        <hr class="opacity-10 mb-4">
+                        
+                        <div class="row g-4 text-start" dir="rtl">
+                            <div class="col-md-6">
+                                <label class="small text-muted d-block">اسم الخريج</label>
+                                <span class="fw-bold fs-5 text-dark">{{ $document->documentRequest->user->name }}</span>
                             </div>
-                            
-                            <hr class="opacity-10 mb-4">
-                            
-                            <div class="row g-4">
-                                <div class="col-md-6">
-                                    <label class="small text-muted d-block">اسم الخريج</label>
-                                    <span class="fw-bold fs-5">{{ $document->documentRequest->user->name }}</span>
-                                </div>
-                                <div class="col-md-6">
-                                    <label class="small text-muted d-block">الرقم الجامعي (مخفي)</label>
-                                    @php
-                                        $uid = $document->documentRequest->user->graduate->university_id;
-                                        $maskedId = substr($uid, 0, 3) . '****' . substr($uid, -2);
-                                    @endphp
-                                    <span class="fw-bold fs-5">{{ $maskedId }}</span>
-                                </div>
-                                <div class="col-md-6">
-                                    <label class="small text-muted d-block">نوع المستند</label>
-                                    <span class="fw-bold">{{ $document->documentRequest->documentType->name_ar }}</span>
-                                </div>
-                                <div class="col-md-6">
-                                    <label class="small text-muted d-block">التخصص</label>
-                                    <span class="fw-bold">{{ $document->documentRequest->user->graduate->major->name_ar }}</span>
-                                </div>
-                                <div class="col-md-6">
-                                    <label class="small text-muted d-block">الرقم التسلسلي</label>
-                                    <span class="text-primary fw-bold">{{ $document->serial_number }}</span>
-                                </div>
-                                <div class="col-md-6">
-                                    <label class="small text-muted d-block">تاريخ الإصدار</label>
-                                    <span class="fw-bold">{{ $document->issued_at->format('Y-m-d') }}</span>
-                                </div>
+                            <div class="col-md-6">
+                                <label class="small text-muted d-block">الرقم الجامعي (مخفي)</label>
+                                @php
+                                    $uid = $document->documentRequest->user->graduate->university_id;
+                                    $maskedId = substr($uid, 0, 3) . '****' . substr($uid, -2);
+                                @endphp
+                                <span class="fw-bold fs-5 text-dark">{{ $maskedId }}</span>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="small text-muted d-block">نوع الوثيقة</label>
+                                <span class="fw-bold fs-5 text-dark">{{ $document->documentRequest->documentType->name_ar }}</span>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="small text-muted d-block">التخصص</label>
+                                <span class="fw-bold fs-5 text-dark">{{ $document->documentRequest->user->graduate->major->name_ar }}</span>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="small text-muted d-block">الرقم التسلسلي</label>
+                                <span class="text-primary fw-bold fs-5">{{ $document->serial_number }}</span>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="small text-muted d-block">تاريخ الإصدار</label>
+                                <span class="fw-bold fs-5 text-dark">{{ $document->issued_at->format('Y-m-d') }}</span>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="small text-muted d-block">حالة الوثيقة</label>
+                                <span class="badge bg-success fs-6">صالحة وموثقة</span>
                             </div>
                         </div>
-                    @else
-                        <!-- REVOKED DOCUMENT RESULT -->
-                        <div class="alert alert-danger border-0 shadow-sm p-5 rounded-4 text-center animate__animated animate__shakeX">
-                            <i class="fas fa-exclamation-triangle text-danger" style="font-size: 4rem;"></i>
-                            <h2 class="fw-bold mt-3">مستند ملغي أو غير صالح</h2>
-                            <p class="mb-0 mt-2">يرجى ملاحظة أن هذا المستند قد تم سحبه أو لم يعد صالحاً للاستخدام.</p>
-                        </div>
-                    @endif
+                    </div>
                 @elseif(isset($token))
-                    <!-- NOT FOUND RESULT -->
-                    <div class="alert alert-light border-0 shadow-sm p-5 rounded-4 text-center">
-                        <i class="fas fa-question-circle text-muted" style="font-size: 4rem;"></i>
-                        <h2 class="fw-bold mt-3 text-secondary">لم يتم العثور على أي مستند</h2>
-                        <p class="mb-0 mt-2">لم نتمكن من العثور على مستند يطابق الكود المدخل في سجلاتنا.</p>
+                    <!-- NOT FOUND OR INVALID RESULT -->
+                    <div class="alert alert-danger border-0 shadow-sm p-5 rounded-4 text-center animate__animated animate__shakeX">
+                        <i class="fas fa-exclamation-triangle text-danger" style="font-size: 4rem;"></i>
+                        <h2 class="fw-bold mt-3 text-danger">الوثيقة غير موجودة أو غير صالحة</h2>
+                        <p class="mb-0 mt-2 text-muted">لم نتمكن من العثور على وثيقة صالحة تطابق البيانات المدخلة.</p>
                     </div>
                 @endif
             </div>

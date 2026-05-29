@@ -125,8 +125,8 @@
                     @endif
                 </div>
             @endif
-        @endforeach
-    </div>
+        </div>
+    @endforeach
 @else
     <p style="text-align: center; font-size: 14px; color: red;">{{ app()->getLocale() === 'ar' ? ar('لا توجد بيانات السجل الأكاديمي') : 'No academic record data available.' }}</p>
 @endif

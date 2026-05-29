@@ -7,81 +7,251 @@
     <script defer src="{{ asset('assets/js/alpine.min.js') }}"></script>
     <script src="{{ asset('assets/js/lucide.min.js') }}"></script>
     <style>
+        /* ============================================================
+           ACADEMIC RECORD — Modern Professional Redesign
+           ============================================================ */
+
+        /* --- Design Tokens --- */
         :root {
-            --border-color: #000;
-            --transcript-max: 210mm;
-            --level-gap: 0.75rem;
+            --ar-primary: #0b2545;
+            --ar-primary-light: #134074;
+            --ar-accent: #b89047;
+            --ar-accent-hover: #a37c36;
+            --ar-bg: #f4f6f9;
+            --ar-card-bg: #ffffff;
+            --ar-border: #d1d9e6;
+            --ar-border-dark: #0f172a;
+            --ar-text: #1d2d44;
+            --ar-text-muted: #64748b;
+            --ar-success: #10b981;
+            --ar-danger: #ef4444;
+            --ar-info-bg: #f0f4ff;
+            --ar-radius: 12px;
+            --ar-radius-sm: 8px;
+            --ar-shadow: 0 4px 20px rgba(11,37,69,0.06);
+            --ar-shadow-hover: 0 8px 30px rgba(11,37,69,0.1);
+            --ar-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --ar-transcript-max: 210mm;
+            --ar-level-gap: 1rem;
         }
-        .academic-toolbar-page { font-family: 'Tajawal', sans-serif; color: #000; }
-        /* Center transcript; reduce wasted horizontal gutter inside Bootstrap .container */
+
+        /* --- Page Root --- */
+        .academic-toolbar-page {
+            font-family: 'Tajawal', 'Cairo', sans-serif;
+            color: var(--ar-text);
+            padding: 1rem;
+        }
+
+        /* --- Breadcrumb & Page Header --- */
+        .ar-page-header {
+            background: var(--ar-card-bg);
+            border-radius: var(--ar-radius);
+            box-shadow: var(--ar-shadow);
+            padding: 1.25rem 1.5rem;
+            margin-bottom: 1.25rem;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+            border-right: 4px solid var(--ar-accent);
+        }
+        .ar-page-header .breadcrumb {
+            margin-bottom: 0.35rem;
+            font-size: 0.82rem;
+        }
+        .ar-page-header .breadcrumb a {
+            color: var(--ar-primary-light);
+            text-decoration: none;
+            font-weight: 600;
+        }
+        .ar-page-header .breadcrumb a:hover { color: var(--ar-accent); }
+        .ar-page-title {
+            font-size: 1.35rem;
+            font-weight: 800;
+            color: var(--ar-primary);
+            margin: 0;
+        }
+        .ar-page-subtitle {
+            font-size: 0.85rem;
+            color: var(--ar-text-muted);
+            margin-top: 0.25rem;
+        }
+        .ar-btn-back {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.55rem 1.35rem;
+            border: 2px solid var(--ar-border);
+            border-radius: 50px;
+            background: var(--ar-card-bg);
+            color: var(--ar-text);
+            font-weight: 700;
+            font-size: 0.85rem;
+            text-decoration: none;
+            transition: var(--ar-transition);
+        }
+        .ar-btn-back:hover {
+            border-color: var(--ar-primary);
+            color: var(--ar-primary);
+            box-shadow: var(--ar-shadow-hover);
+        }
+
+        /* --- Transcript Layout --- */
         .academic-layout-root {
             width: 100%;
-            max-width: min(var(--transcript-max), 100%);
+            max-width: min(var(--ar-transcript-max), 100%);
             margin-inline: auto;
-            padding-bottom: 4.5rem;
+            padding-bottom: 5.5rem;
         }
+
         .academic-page {
             width: 100%;
-            max-width: var(--transcript-max);
+            max-width: var(--ar-transcript-max);
             min-height: 297mm;
-            margin: 0.5rem auto 0;
+            margin: 0 auto;
             padding: 6mm 7mm 8mm;
             background: white;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 24px rgba(0,0,0,0.07);
+            border-radius: 6px;
             box-sizing: border-box;
         }
+
+        /* --- Official Header (3-column bilingual) --- */
         .official-header {
             display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
+            grid-template-columns: 1fr auto 1fr;
             align-items: center;
-            border: 1px solid var(--border-color);
-            padding: 2px 8px;
+            border: 1.5px solid var(--ar-border-dark);
+            padding: 6px 12px;
             margin-bottom: -1px;
+            background: linear-gradient(180deg, #fafbfd 0%, #f0f2f5 100%);
         }
-        .header-left { text-align: right; font-size: 0.65rem; font-weight: 700; line-height: 1.2; }
+        .header-left {
+            text-align: right;
+            font-size: 0.65rem;
+            font-weight: 700;
+            line-height: 1.35;
+            color: var(--ar-primary);
+        }
         .header-center { text-align: center; }
-        .header-right { text-align: left; font-size: 0.65rem; font-weight: 700; font-family: 'Amiri', serif; line-height: 1.2; }
-        .uni-logo-wrapper { display: inline-flex; align-items: center; justify-content: center; width: 35px; height: 35px; border: 1px solid #000; border-radius: 50%; margin-bottom: 2px; }
-        .doc-title { font-size: 0.85rem; font-weight: 800; border: 1px solid #000; padding: 1px 15px; background: #eee; margin: 0; display: inline-block; }
-        .student-info-box {
-            border: 1px solid var(--border-color);
-            padding: 0.35rem 0.55rem;
-            font-size: 0.7rem;
-            margin-bottom: 0.35rem;
+        .header-right {
+            text-align: left;
+            font-size: 0.65rem;
+            font-weight: 700;
+            font-family: 'Amiri', serif;
+            line-height: 1.35;
+            color: var(--ar-primary);
         }
-        .info-row { display: flex; justify-content: space-between; gap: 8px; margin-bottom: 1px; flex-wrap: wrap; }
-        .info-item { display: flex; gap: 4px; flex: 1; border-bottom: 1px dotted #ccc; min-width: 120px; }
-        .info-label { font-weight: 800; white-space: nowrap; }
-        .info-value { border: none; background: transparent; width: 100%; outline: none; font-size: 0.72rem; }
+        .uni-logo-wrapper {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 42px;
+            height: 42px;
+            border: 2px solid var(--ar-primary);
+            border-radius: 50%;
+            margin-bottom: 4px;
+            background: white;
+        }
+        .doc-title {
+            font-size: 0.82rem;
+            font-weight: 800;
+            border: 1.5px solid var(--ar-border-dark);
+            padding: 3px 18px;
+            background: linear-gradient(135deg, #eef1f5, #e4e8ee);
+            margin: 0;
+            display: inline-block;
+            letter-spacing: 0.3px;
+        }
+
+        /* --- Student Info Box --- */
+        .student-info-box {
+            border: 1.5px solid var(--ar-border-dark);
+            padding: 0.5rem 0.65rem;
+            font-size: 0.72rem;
+            margin-bottom: 0.5rem;
+            background: #fafbfd;
+        }
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            margin-bottom: 3px;
+            flex-wrap: wrap;
+        }
+        .info-item {
+            display: flex;
+            gap: 4px;
+            flex: 1;
+            border-bottom: 1px dotted #c0c8d4;
+            min-width: 120px;
+            padding-bottom: 2px;
+        }
+        .info-label {
+            font-weight: 800;
+            white-space: nowrap;
+            color: var(--ar-primary);
+            font-size: 0.68rem;
+        }
+        .info-value {
+            border: none;
+            background: transparent;
+            width: 100%;
+            outline: none;
+            font-size: 0.72rem;
+            color: var(--ar-text);
+            font-weight: 600;
+        }
+        .info-value:focus {
+            background: #fffef2;
+            border-radius: 2px;
+        }
+
+        /* --- Level Containers --- */
         .level-container {
-            margin-bottom: var(--level-gap);
-            border: 1px solid var(--border-color);
+            margin-bottom: var(--ar-level-gap);
+            border: 1.5px solid var(--ar-border-dark);
             background: #fff;
+            border-radius: 4px;
+            overflow: hidden;
+            transition: var(--ar-transition);
         }
         .level-header {
-            background: linear-gradient(to bottom, #f1f5f9, #e8ecf0);
-            border-bottom: 1px solid var(--border-color);
+            background: linear-gradient(135deg, #0b2545 0%, #134074 100%);
+            color: #fff;
+            border-bottom: 1px solid var(--ar-border-dark);
             display: grid;
             grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
             align-items: center;
             gap: 0.5rem 0.75rem;
-            padding: 0.4rem 0.65rem;
+            padding: 0.5rem 0.75rem;
             font-weight: 800;
-            font-size: 0.7rem;
+            font-size: 0.72rem;
         }
         .level-header > span:first-child { text-align: right; }
         .level-header > span:nth-child(2) { text-align: center; white-space: nowrap; }
         .level-header > span:last-child { text-align: left; }
         .level-header input.level-year-input {
             width: 5.5rem;
-            border: 1px solid #cbd5e1;
-            border-radius: 3px;
-            background: #fff;
+            border: 1px solid rgba(255,255,255,0.3);
+            border-radius: 4px;
+            background: rgba(255,255,255,0.15);
+            color: #fff;
             font-size: 0.65rem;
             font-weight: 800;
             text-align: center;
-            padding: 2px 4px;
+            padding: 3px 6px;
+            transition: var(--ar-transition);
         }
+        .level-header input.level-year-input::placeholder { color: rgba(255,255,255,0.5); }
+        .level-header input.level-year-input:focus {
+            background: rgba(255,255,255,0.25);
+            border-color: rgba(255,255,255,0.6);
+            outline: none;
+        }
+
+        /* --- Semester Grid --- */
         .semester-grid {
             display: grid;
             grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
@@ -90,22 +260,26 @@
             border-top: none;
         }
         .semester-box {
-            border-inline-start: 1px solid var(--border-color);
+            border-inline-start: 1px solid var(--ar-border-dark);
             display: flex;
             flex-direction: column;
             min-height: 100%;
         }
         .semester-box:first-child { border-inline-start: none; }
         .semester-title {
-            background: #f8fafc;
+            background: linear-gradient(180deg, #f8f9fb 0%, #eef0f4 100%);
             text-align: center;
             font-weight: 800;
-            font-size: 0.66rem;
-            border-bottom: 1px solid var(--border-color);
-            padding: 0.35rem 0.5rem;
+            font-size: 0.68rem;
+            border-bottom: 1px solid var(--ar-border-dark);
+            padding: 0.4rem 0.5rem;
             flex-shrink: 0;
+            color: var(--ar-primary);
+            letter-spacing: 0.2px;
         }
         .semester-box .academic-table { flex: 1; }
+
+        /* --- Academic Table --- */
         .academic-table {
             width: 100%;
             table-layout: fixed;
@@ -121,16 +295,18 @@
         .academic-table .col-subject-head { text-align: right; padding-inline: 6px 4px; }
         .academic-table th {
             border: 1px solid #000;
-            padding: 3px 2px;
+            padding: 4px 3px;
             text-align: center;
-            background: #f1f5f9;
+            background: linear-gradient(180deg, #f1f5f9, #e8ecf2);
             font-weight: 800;
             line-height: 1.2;
+            color: var(--ar-primary);
+            font-size: 0.63rem;
         }
         .academic-table td {
             border: 1px solid #000;
             padding: 0;
-            min-height: 22px;
+            min-height: 24px;
             vertical-align: middle;
             position: relative;
         }
@@ -138,7 +314,7 @@
         .academic-empty-row td {
             padding: 0.5rem 0.4rem !important;
             text-align: center;
-            color: #64748b;
+            color: var(--ar-text-muted);
             font-size: 0.62rem;
             font-style: italic;
             background: #fafafa;
@@ -152,43 +328,96 @@
             text-align: center;
             outline: none;
             background: transparent;
-            min-height: 22px;
+            min-height: 24px;
+            transition: background 0.2s;
+        }
+        .academic-table input:focus {
+            background: #fffef2;
         }
         .academic-table select.subject-select {
-            width: 100%; max-width: 100%; font-size: 0.62rem; padding: 1px 2px; border: none; background: #fafafa;
-            text-align: right; direction: rtl; min-height: 20px;
+            width: 100%; max-width: 100%; font-size: 0.62rem; padding: 2px 3px;
+            border: none; background: #fafafa;
+            text-align: right; direction: rtl; min-height: 22px;
+            cursor: pointer;
+        }
+        .academic-table select.subject-select:focus {
+            background: #f0f4ff;
         }
         .subject-editor-ui { text-align: right; }
-        .subject-custom-name { width: 100%; border: none; padding: 2px 4px; font-size: 0.68rem; text-align: right; background: #fffef7; }
+        .subject-custom-name {
+            width: 100%; border: none; padding: 2px 4px; font-size: 0.68rem;
+            text-align: right; background: #fffef7;
+        }
+        .subject-custom-name:focus { background: #fff8e1; }
         .subject-print-only { display: none; font-size: 0.68rem; text-align: right; padding: 2px 4px; min-height: 18px; }
-        .field-readonly, input.field-readonly { background: #f1f5f9 !important; color: #334155 !important; cursor: default; }
-        .field-readonly-inline { display: inline-block; min-width: 2.5rem; font-weight: 800; color: #0f172a; }
+        .field-readonly, input.field-readonly {
+            background: #f1f5f9 !important;
+            color: #334155 !important;
+            cursor: default;
+        }
+        .field-readonly-inline {
+            display: inline-block;
+            min-width: 2.5rem;
+            font-weight: 800;
+            color: #fff;
+            background: rgba(255,255,255,0.15);
+            padding: 1px 8px;
+            border-radius: 4px;
+        }
         .col-m { font-weight: 700; background: #f0f0f0; text-align: center; }
         .col-s, .col-d, .col-t { text-align: center; }
         .col-del { text-align: center; background: #fff5f5; }
+
+        /* --- Row Actions --- */
         .btn-del-row {
-            color: #ef4444; border: none; background: none; font-weight: bold;
-            padding: 0; width: 100%; height: 100%; line-height: 1;
-            font-size: 14px; display: block;
+            color: #ef4444;
+            border: none;
+            background: none;
+            font-weight: bold;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            line-height: 1;
+            font-size: 14px;
+            display: block;
+            cursor: pointer;
+            transition: var(--ar-transition);
         }
         .btn-del-row:hover { background-color: #ef4444; color: white; }
-        .add-btn-row { text-align: center; padding: 1px; }
-        .btn-add-sub { font-size: 0.6rem; color: #1a4a7c; font-weight: 800; cursor: pointer; border: 1px dashed #1a4a7c; padding: 0 10px; border-radius: 4px; background: transparent; }
+        .add-btn-row { text-align: center; padding: 2px; }
+        .btn-add-sub {
+            font-size: 0.62rem;
+            color: var(--ar-primary-light);
+            font-weight: 800;
+            cursor: pointer;
+            border: 1.5px dashed var(--ar-primary-light);
+            padding: 2px 14px;
+            border-radius: 6px;
+            background: transparent;
+            transition: var(--ar-transition);
+        }
+        .btn-add-sub:hover {
+            background: var(--ar-primary);
+            color: #fff;
+            border-color: var(--ar-primary);
+        }
+
+        /* --- Level Summary --- */
         .level-sum {
             display: grid;
             grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
             align-items: center;
             gap: 0.5rem 0.75rem;
-            border-top: 1px solid var(--border-color);
-            padding: 0.45rem 0.65rem;
-            font-size: 0.66rem;
+            border-top: 1.5px solid var(--ar-border-dark);
+            padding: 0.55rem 0.75rem;
+            font-size: 0.68rem;
             font-weight: 800;
-            background: #f8fafc;
+            background: linear-gradient(180deg, #f8f9fb 0%, #f0f2f5 100%);
         }
         .level-sum-part {
             display: flex;
             align-items: center;
-            gap: 0.35rem;
+            gap: 0.4rem;
             flex-wrap: wrap;
             min-width: 0;
         }
@@ -198,48 +427,187 @@
             min-width: 6.5rem;
             flex: 1;
             max-width: 12rem;
-            border: 1px solid #cbd5e1 !important;
-            border-radius: 4px;
+            border: 1.5px solid #cbd5e1 !important;
+            border-radius: 6px;
             background: #fff !important;
             font-weight: 800;
-            padding: 4px 8px !important;
+            padding: 5px 10px !important;
             text-align: center;
+            font-size: 0.68rem;
+            transition: var(--ar-transition);
         }
+        .level-result-input:focus {
+            border-color: var(--ar-primary) !important;
+            box-shadow: 0 0 0 3px rgba(11,37,69,0.08);
+            outline: none;
+        }
+
+        /* --- Signatures --- */
         .signatures-row {
-            display: flex; justify-content: space-around; margin-top: 5px;
-            border-top: 1px solid #000; padding-top: 2px; text-align: center;
+            display: flex;
+            justify-content: space-around;
+            margin-top: 8px;
+            border-top: 1.5px solid #000;
+            padding-top: 6px;
+            text-align: center;
             flex-wrap: wrap;
         }
         .sig-item { flex: 1; min-width: 100px; }
-        .sig-title { font-weight: 800; font-size: 0.7rem; margin-bottom: 20px; }
+        .sig-title { font-weight: 800; font-size: 0.72rem; margin-bottom: 22px; color: var(--ar-primary); }
         .sig-line { border-top: 1px dotted #000; width: 60%; margin: 0 auto; }
+
+        /* --- Floating Admin Toolbar --- */
         .admin-toolbar {
-            position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
-            display: flex; gap: 10px; background: rgba(255,255,255,0.98);
-            padding: 10px 25px; border-radius: 30px; box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-            border: 1px solid #ddd; z-index: 2000;
+            position: fixed;
+            bottom: 24px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 12px;
+            background: rgba(255,255,255,0.97);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            padding: 12px 28px;
+            border-radius: 50px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.18), 0 0 0 1px rgba(0,0,0,0.04);
+            border: 1px solid rgba(255,255,255,0.6);
+            z-index: 2000;
+            transition: var(--ar-transition);
         }
-        .btn-admin { border: none; width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; transition: 0.2s; box-shadow: 0 2px 8px rgba(0,0,0,0.2); }
-        .btn-print { background: #1a4a7c; }
-        .btn-save { background: #10b981; }
-        .btn-reset { background: #64748b; }
-        .btn-admin:hover:not(:disabled) { transform: scale(1.1); box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
-        .btn-admin:disabled { opacity: 0.6; cursor: not-allowed; }
+        .btn-admin {
+            border: none;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            transition: var(--ar-transition);
+            box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+            position: relative;
+            cursor: pointer;
+        }
+        .btn-admin::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: calc(100% + 8px);
+            left: 50%;
+            transform: translateX(-50%) scale(0.8);
+            background: var(--ar-primary);
+            color: #fff;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 0.68rem;
+            font-weight: 700;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s, transform 0.2s;
+        }
+        .btn-admin:hover::after {
+            opacity: 1;
+            transform: translateX(-50%) scale(1);
+        }
+        .btn-print { background: linear-gradient(135deg, #134074, #0b2545); }
+        .btn-save { background: linear-gradient(135deg, #10b981, #059669); }
+        .btn-reset { background: linear-gradient(135deg, #94a3b8, #64748b); }
+        .btn-admin:hover:not(:disabled) {
+            transform: scale(1.12);
+            box-shadow: 0 6px 18px rgba(0,0,0,0.25);
+        }
+        .btn-admin:active:not(:disabled) { transform: scale(0.96); }
+        .btn-admin:disabled { opacity: 0.5; cursor: not-allowed; }
+
+        /* ============================================================
+           RESPONSIVE — Mobile
+           ============================================================ */
+        @media (max-width: 767.98px) {
+            .academic-toolbar-page { padding: 0.5rem; }
+            .ar-page-header {
+                padding: 1rem;
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .ar-page-title { font-size: 1.1rem; }
+            .ar-btn-back { width: 100%; justify-content: center; }
+            .academic-page {
+                padding: 3mm 3mm 5mm;
+                min-height: auto;
+                border-radius: 4px;
+            }
+            .official-header {
+                grid-template-columns: 1fr;
+                gap: 6px;
+                padding: 8px;
+                text-align: center;
+            }
+            .header-left, .header-right { text-align: center; font-size: 0.6rem; }
+            .student-info-box { padding: 0.4rem; font-size: 0.66rem; }
+            .info-row { flex-direction: column; gap: 4px; }
+            .info-item { min-width: 100%; }
+            .level-header {
+                grid-template-columns: 1fr;
+                gap: 4px;
+                text-align: center !important;
+                padding: 0.4rem 0.5rem;
+                font-size: 0.66rem;
+            }
+            .level-header > span { text-align: center !important; }
+            .semester-grid { grid-template-columns: 1fr; }
+            .semester-box { border-inline-start: none; border-top: 1px solid var(--ar-border-dark); }
+            .semester-box:first-child { border-top: none; }
+            .academic-table { font-size: 0.58rem; }
+            .academic-table th { padding: 3px 1px; font-size: 0.56rem; }
+            .academic-table input { font-size: 0.6rem; min-height: 20px; padding: 2px; }
+            .academic-table select.subject-select { font-size: 0.56rem; }
+            .level-sum {
+                grid-template-columns: 1fr;
+                gap: 6px;
+                padding: 0.4rem 0.5rem;
+                font-size: 0.62rem;
+            }
+            .level-sum-part { justify-content: center !important; text-align: center !important; }
+            .level-result-input { max-width: 100%; }
+            .signatures-row { gap: 8px; }
+            .sig-item { min-width: 80px; }
+            .sig-title { font-size: 0.62rem; margin-bottom: 14px; }
+            .admin-toolbar {
+                padding: 8px 16px;
+                gap: 8px;
+                bottom: 12px;
+                border-radius: 40px;
+            }
+            .btn-admin { width: 42px; height: 42px; }
+        }
+
+        /* ============================================================
+           PRINT STYLES — Preserve A4 layout
+           ============================================================ */
         @media print {
             @page { size: A4; margin: 3mm; }
             body { background: white !important; padding: 0; margin: 0; }
+            .academic-toolbar-page { padding: 0; }
+            .ar-page-header { display: none !important; }
             .academic-layout-root { max-width: none; padding-bottom: 0; }
-            .academic-page { margin: 0; padding: 2mm 3mm; width: 100%; max-width: none; box-shadow: none; border: none; }
+            .academic-page {
+                margin: 0; padding: 2mm 3mm;
+                width: 100%; max-width: none;
+                box-shadow: none; border: none; border-radius: 0;
+            }
+            .official-header { background: #fff !important; }
             .academic-table { table-layout: fixed; }
             .admin-toolbar, .col-del, .add-btn-row, .no-print { display: none !important; }
             .academic-empty-row { display: none !important; }
-            .level-container { break-inside: avoid; }
+            .level-container { break-inside: avoid; border-radius: 0; }
+            .level-header { background: #f1f5f9 !important; color: #000 !important; }
+            .field-readonly-inline { color: #000 !important; background: transparent !important; }
             .official-header, .student-info-box, .level-container { margin-bottom: 1px !important; }
             .level-sum { background: #fff !important; padding: 0.25rem 0.4rem !important; }
             .signatures-row { margin-top: 2px !important; }
             input { border: none !important; background: transparent !important; color: #000; }
             .level-result-input { border: none !important; background: transparent !important; }
-            .level-year-input { border: none !important; background: transparent !important; }
+            .level-year-input { border: none !important; background: transparent !important; color: #000 !important; }
             .subject-editor-ui { display: none !important; }
             .subject-print-only { display: block !important; }
             select.subject-select { display: none !important; }
@@ -254,18 +622,19 @@
     $catalog = $subjectCatalog ?? [];
 @endphp
 <div class="academic-toolbar-page">
-    <div class="no-print mb-4 d-flex flex-wrap justify-content-between align-items-center gap-3">
+    {{-- Page Header --}}
+    <div class="ar-page-header no-print">
         <div>
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb mb-1">
-                    <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}" class="text-decoration-none fw-bold">{{ __('app.dashboard') }}</a></li>
-                    <li class="breadcrumb-item"><a href="{{ route('admin.reports.graduates') }}" class="text-decoration-none fw-bold">{{ __('app.manage_graduates') }}</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">{{ __('app.dashboard') }}</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('admin.reports.graduates') }}">{{ __('app.manage_graduates') }}</a></li>
                     <li class="breadcrumb-item active" aria-current="page">{{ __('app.academic_record_entry_title') }}</li>
                 </ol>
             </nav>
-            <h2 class="fw-bold text-primary mb-0">{{ __('app.academic_record_entry_title') }}</h2>
+            <h2 class="ar-page-title">{{ __('app.academic_record_entry_title') }}</h2>
             @isset($graduate)
-                <p class="text-muted small mb-0 mt-1">
+                <p class="ar-page-subtitle">
                     {{ __('app.graduate_name') }}: <strong>{{ $graduate->name }}</strong>
                     @if($graduate->graduate?->university_id)
                         — {{ __('app.university_id') }}: <strong>{{ $graduate->graduate->university_id }}</strong>
@@ -273,8 +642,8 @@
                 </p>
             @endisset
         </div>
-        <a href="{{ route('admin.reports.graduates') }}" class="btn btn-outline-secondary rounded-pill px-4 fw-bold">
-            <i class="fas fa-arrow-right me-2"></i> {{ __('app.cancel') }}
+        <a href="{{ route('admin.reports.graduates') }}" class="ar-btn-back">
+            <i class="fas fa-arrow-right"></i> {{ __('app.cancel') }}
         </a>
     </div>
 
@@ -298,7 +667,7 @@
             <div class="header-right">
                 Republic of Yemen<br>
                 Saba Region University<br>
-                Faculty of IT & Comp. Science<br>
+                Faculty of IT &amp; Comp. Science<br>
                 Dept: Computer Science
             </div>
         </div>
@@ -437,7 +806,7 @@
                 <div class="level-sum">
                     <div class="level-sum-part level-sum-part--points">
                         <span>مجموع النقاط (المستوى):</span>
-                        <span class="field-readonly-inline" x-text="level.totalPoints || '—'"></span>
+                        <span class="field-readonly-inline" style="color: var(--ar-primary); background: rgba(11,37,69,0.06);" x-text="level.totalPoints || '—'"></span>
                     </div>
                     <div class="level-sum-part level-sum-part--result">
                         <span class="text-nowrap">النتيجة النهائية للمستوى:</span>
@@ -456,9 +825,9 @@
     </div>
 
     <div class="admin-toolbar d-print-none">
-        <button type="button" @click.prevent="resetData()" class="btn-admin btn-reset" title="إعادة تعيين"><i data-lucide="rotate-ccw"></i></button>
-        <button type="button" @click.prevent="window.print()" class="btn-admin btn-print" title="طباعة"><i data-lucide="printer"></i></button>
-        <button type="button" @click.prevent="saveData()" class="btn-admin btn-save" :disabled="saving" title="حفظ في النظام"><i data-lucide="save"></i></button>
+        <button type="button" @click.prevent="resetData()" class="btn-admin btn-reset" data-tooltip="إعادة تعيين" title="إعادة تعيين"><i data-lucide="rotate-ccw"></i></button>
+        <button type="button" @click.prevent="window.print()" class="btn-admin btn-print" data-tooltip="طباعة" title="طباعة"><i data-lucide="printer"></i></button>
+        <button type="button" @click.prevent="saveData()" class="btn-admin btn-save" :disabled="saving" data-tooltip="حفظ" title="حفظ في النظام"><i data-lucide="save"></i></button>
     </div>
     </div>
 </div>

@@ -28,7 +28,8 @@ Route::middleware('guest')->group(function() {
 Route::post('logout', [AuthController::class, 'logout'])->name('logout')->middleware('auth');
 
 // Public verification
-Route::get('verify/{token?}', [VerificationController::class, 'show'])->name('verify.show');
+Route::get('verify/{token}', [VerificationController::class, 'show'])->name('verify.show');
+Route::get('verify', [VerificationController::class, 'show'])->name('verify.search');
 Route::post('verify', [VerificationController::class, 'verify'])->name('verify.process');
 
 // Authenticated Routes
