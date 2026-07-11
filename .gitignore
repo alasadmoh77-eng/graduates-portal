@@ -52,3 +52,7 @@ Homestead.yaml
 
 # TestSprite temporary configuration
 /testsprite_tests/tmp/config.json
+
+# Laravel compiled Blade views
+/storage/framework/views/*
+!/storage/framework/views/.gitignore
