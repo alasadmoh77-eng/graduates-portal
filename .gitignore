@@ -1,0 +1,54 @@
+*.log
+.DS_Store
+Thumbs.db
+
+# Environment files and secrets
+.env
+.env.*
+!.env.example
+/auth.json
+
+# PHP and JavaScript dependencies
+/vendor/
+/node_modules/
+
+# PHPUnit and PHP tools
+.phpactor.json
+.phpunit.result.cache
+/.phpunit.cache/
+/storage/pail/
+/storage/*.key
+
+# IDE and editor files
+/.fleet/
+/.idea/
+/.nova/
+/.vscode/
+/.zed/
+_ide_helper*.php
+.phpstorm.meta.php
+
+# Frontend generated files
+/public/build/
+/public/hot
+/public/storage
+
+# SQLite databases and temporary files
+/database/*.sqlite*
+/database/*.db
+
+# Private files, uploaded documents, and payment proofs
+/storage/app/private/
+/storage/app/public/graduates/
+/storage/app/public/documents/
+
+# Docker and deployment secrets
+.env.docker
+docker-compose.override.yml
+
+# Laravel Homestead
+Homestead.json
+Homestead.yaml
+
+# TestSprite temporary configuration
+/testsprite_tests/tmp/config.json

@@ -1,0 +1,139 @@
+version: "2"
+type: frontend
+tech_stack:
+  - PHP
+  - Laravel
+  - Tailwind CSS
+  - Vite
+  - JavaScript
+  - SQLite
+routes:
+  - path: /
+    file: resources/views/welcome.blade.php
+    auth_required: false
+    description: Welcome and landing page with latest jobs
+  - path: /login
+    file: app/Http/Controllers/AuthController.php
+    auth_required: false
+    description: Graduate login page
+  - path: /register
+    file: app/Http/Controllers/AuthController.php
+    auth_required: false
+    description: Graduate registration page
+  - path: /employers/login
+    file: app/Http/Controllers/AuthController.php
+    auth_required: false
+    description: Employer login page
+  - path: /employers/register
+    file: app/Http/Controllers/AuthController.php
+    auth_required: false
+    description: Employer registration page
+  - path: /verify
+    file: app/Http/Controllers/VerificationController.php
+    auth_required: false
+    description: Public document verification search page
+  - path: /alumni/about
+    file: resources/views/alumni/about.blade.php
+    auth_required: false
+    description: About page
+  - path: /alumni/contact
+    file: app/Http/Controllers/ContactController.php
+    auth_required: false
+    description: Contact page
+  - path: /graduate/dashboard
+    file: app/Http/Controllers/GraduateDashboardController.php
+    auth_required: true
+    description: Graduate dashboard
+  - path: /graduate/profile
+    file: app/Http/Controllers/GraduateProfileController.php
+    auth_required: true
+    description: Graduate profile view and edit page
+  - path: /graduate/documents
+    file: app/Http/Controllers/DocumentRequestController.php
+    auth_required: true
+    description: Graduate document requests page
+  - path: /graduate/jobs
+    file: app/Http/Controllers/JobController.php
+    auth_required: true
+    description: Jobs listing page for graduates
+  - path: /graduate/events
+    file: app/Http/Controllers/EventController.php
+    auth_required: true
+    description: Events registration page for graduates
+  - path: /employer/dashboard
+    file: resources/views/employer/dashboard.blade.php
+    auth_required: true
+    description: Employer dashboard
+  - path: /employer/jobs
+    file: app/Http/Controllers/JobController.php
+    auth_required: true
+    description: Job postings management for employers
+  - path: /admin/dashboard
+    file: app/Http/Controllers/AdminDashboardController.php
+    auth_required: true
+    description: Admin dashboard
+features:
+  - name: Graduate Registration & Login
+    description: Allows graduates to register and login to their profiles.
+    files:
+      - app/Http/Controllers/AuthController.php
+      - resources/views/auth/login.blade.php
+      - resources/views/auth/register.blade.php
+    entry_route: /login
+    user_interactions:
+      - Visit login page
+      - Enter email graduate@example.com and password grad123
+      - Click Sign In button
+      - Redirected to graduate dashboard
+    api_calls:
+      - method: POST
+        endpoint: /login
+    auth_required: false
+  - name: Employer Registration & Login
+    description: Allows employers to register and login to post jobs.
+    files:
+      - app/Http/Controllers/AuthController.php
+      - resources/views/employer/login.blade.php
+      - resources/views/employer/register.blade.php
+    entry_route: /employers/login
+    user_interactions:
+      - Visit employer login page
+      - Enter email employer@example.com and password emp123
+      - Click Login button
+      - Redirected to employer dashboard
+    api_calls:
+      - method: POST
+        endpoint: /employers/login
+    auth_required: false
+  - name: Document Request
+    description: Allows graduates to request academic documents (transcripts, certificates, etc.).
+    files:
+      - app/Http/Controllers/DocumentRequestController.php
+      - resources/views/graduate/documents/index.blade.php
+      - resources/views/graduate/documents/create.blade.php
+    entry_route: /graduate/documents
+    user_interactions:
+      - Visit document request page
+      - Click "Request Document" button
+      - Fill request details (document type, reason)
+      - Click "Submit Request" button
+    api_calls:
+      - method: POST
+        endpoint: /graduate/documents
+    auth_required: true
+  - name: Job Application
+    description: Allows graduates to browse and apply for active job listings.
+    files:
+      - app/Http/Controllers/JobController.php
+      - resources/views/graduate/jobs/index.blade.php
+      - resources/views/graduate/jobs/show.blade.php
+    entry_route: /graduate/jobs
+    user_interactions:
+      - Browse jobs listing
+      - Click on a job to view details
+      - Click "Apply" button
+    api_calls:
+      - method: POST
+        endpoint: /graduate/jobs/{job}/apply
+    auth_required: true
+known_limitations: []

@@ -1,0 +1,879 @@
+/* ============================================================
+   SABA REGION UNIVERSITY — GRADUATES PORTAL CORE STYLE SHEET
+   University Visual Identity — Premium Academic Design
+   ============================================================ */
+
+/* ------------------------------------------------------------
+   1. COLOR SYSTEM & DESIGN VARIABLES
+   ------------------------------------------------------------ */
+:root {
+    /* University Official Colors */
+    --primary-blue: #0b2545;
+    --secondary-blue: #134074;
+    --primary-color: #105D82;
+    --primary-dark: #0B3B60;
+    --primary-hover: #0E506F;
+    --primary-soft: rgba(16, 93, 130, 0.10);
+
+    /* Gold Accent — University Heritage */
+    --accent-gold: #b89047;
+    --accent-gold-hover: #a37c36;
+    --accent-gold-soft: rgba(184, 144, 71, 0.12);
+
+    /* Background System */
+    --soft-bg: #f4f6f9;
+    --pure-white: #ffffff;
+
+    /* Text System */
+    --text-dark: #1d2d44;
+    --text-muted: #64748b;
+
+    /* System Colors */
+    --success-green: #10b981;
+    --danger-red: #ef4444;
+    --warning-yellow: #f59e0b;
+    --info-blue: #0ea5e9;
+
+    /* Layout & Effects */
+    --card-shadow: 0 10px 25px -5px rgba(11, 37, 69, 0.05), 0 8px 10px -6px rgba(11, 37, 69, 0.03);
+    --hover-shadow: 0 20px 35px -5px rgba(11, 37, 69, 0.08), 0 12px 16px -8px rgba(11, 37, 69, 0.05);
+    --border-radius-lg: 16px;
+    --border-radius-sm: 8px;
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+body {
+    font-family: 'Tajawal', sans-serif;
+    background-color: var(--soft-bg);
+    color: var(--text-dark);
+    line-height: 1.6;
+    overflow-x: hidden !important;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.navbar,
+.btn {
+    font-family: 'Tajawal', sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    color: var(--primary-blue);
+    font-weight: 700;
+}
+
+/* Scrollbar Customization */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f5f9;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--accent-gold);
+}
+
+/* ------------------------------------------------------------
+   2. UNIVERSITY TOP BAR
+   ------------------------------------------------------------ */
+.university-topbar {
+    background: #072A45;
+    color: rgba(255, 255, 255, 0.75);
+    font-size: 0.8rem;
+    padding: 0.4rem 0;
+    border-bottom: 2px solid var(--accent-gold);
+}
+
+.university-topbar a {
+    color: rgba(255, 255, 255, 0.75);
+    text-decoration: none;
+    transition: var(--transition-smooth);
+}
+
+.university-topbar a:hover {
+    color: var(--accent-gold);
+}
+
+/* ------------------------------------------------------------
+   3. PREMIUM NAVIGATION BAR
+   ------------------------------------------------------------ */
+.navbar {
+    background: rgba(16, 93, 130, 0.95) !important;
+    backdrop-filter: blur(12px) !important;
+    -webkit-backdrop-filter: blur(12px) !important;
+    border-bottom: 2px solid rgba(184, 144, 71, 0.8) !important;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.15) !important;
+    padding: 0.4rem 0 !important;
+    transition: var(--transition-smooth);
+}
+
+.navbar-brand {
+    font-size: 1.25rem;
+    letter-spacing: 0.5px;
+    color: var(--pure-white) !important;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.university-logo {
+    height: 52px;
+    width: auto;
+    object-fit: contain;
+    transition: var(--transition-smooth);
+}
+
+.logo-title {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--pure-white) !important;
+    letter-spacing: 0.3px;
+    line-height: 1.2;
+}
+
+.logo-title-mobile {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--pure-white) !important;
+    line-height: 1.2;
+}
+
+.navbar-toggler {
+    padding: 0.3rem 0.6rem;
+    border-radius: 8px;
+    transition: var(--transition-smooth);
+    background: rgba(255, 255, 255, 0.08);
+    color: var(--pure-white) !important;
+    border: none !important;
+}
+
+.navbar-toggler:hover {
+    background: rgba(255, 255, 255, 0.15);
+}
+
+@media (max-width: 991.98px) {
+    .university-logo {
+        height: 42px;
+    }
+
+    .navbar {
+        padding: 0.35rem 0 !important;
+    }
+}
+
+.navbar .nav-link {
+    color: rgba(255, 255, 255, 0.85) !important;
+    font-weight: 500;
+    padding: 0.5rem 1rem !important;
+    border-radius: var(--border-radius-sm);
+    transition: var(--transition-smooth);
+}
+
+.navbar .nav-link:hover,
+.navbar .nav-link:focus {
+    color: var(--accent-gold) !important;
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.navbar .nav-link.active {
+    border-bottom: none !important;
+    background: rgba(184, 144, 71, 0.15) !important;
+    color: var(--accent-gold) !important;
+    font-weight: 700 !important;
+}
+
+/* ------------------------------------------------------------
+   4. OFFCANVAS DRAWER
+   ------------------------------------------------------------ */
+.offcanvas-navbar {
+    background: linear-gradient(180deg, var(--primary-color) 0%, #0B4A68 100%) !important;
+    color: var(--pure-white) !important;
+    border-left: 3px solid var(--accent-gold);
+    max-width: 300px !important;
+}
+
+[dir="ltr"] .offcanvas-navbar {
+    border-left: none;
+    border-right: 3px solid var(--accent-gold);
+}
+
+.offcanvas-navbar .offcanvas-header {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 1.5rem;
+}
+
+.offcanvas-navbar .nav-link {
+    font-size: 1.05rem;
+    padding: 0.8rem 1.2rem !important;
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    border-radius: var(--border-radius-sm);
+    color: rgba(255, 255, 255, 0.85) !important;
+}
+
+.offcanvas-navbar .nav-link i {
+    width: 20px;
+    text-align: center;
+    color: var(--accent-gold);
+}
+
+.offcanvas-navbar .nav-link:hover,
+.offcanvas-navbar .nav-link.active-mobile {
+    background: rgba(184, 144, 71, 0.15) !important;
+    color: var(--accent-gold) !important;
+    font-weight: 700;
+    transform: translateX(-4px);
+}
+
+[dir="ltr"] .offcanvas-navbar .nav-link:hover,
+[dir="ltr"] .offcanvas-navbar .nav-link.active-mobile {
+    transform: translateX(4px);
+}
+
+/* ------------------------------------------------------------
+   5. BUTTONS — Premium Pill-Shaped
+   ------------------------------------------------------------ */
+.btn {
+    border-radius: 50px;
+    padding: 0.6rem 1.75rem;
+    font-weight: 600;
+    transition: var(--transition-smooth);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+.btn:active {
+    transform: scale(0.98);
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    border: 1px solid var(--primary-color);
+    color: var(--pure-white);
+}
+
+.btn-primary:hover,
+.btn-primary:focus {
+    background-color: var(--primary-hover);
+    border-color: var(--primary-hover);
+    box-shadow: 0 8px 20px rgba(16, 93, 130, 0.25);
+}
+
+/* Gold Button — University Premium */
+.btn-gold {
+    background: linear-gradient(135deg, var(--accent-gold) 0%, #916c27 100%);
+    color: var(--pure-white) !important;
+    border: none;
+}
+
+.btn-gold:hover {
+    background: linear-gradient(135deg, #cc9f3d 0%, var(--accent-gold) 100%);
+    box-shadow: 0 8px 20px rgba(184, 144, 71, 0.3);
+    color: var(--pure-white) !important;
+}
+
+/* Backward compatibility with btn-gradient */
+.btn-gradient {
+    background: linear-gradient(135deg, var(--accent-gold) 0%, #916c27 100%);
+    color: var(--pure-white) !important;
+    border: none;
+}
+
+.btn-gradient:hover {
+    background: linear-gradient(135deg, #cc9f3d 0%, var(--accent-gold) 100%);
+    box-shadow: 0 8px 20px rgba(184, 144, 71, 0.3);
+}
+
+.btn-outline-light {
+    border: 1.5px solid rgba(255, 255, 255, 0.6);
+    color: var(--pure-white);
+}
+
+.btn-outline-light:hover {
+    background-color: var(--pure-white);
+    color: var(--primary-blue) !important;
+    border-color: var(--pure-white);
+}
+
+.btn-outline-primary {
+    border: 1.5px solid var(--primary-blue);
+    color: var(--primary-blue);
+}
+
+.btn-outline-primary:hover {
+    background-color: var(--primary-blue);
+    color: var(--pure-white) !important;
+}
+
+/* ------------------------------------------------------------
+   6. PREMIUM CARDS
+   ------------------------------------------------------------ */
+.card {
+    background-color: var(--pure-white);
+    border: 1px solid rgba(16, 93, 130, 0.08);
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--card-shadow);
+    transition: var(--transition-smooth);
+    overflow: hidden;
+}
+
+.card:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--hover-shadow);
+}
+
+/* Welcome Card */
+.welcome-card {
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+    border-radius: 24px;
+    color: var(--pure-white);
+    padding: 3rem;
+    position: relative;
+    overflow: hidden;
+    border: none;
+    box-shadow: 0 12px 30px rgba(16, 93, 130, 0.2);
+}
+
+.welcome-card::before {
+    content: '';
+    position: absolute;
+    top: -80px;
+    left: -80px;
+    width: 250px;
+    height: 250px;
+    background: radial-gradient(circle, rgba(184, 144, 71, 0.15) 0%, rgba(255, 255, 255, 0) 70%);
+    border-radius: 50%;
+}
+
+.welcome-card::after {
+    content: '';
+    position: absolute;
+    bottom: -60px;
+    right: -60px;
+    width: 200px;
+    height: 200px;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 50%;
+}
+
+.academic-pill {
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 0.6rem 1.4rem;
+    border-radius: 50px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--pure-white);
+    backdrop-filter: blur(8px);
+}
+
+.quick-action-btn {
+    border-radius: 50px;
+    padding: 0.9rem 2rem;
+    font-weight: 700;
+}
+
+/* Stat Cards */
+.stat-card {
+    border: 1px solid rgba(16, 93, 130, 0.08);
+    border-radius: var(--border-radius-lg);
+    background: var(--pure-white);
+}
+
+.icon-box {
+    width: 56px;
+    height: 56px;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.25rem;
+    font-size: 1.25rem;
+}
+
+/* Status Badges */
+.status-badge {
+    padding: 0.4rem 1rem;
+    border-radius: 50px;
+    font-size: 0.78rem;
+    font-weight: 700;
+}
+
+/* ------------------------------------------------------------
+   7. DASHBOARD HEADER
+   ------------------------------------------------------------ */
+.dashboard-header {
+    background: linear-gradient(135deg, var(--primary-blue) 0%, var(--secondary-blue) 100%);
+    border-radius: 20px;
+    color: white;
+    padding: 2.5rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 10px 25px rgba(11, 37, 69, 0.08);
+    border-bottom: 3px solid var(--accent-gold);
+    position: relative;
+    overflow: hidden;
+}
+
+.dashboard-header h2 {
+    color: white !important;
+}
+
+/* ------------------------------------------------------------
+   8. HERO SECTION
+   ------------------------------------------------------------ */
+.hero-section {
+    background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%) !important;
+    border: 1px solid rgba(11, 37, 69, 0.08) !important;
+    border-bottom: 5px solid var(--accent-gold) !important;
+    box-shadow: 0 10px 30px rgba(11, 37, 69, 0.03) !important;
+    border-radius: var(--border-radius-lg) !important;
+}
+
+.hero-title {
+    color: #0b2545 !important;
+    font-weight: 800 !important;
+    line-height: 1.25;
+}
+
+.hero-description {
+    color: #475569 !important;
+    font-size: 1.1rem !important;
+    line-height: 1.6;
+}
+
+/* ------------------------------------------------------------
+   9. ANIMATIONS
+   ------------------------------------------------------------ */
+@keyframes pulse-red {
+    0% {
+        transform: scale(0.95);
+        box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.6);
+    }
+
+    70% {
+        transform: scale(1);
+        box-shadow: 0 0 0 8px rgba(239, 68, 68, 0);
+    }
+
+    100% {
+        transform: scale(0.95);
+        box-shadow: 0 0 0 0 rgba(239, 68, 68, 0);
+    }
+}
+
+.pulse-notify {
+    animation: pulse-red 2s infinite;
+}
+
+.notification-dropdown {
+    width: 350px;
+    max-width: calc(100vw - 2rem);
+    padding: 0;
+    overflow: hidden;
+}
+
+.notification-dropdown .dropdown-item {
+    transition: var(--transition-smooth);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.03);
+}
+
+.notification-dropdown .dropdown-item:hover {
+    background-color: rgba(184, 144, 71, 0.05);
+}
+
+/* ------------------------------------------------------------
+   10. SERVICE LINK CARDS — University Style
+   ------------------------------------------------------------ */
+.service-link-card {
+    background: var(--pure-white);
+    border: 1px solid rgba(16, 93, 130, 0.08);
+    border-radius: var(--border-radius-lg);
+    padding: 2rem 1.5rem;
+    text-align: center;
+    transition: var(--transition-smooth);
+    box-shadow: var(--card-shadow);
+}
+
+.service-link-card:hover {
+    transform: translateY(-6px);
+    border-color: rgba(184, 144, 71, 0.3);
+    box-shadow: var(--hover-shadow);
+}
+
+.service-link-card .service-icon {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: rgba(16, 93, 130, 0.08);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.25rem;
+    font-size: 1.5rem;
+    color: var(--primary-color);
+    transition: var(--transition-smooth);
+}
+
+.service-link-card:hover .service-icon {
+    background: rgba(184, 144, 71, 0.12);
+    color: var(--accent-gold);
+}
+
+.service-link-card h6 {
+    font-size: 0.95rem;
+    font-weight: 700;
+    margin-bottom: 0.4rem;
+}
+
+.service-link-card p {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    margin-bottom: 0;
+}
+
+/* ------------------------------------------------------------
+   11. SECTION TITLES
+   ------------------------------------------------------------ */
+.section-title {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.section-title h2 {
+    font-weight: 800;
+    margin-bottom: 0.5rem;
+}
+
+.section-title p {
+    color: var(--text-muted);
+    margin-bottom: 0;
+}
+
+.section-title .title-divider {
+    width: 60px;
+    height: 4px;
+    background: var(--accent-gold);
+    border-radius: 2px;
+    margin: 0.75rem auto 0;
+}
+
+/* ------------------------------------------------------------
+   12. REQUEST CARDS
+   ------------------------------------------------------------ */
+.request-card {
+    background: white;
+    border: 1px solid rgba(11, 37, 69, 0.06);
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--card-shadow);
+    transition: var(--transition-smooth);
+    overflow: hidden;
+}
+
+.request-card:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--hover-shadow);
+    border-color: rgba(184, 144, 71, 0.3);
+}
+
+.tracking-badge {
+    background: rgba(11, 37, 69, 0.05);
+    color: var(--primary-blue);
+    font-size: 0.8rem;
+    font-weight: 700;
+    padding: 0.35rem 0.85rem;
+    border-radius: 50px;
+    border: 1px solid rgba(11, 37, 69, 0.1);
+}
+
+.doc-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    transition: var(--transition-smooth);
+}
+
+.request-card:hover .doc-icon {
+    background: rgba(184, 144, 71, 0.1) !important;
+    color: var(--accent-gold) !important;
+}
+
+.filter-btn {
+    border-radius: 50px;
+    padding: 0.5rem 1.25rem;
+    font-size: 0.88rem;
+    font-weight: 600;
+    transition: var(--transition-smooth);
+}
+
+.filter-btn.btn-primary {
+    background-color: var(--primary-blue) !important;
+    color: white !important;
+    border-color: var(--primary-blue) !important;
+}
+
+.filter-btn.btn-light {
+    background-color: #f1f5f9 !important;
+    color: #475569 !important;
+    border-color: #e2e8f0 !important;
+}
+
+.filter-btn.btn-light:hover {
+    background-color: #e2e8f0 !important;
+    color: var(--primary-blue) !important;
+}
+
+/* ------------------------------------------------------------
+   13. FOOTER — University Official
+   ------------------------------------------------------------ */
+footer {
+    background: rgba(16, 93, 130, 0.95) !important;
+    border-top: 4px solid var(--accent-gold) !important;
+    color: #cbd5e1 !important;
+    padding: 50px 0 30px !important;
+    margin-top: 80px !important;
+}
+
+footer h5,
+footer h6 {
+    color: #ffffff !important;
+    font-weight: 700 !important;
+    font-size: 1.05rem;
+    position: relative;
+    padding-bottom: 0.6rem;
+    margin-bottom: 1.25rem;
+}
+
+footer h5::after,
+footer h6::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 40px;
+    height: 2px;
+    background: var(--accent-gold);
+}
+
+[dir="rtl"] footer h5::after,
+[dir="rtl"] footer h6::after {
+    left: auto;
+    right: 0;
+}
+
+footer p,
+footer span,
+footer li,
+footer div {
+    color: #cbd5e1 !important;
+}
+
+footer a {
+    color: #e5e7eb !important;
+    text-decoration: none !important;
+    transition: var(--transition-smooth);
+}
+
+footer a:hover {
+    color: #fbbf24 !important;
+    padding-left: 4px;
+}
+
+[dir="rtl"] footer a:hover {
+    padding-left: 0;
+    padding-right: 4px;
+}
+
+footer .footer-contact li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    margin-bottom: 0.65rem;
+}
+
+footer .footer-contact i {
+    color: var(--accent-gold);
+    margin-top: 0.2rem;
+    min-width: 16px;
+}
+
+footer .footer-social a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #e5e7eb !important;
+    font-size: 0.85rem;
+    transition: var(--transition-smooth);
+}
+
+footer .footer-social a:hover {
+    background: var(--accent-gold);
+    border-color: var(--accent-gold);
+    color: #fff !important;
+}
+
+/* ------------------------------------------------------------
+   14. MOBILE RESPONSIVENESS
+   ------------------------------------------------------------ */
+@media (max-width: 991.98px) {
+    .py-5 {
+        padding-top: 3rem !important;
+        padding-bottom: 3rem !important;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .container {
+        padding-left: 1.25rem;
+        padding-right: 1.25rem;
+    }
+
+    .py-5 {
+        padding-top: 2rem !important;
+        padding-bottom: 2rem !important;
+    }
+
+    .mb-5 {
+        margin-bottom: 2rem !important;
+    }
+
+    .mt-5 {
+        margin-top: 2rem !important;
+    }
+
+    .welcome-card {
+        padding: 1.5rem;
+        border-radius: 16px;
+    }
+
+    .welcome-card h1 {
+        font-size: 1.8rem !important;
+        margin-bottom: 0.5rem !important;
+    }
+
+    .welcome-card p {
+        font-size: 0.95rem !important;
+        margin-bottom: 1.5rem !important;
+    }
+
+    .academic-pill {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.75rem;
+    }
+
+    .quick-action-btn {
+        padding: 0.75rem 1.25rem;
+        font-size: 0.85rem;
+        width: 100%;
+        display: block;
+        text-align: center;
+    }
+
+    .welcome-card .d-flex {
+        flex-direction: column;
+        gap: 0.75rem !important;
+    }
+
+    .btn {
+        padding: 0.5rem 1.25rem;
+        font-size: 0.9rem;
+    }
+
+    .notification-dropdown {
+        width: 100vw;
+        max-width: 100vw;
+        left: 0 !important;
+        right: 0 !important;
+        position: fixed !important;
+        bottom: 0 !important;
+        top: auto !important;
+        border-radius: 20px 20px 0 0 !important;
+        box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.15) !important;
+        border-top: 3px solid var(--accent-gold);
+    }
+
+    .toast-container {
+        width: 100%;
+        max-width: 100%;
+        padding: 0.5rem !important;
+    }
+
+    #liveToast {
+        width: 100% !important;
+        border-radius: var(--border-radius-lg) !important;
+    }
+}
+
+/* Date Input Direction and Alignment Fix for RTL UI */
+.date-input,
+.date-picker-input {
+    direction: ltr !important;
+    unicode-bidi: isolate !important;
+    text-align: left !important;
+    cursor: pointer !important;
+    background-color: #fff !important;
+}
+
+html[dir="rtl"] .date-input,
+html[dir="rtl"] .date-picker-input {
+    direction: ltr !important;
+    unicode-bidi: isolate !important;
+    text-align: left !important;
+}
+
+.date-input::placeholder,
+.date-picker-input::placeholder {
+    direction: ltr !important;
+    text-align: left !important;
+}
+
+.flatpickr-calendar {
+    direction: ltr !important;
+}
+
+/* ============================================================
+   15. JOB FILLED STYLING
+   ============================================================ */
+.job-card-filled {
+    opacity: 0.6;
+    filter: grayscale(35%);
+    position: relative;
+    transition: var(--transition-smooth);
+}
+
+.job-card-filled:hover {
+    transform: none !important;
+    box-shadow: var(--card-shadow) !important;
+}
+
+.job-card-filled .btn-apply-disabled {
+    pointer-events: none;
+    opacity: 0.65;
+    cursor: not-allowed;
+}

@@ -1,0 +1,1487 @@
+[
+  {
+    "id": "TC001",
+    "title": "Unauthorized visitor is blocked from the graduate dashboard",
+    "description": "This verifies that an unauthenticated visitor cannot open the protected graduate dashboard and is redirected to sign in.",
+    "category": "Graduate Dashboard",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /graduate/dashboard"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the user is redirected to sign in"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the graduate dashboard is not displayed"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC002",
+    "title": "Graduate can log in and access the dashboard",
+    "description": "This verifies that a registered graduate can sign in successfully and reach the graduate dashboard.",
+    "category": "Graduate Registration & Login",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the email field with {{LOGIN_USER}}"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the password field with {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the sign-in form"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the graduate dashboard is displayed"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC003",
+    "title": "Employer can log in and access the dashboard",
+    "description": "This verifies that a registered employer can sign in successfully and reach the employer dashboard.",
+    "category": "Employer Registration & Login",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /employers/login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the email field with {{LOGIN_USER}}"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the password field with {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the sign-in form"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the employer dashboard is displayed"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC004",
+    "title": "Graduate can register and reach the graduate area",
+    "description": "This verifies that a new graduate can submit the registration form and end up in the graduate workspace or an equivalent post-registration confirmation state.",
+    "category": "Graduate Registration & Login",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /register"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the registration name field with a new graduate name"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the registration email field with a new unique email address"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the registration password field with a valid password"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the password confirmation field with the same valid password"
+      },
+      {
+        "type": "action",
+        "description": "Submit the registration form"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the graduate is taken to the authenticated graduate area or sees a registration confirmation state"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC005",
+    "title": "Non-admin users are blocked from the admin dashboard",
+    "description": "A non-admin signed-in user is prevented from accessing the admin dashboard and is redirected away from the protected page.",
+    "category": "Admin Dashboard Access",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the email field with {{LOGIN_USER}}"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the password field with {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Navigate to /admin/dashboard"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify access to the admin dashboard is blocked"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the user is redirected to an allowed page"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC006",
+    "title": "Employer can register and reach the employer area",
+    "description": "This verifies that a new employer can submit the registration form and end up in the employer workspace or an equivalent post-registration confirmation state.",
+    "category": "Employer Registration & Login",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /employers/register"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the registration name field with a new employer name"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the registration email field with a new unique email address"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the registration password field with a valid password"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the password confirmation field with the same valid password"
+      },
+      {
+        "type": "action",
+        "description": "Submit the registration form"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the employer is taken to the authenticated employer area or sees a registration confirmation state"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC007",
+    "title": "Admin can access the dashboard and review summary metrics",
+    "description": "An administrator can sign in and view the admin dashboard summary metrics and management sections.",
+    "category": "Admin Dashboard Access",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the email field with {{LOGIN_USER}}"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the password field with {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Navigate to /admin/dashboard"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify admin summary metrics are displayed"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify admin management sections are displayed"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC008",
+    "title": "Graduate can access the dashboard after sign in",
+    "description": "This verifies that a signed-in graduate can open the graduate dashboard and see the core overview and navigation actions.",
+    "category": "Graduate Dashboard",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the email field with {{LOGIN_USER}}"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the password field with {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the sign-in form"
+      },
+      {
+        "type": "action",
+        "description": "Click the link to the graduate dashboard if needed"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the graduate overview is displayed"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify graduate service actions are available"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC009",
+    "title": "Employer creates a new job posting",
+    "description": "An employer can sign in, create a job posting from the jobs area, and confirm the new listing appears in employer jobs.",
+    "category": "Employer Job Management",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /employers/login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the email field with {{LOGIN_USER}}"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the password field with {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Navigate to /employer/jobs"
+      },
+      {
+        "type": "action",
+        "description": "Open the job creation flow"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the job title field with a valid job title"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the job details field with valid job details"
+      },
+      {
+        "type": "action",
+        "description": "Submit the job posting"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the new job listing appears in the employer jobs area"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify a success confirmation is visible"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC010",
+    "title": "Employer creates a job posting and sees it listed",
+    "description": "This verifies that an employer can create a job posting from job management and see the new posting in the jobs area.",
+    "category": "Employer Job Management",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /employers/login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the employer credentials with {{LOGIN_USER}} and {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Open job management"
+      },
+      {
+        "type": "action",
+        "description": "Create a new job posting with valid details"
+      },
+      {
+        "type": "action",
+        "description": "Save the job posting"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the new job posting is displayed in the jobs area"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the posting is available for further management"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC011",
+    "title": "Graduate updates profile information",
+    "description": "A graduate can view their profile, change personal information, save it, and see the updated profile reflected on the page.",
+    "category": "Graduate Profile Management",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the email field with {{LOGIN_USER}}"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the password field with {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Click the profile page link"
+      },
+      {
+        "type": "action",
+        "description": "Edit personal information in the profile form"
+      },
+      {
+        "type": "action",
+        "description": "Save the profile changes"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the updated profile information is displayed"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify a success confirmation is visible"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC012",
+    "title": "Graduate registers for an event and sees it listed",
+    "description": "This verifies that a graduate can browse events, register for one, and see the registration reflected in the events area.",
+    "category": "Graduate Events Registration",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the graduate credentials with {{LOGIN_USER}} and {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Open the events page"
+      },
+      {
+        "type": "action",
+        "description": "Select an available event to register for"
+      },
+      {
+        "type": "action",
+        "description": "Register for the selected event"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the registered event is displayed in the events area"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the registration state is shown for the event"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC013",
+    "title": "Graduate requests an academic document",
+    "description": "A graduate can submit a document request with a type and reason and then see the request recorded in the documents area.",
+    "category": "Document Request",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the email field with {{LOGIN_USER}}"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the password field with {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Navigate to /graduate/documents"
+      },
+      {
+        "type": "action",
+        "description": "Open the document request flow"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the document type field with a valid document type"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the reason field with a valid request reason"
+      },
+      {
+        "type": "action",
+        "description": "Submit the document request"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the request is recorded in the documents area"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify a success confirmation is visible"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC014",
+    "title": "Graduate browses a job and applies successfully",
+    "description": "A graduate can open a job listing, review its details, submit an application, and see the application action completed.",
+    "category": "Job Application",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the email field with {{LOGIN_USER}}"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the password field with {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Navigate to /graduate/jobs"
+      },
+      {
+        "type": "action",
+        "description": "Open a job listing"
+      },
+      {
+        "type": "action",
+        "description": "Review the job details"
+      },
+      {
+        "type": "action",
+        "description": "Submit the job application"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the application action is completed"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify a success confirmation is visible"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC015",
+    "title": "Employer updates an existing job posting",
+    "description": "This verifies that an employer can open an existing posting, update its details, and see the updated posting in the list.",
+    "category": "Employer Job Management",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /employers/login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the employer credentials with {{LOGIN_USER}} and {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Open job management"
+      },
+      {
+        "type": "action",
+        "description": "Select an existing job posting to manage"
+      },
+      {
+        "type": "action",
+        "description": "Update the job posting details"
+      },
+      {
+        "type": "action",
+        "description": "Save the changes"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the updated job posting is displayed in the jobs area"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the posting reflects the saved changes"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC016",
+    "title": "Graduate registers for an event",
+    "description": "A graduate can sign in, register for an event from the events page, and see the registration reflected in the events area.",
+    "category": "Graduate Event Registration",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the email field with {{LOGIN_USER}}"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the password field with {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Navigate to /graduate/events"
+      },
+      {
+        "type": "action",
+        "description": "Open an event listing"
+      },
+      {
+        "type": "action",
+        "description": "Register for the event"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the event registration is reflected in the events area"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify a success confirmation is visible"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC017",
+    "title": "Graduate can view available events",
+    "description": "This verifies that a logged-in graduate can open the events page and view available events to register from.",
+    "category": "Graduate Events Registration",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the graduate credentials with {{LOGIN_USER}} and {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Open the events page"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify available events are displayed"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify event registration actions are available"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC018",
+    "title": "Graduate sees saved profile details after returning",
+    "description": "A graduate can open their profile, make a change, save it, and later confirm the saved information remains visible.",
+    "category": "Graduate Profile Management",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the email field with {{LOGIN_USER}}"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the password field with {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Click the profile page link"
+      },
+      {
+        "type": "action",
+        "description": "Edit personal information in the profile form"
+      },
+      {
+        "type": "action",
+        "description": "Save the profile changes"
+      },
+      {
+        "type": "action",
+        "description": "Reload the profile page"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the saved profile information is still displayed"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC019",
+    "title": "Administrator reviews dashboard metrics",
+    "description": "This verifies that an administrator can access the dashboard and review portal summary metrics and management sections.",
+    "category": "Admin Dashboard",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the administrator credentials with {{LOGIN_USER}} and {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Open the admin dashboard"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify dashboard summary metrics are displayed"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify management sections are displayed"
+      }
+    ],
+    "priority": "Medium"
+  },
+  {
+    "id": "TC020",
+    "title": "Public visitor can use document verification",
+    "description": "This verifies that a visitor can open the verification page, enter details, and see a verification result state.",
+    "category": "Public Visitor Experience",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /verify"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the verification details with valid document information"
+      },
+      {
+        "type": "action",
+        "description": "Submit the verification form"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify a verification result is displayed"
+      }
+    ],
+    "priority": "Medium"
+  },
+  {
+    "id": "TC021",
+    "title": "Graduate sees a validation error for invalid login details",
+    "description": "This verifies that incorrect graduate credentials do not grant access and an invalid login message is shown.",
+    "category": "Graduate Registration & Login",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the email field with a non-existent graduate email"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the password field with an invalid password"
+      },
+      {
+        "type": "action",
+        "description": "Submit the sign-in form"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify a login validation error is visible"
+      }
+    ],
+    "priority": "Medium"
+  },
+  {
+    "id": "TC022",
+    "title": "Graduate can review available events without registering",
+    "description": "A graduate can open the events page and browse available event listings before deciding to register.",
+    "category": "Graduate Event Registration",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the email field with {{LOGIN_USER}}"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the password field with {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Navigate to /graduate/events"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify event listings are displayed"
+      }
+    ],
+    "priority": "Medium"
+  },
+  {
+    "id": "TC023",
+    "title": "Graduate can continue browsing after opening a job",
+    "description": "A graduate can open a job listing from the jobs page and return to the listings to continue browsing.",
+    "category": "Job Application",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the email field with {{LOGIN_USER}}"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the password field with {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Navigate to /graduate/jobs"
+      },
+      {
+        "type": "action",
+        "description": "Open a job listing"
+      },
+      {
+        "type": "action",
+        "description": "Return to the job listings"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the job listings are displayed"
+      }
+    ],
+    "priority": "Medium"
+  },
+  {
+    "id": "TC024",
+    "title": "View latest jobs on the public home page",
+    "description": "A public visitor can open the landing page and see the latest job opportunities highlighted there.",
+    "category": "Public Home and Latest Jobs",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the landing page is displayed"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify latest job opportunities are displayed"
+      }
+    ],
+    "priority": "Medium"
+  },
+  {
+    "id": "TC025",
+    "title": "Graduate sees a validation error for incomplete registration",
+    "description": "This verifies that submitting the graduate registration form with missing required information is blocked and a validation message is shown.",
+    "category": "Graduate Registration & Login",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /register"
+      },
+      {
+        "type": "action",
+        "description": "Submit the registration form without filling required fields"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify a registration validation error is visible"
+      }
+    ],
+    "priority": "Medium"
+  },
+  {
+    "id": "TC026",
+    "title": "Employer sees a validation error for incomplete registration",
+    "description": "This verifies that submitting the employer registration form with missing required information is blocked and a validation message is shown.",
+    "category": "Employer Registration & Login",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /employers/register"
+      },
+      {
+        "type": "action",
+        "description": "Submit the registration form without filling required fields"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify a registration validation error is visible"
+      }
+    ],
+    "priority": "Medium"
+  },
+  {
+    "id": "TC027",
+    "title": "Public visitor verifies a document using public search",
+    "description": "A public visitor can open the verification page, submit valid verification details, and see a verification result.",
+    "category": "Public Information",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /verify"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the verification details with valid information"
+      },
+      {
+        "type": "action",
+        "description": "Submit the verification search"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify a verification result is displayed"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the document status is shown"
+      }
+    ],
+    "priority": "Medium"
+  },
+  {
+    "id": "TC028",
+    "title": "Public visitor can browse the latest jobs from the landing page",
+    "description": "This verifies that a visitor can open the public home page and see the latest jobs content.",
+    "category": "Public Visitor Experience",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify latest jobs are displayed"
+      }
+    ],
+    "priority": "Medium"
+  },
+  {
+    "id": "TC029",
+    "title": "Verify a public document successfully",
+    "description": "A visitor can search public verification details and see a matching document verification result.",
+    "category": "Public Document Verification",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /verify"
+      },
+      {
+        "type": "action",
+        "description": "Fill in valid verification details into the search form"
+      },
+      {
+        "type": "action",
+        "description": "Submit the verification search"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify a document verification result is displayed"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the result indicates the document is valid"
+      }
+    ],
+    "priority": "Medium"
+  },
+  {
+    "id": "TC030",
+    "title": "Public visitor reviews latest jobs on the landing page",
+    "description": "A public visitor can open the landing page and see the latest jobs section populated with job content.",
+    "category": "Public Information",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the latest jobs are displayed"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify public landing content is displayed"
+      }
+    ],
+    "priority": "Medium"
+  },
+  {
+    "id": "TC031",
+    "title": "Send a contact inquiry successfully",
+    "description": "A public visitor can submit a contact inquiry from the alumni contact page and see a confirmation afterward.",
+    "category": "Public Alumni Information and Contact",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /alumni/contact"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the name field with a valid name"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the email field with a valid email address"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the message field with a valid inquiry"
+      },
+      {
+        "type": "action",
+        "description": "Submit the contact inquiry"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify a success confirmation is displayed"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the inquiry form is no longer shown"
+      }
+    ],
+    "priority": "Medium"
+  },
+  {
+    "id": "TC032",
+    "title": "Public visitor can send a contact inquiry",
+    "description": "This verifies that a visitor can open the contact page, submit the form, and see a successful submission state.",
+    "category": "Public Visitor Experience",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /alumni/contact"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the name field with a contact name"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the email field with a contact email address"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the message field with a contact inquiry"
+      },
+      {
+        "type": "action",
+        "description": "Submit the contact form"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify a contact submission confirmation is visible"
+      }
+    ],
+    "priority": "Medium"
+  },
+  {
+    "id": "TC033",
+    "title": "Public visitor accesses alumni information pages",
+    "description": "A public visitor can navigate to the alumni about and contact pages and see both informational pages load successfully.",
+    "category": "Public Information",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /"
+      },
+      {
+        "type": "action",
+        "description": "Click the link to the alumni about page"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the alumni about content is displayed"
+      },
+      {
+        "type": "action",
+        "description": "Click the link to the alumni contact page"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the alumni contact form or contact information is displayed"
+      }
+    ],
+    "priority": "Medium"
+  },
+  {
+    "id": "TC034",
+    "title": "Open a public job opportunity from the home page",
+    "description": "A public visitor can use the landing page to open a job opportunity and reach the job detail view or related job listing area.",
+    "category": "Public Home and Latest Jobs",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /"
+      },
+      {
+        "type": "action",
+        "description": "Open a public job opportunity from the latest jobs section"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the job opportunity page is displayed"
+      }
+    ],
+    "priority": "Medium"
+  },
+  {
+    "id": "TC035",
+    "title": "Public visitor submits an alumni contact inquiry",
+    "description": "A public visitor can send a contact inquiry from the alumni contact page and see confirmation that the inquiry was submitted.",
+    "category": "Public Information",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /alumni/contact"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the name field with a valid name"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the email field with a valid email address"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the message field with a valid message"
+      },
+      {
+        "type": "action",
+        "description": "Submit the contact form"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify a success confirmation is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the contact inquiry is recorded or acknowledged"
+      }
+    ],
+    "priority": "Low"
+  },
+  {
+    "id": "TC036",
+    "title": "Employer sees validation when job details are incomplete",
+    "description": "An employer leaving required job posting fields empty sees validation feedback and no job is created.",
+    "category": "Employer Job Management",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /employers/login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the email field with {{LOGIN_USER}}"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the password field with {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Navigate to /employer/jobs"
+      },
+      {
+        "type": "action",
+        "description": "Open the job creation flow"
+      },
+      {
+        "type": "action",
+        "description": "Submit the job posting"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify a validation error is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify no new job listing is created"
+      }
+    ],
+    "priority": "Low"
+  },
+  {
+    "id": "TC037",
+    "title": "View the alumni information page",
+    "description": "A public visitor can open the alumni information page and read the service overview content.",
+    "category": "Public Alumni Information and Contact",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /alumni/about"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify alumni information content is displayed"
+      }
+    ],
+    "priority": "Low"
+  },
+  {
+    "id": "TC038",
+    "title": "Public visitor can open the alumni about page",
+    "description": "This verifies that a visitor can navigate to the public about page and see alumni information.",
+    "category": "Public Visitor Experience",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /"
+      },
+      {
+        "type": "action",
+        "description": "Click the link to the alumni about page"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify alumni about information is displayed"
+      }
+    ],
+    "priority": "Low"
+  },
+  {
+    "id": "TC039",
+    "title": "Employer sees an empty job list when no postings exist",
+    "description": "This verifies that the employer jobs area shows an empty state when there are no postings to manage.",
+    "category": "Employer Job Management",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /employers/login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the employer credentials with {{LOGIN_USER}} and {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Open job management"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify an empty state message is displayed"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify no job postings are listed"
+      }
+    ],
+    "priority": "Low"
+  },
+  {
+    "id": "TC040",
+    "title": "Graduate cannot submit an incomplete document request",
+    "description": "A graduate leaving required document request fields empty sees validation feedback and the request is not created.",
+    "category": "Document Request",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the email field with {{LOGIN_USER}}"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the password field with {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Navigate to /graduate/documents"
+      },
+      {
+        "type": "action",
+        "description": "Open the document request flow"
+      },
+      {
+        "type": "action",
+        "description": "Submit the document request"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify a validation error is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify no new document request is recorded"
+      }
+    ],
+    "priority": "Low"
+  },
+  {
+    "id": "TC041",
+    "title": "Public visitor sees validation when contact fields are missing",
+    "description": "This verifies that the contact form rejects missing required fields and shows validation feedback.",
+    "category": "Public Visitor Experience",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /alumni/contact"
+      },
+      {
+        "type": "action",
+        "description": "Submit the contact form without filling required fields"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify a contact form validation error is visible"
+      }
+    ],
+    "priority": "Low"
+  },
+  {
+    "id": "TC042",
+    "title": "Graduate sees an empty events state when none are available",
+    "description": "This verifies that the events page shows an empty state when there are no available events to register for.",
+    "category": "Graduate Events Registration",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the graduate credentials with {{LOGIN_USER}} and {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Open the events page"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify an empty state message is displayed"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify no event registration actions are available"
+      }
+    ],
+    "priority": "Low"
+  },
+  {
+    "id": "TC043",
+    "title": "Public visitor sees validation on incomplete contact inquiry",
+    "description": "A public visitor leaving contact fields empty sees validation feedback and cannot submit the inquiry.",
+    "category": "Public Information",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /alumni/contact"
+      },
+      {
+        "type": "action",
+        "description": "Submit the contact form"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify a validation error is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the inquiry is not submitted"
+      }
+    ],
+    "priority": "Low"
+  },
+  {
+    "id": "TC044",
+    "title": "Handle an invalid public verification lookup",
+    "description": "A visitor who enters invalid verification details sees a failed verification outcome instead of a valid document result.",
+    "category": "Public Document Verification",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /verify"
+      },
+      {
+        "type": "action",
+        "description": "Fill in invalid verification details into the search form"
+      },
+      {
+        "type": "action",
+        "description": "Submit the verification search"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify a verification error or not-found message is displayed"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify no valid document result is displayed"
+      }
+    ],
+    "priority": "Low"
+  },
+  {
+    "id": "TC045",
+    "title": "Show contact validation for missing required details",
+    "description": "A public visitor who submits the contact form without required details sees validation feedback and no inquiry is sent.",
+    "category": "Public Alumni Information and Contact",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /alumni/contact"
+      },
+      {
+        "type": "action",
+        "description": "Submit the contact inquiry without completing required fields"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify validation errors are displayed"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the contact inquiry is not submitted"
+      }
+    ],
+    "priority": "Low"
+  }
+]
