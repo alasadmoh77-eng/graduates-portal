@@ -1,0 +1,46 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        if (DB::connection()->getDriverName() === 'pgsql') {
+            DB::statement("ALTER TABLE document_requests DROP CONSTRAINT IF EXISTS document_requests_status_check;");
+            DB::statement("ALTER TABLE document_requests ADD CONSTRAINT document_requests_status_check CHECK (status IN (
+                'SUBMITTED',
+                'UNDER_REVIEW',
+                'APPROVED',
+                'PENDING_SIGNATURES',
+                'READY',
+                'ISSUED',
+                'REJECTED'
+            ));");
+        }
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        if (DB::connection()->getDriverName() === 'pgsql') {
+            DB::statement("ALTER TABLE document_requests DROP CONSTRAINT IF EXISTS document_requests_status_check;");
+            DB::statement("ALTER TABLE document_requests ADD CONSTRAINT document_requests_status_check CHECK (status IN (
+                'SUBMITTED',
+                'UNDER_REVIEW',
+                'APPROVED',
+                'READY',
+                'ISSUED',
+                'REJECTED'
+            ));");
+        }
+    }
+};

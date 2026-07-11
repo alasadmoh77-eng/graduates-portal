@@ -35,6 +35,7 @@ class AdminAnalyticsTest extends TestCase
 
         $service = app(RequestStatusService::class);
         $service->transition($request, 'UNDER_REVIEW', 'Reviewing', $admin->id);
+        $service->transition($request, 'APPROVED', 'Approving', $admin->id);
 
         Notification::assertSentTo($graduate, RequestStatusChanged::class);
     }

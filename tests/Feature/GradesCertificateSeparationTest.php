@@ -232,7 +232,7 @@ class GradesCertificateSeparationTest extends TestCase
             'user_id' => $this->graduateUser->id,
             'document_type_id' => $academicType->id,
             'tracking_code' => 'ACAD-001',
-            'status' => 'APPROVED',
+            'status' => 'READY',
             'language' => 'AR',
             'purpose' => 'Test',
             'delivery_type' => 'DIGITAL'
@@ -242,7 +242,7 @@ class GradesCertificateSeparationTest extends TestCase
             'user_id' => $this->graduateUser->id,
             'document_type_id' => $gradesType->id,
             'tracking_code' => 'GRAD-001',
-            'status' => 'APPROVED',
+            'status' => 'READY',
             'language' => 'AR',
             'purpose' => 'Test',
             'delivery_type' => 'DIGITAL'
@@ -280,7 +280,7 @@ class GradesCertificateSeparationTest extends TestCase
             'user_id' => $this->graduateUser->id,
             'document_type_id' => $gradesType->id,
             'tracking_code' => 'GRAD-002',
-            'status' => 'APPROVED',
+            'status' => 'READY',
             'language' => 'AR',
             'purpose' => 'Test',
             'delivery_type' => 'DIGITAL'
