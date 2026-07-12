@@ -14,14 +14,8 @@ class GraduateProfileUpdateRequest extends FormRequest
 
     public function rules(): array
     {
-        $userId = $this->user()->id;
-
         return [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'email', 'max:255', Rule::unique('users', 'email')->ignore($userId)],
             'phone' => ['nullable', 'regex:/^[0-9]+$/', 'max:30'],
-            'major_id' => ['required', 'exists:majors,id'],
-            'graduation_year' => ['required', 'integer', 'min:1970', 'max:2100'],
             'photo' => ['nullable', 'image', 'mimes:jpeg,jpg,png,webp', 'max:2048'],
             'cv' => ['nullable', 'file', 'mimes:pdf,doc,docx', 'max:10240'],
         ];

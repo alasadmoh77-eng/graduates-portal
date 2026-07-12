@@ -40,9 +40,7 @@ class GraduateProfileController extends Controller
         }
 
         DB::transaction(function () use ($request, $user, $graduate): void {
-            $user->update($request->safe()->only(['name', 'email']));
-
-            $data = $request->safe()->only(['phone', 'major_id', 'graduation_year']);
+            $data = $request->safe()->only(['phone']);
 
             if ($request->hasFile('photo')) {
                 $this->deleteStoredPublicFile(Graduate::normalizeRelativePublicPath($graduate->photo));

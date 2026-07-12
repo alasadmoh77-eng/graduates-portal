@@ -504,9 +504,7 @@
                                             <td class="col-h"><input type="text" x-model="sub.hours" inputmode="decimal"
                                                     @input="sub.hours = $event.target.value.replace(/[^0-9.]/g,'')">
                                             </td>
-                                            <td class="col-s"><input type="text" x-model="sub.score" inputmode="decimal"
-                                                    @input="sub.score = $event.target.value.replace(/[^0-9.]/g,'')">
-                                            </td>
+                                            <td class="col-s"><input type="number" x-model="sub.score" min="0" max="100" step="0.01" required></td>
                                             <td class="col-r"><input type="text" x-model="sub.rating"></td>
                                         </tr>
                                     </template>

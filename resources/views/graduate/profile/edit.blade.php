@@ -23,16 +23,20 @@
                 @method('PUT')
                 <div class="card-body p-4">
                     <h5 class="fw-bold border-bottom pb-2 mb-3">{{ __('app.personal_information') }}</h5>
+                    
+                    <div class="alert alert-info py-2 px-3 mb-3 small d-flex align-items-center rounded-3">
+                        <i class="fas fa-info-circle me-2"></i>
+                        <span>لا يمكن تعديل الاسم أو البريد الإلكتروني أو التخصص أو سنة التخرج من حساب الخريج؛ لأنها بيانات أكاديمية رسمية. يرجى التواصل مع الإدارة عند الحاجة إلى تصحيحها.</span>
+                    </div>
+
                     <div class="row g-3">
                         <div class="col-md-6">
-                            <label class="form-label fw-bold">{{ __('app.name') }} <span class="text-danger">*</span></label>
-                            <input type="text" name="name" class="form-control @error('name') is-invalid @enderror" value="{{ old('name', $user->name) }}" required maxlength="255">
-                            @error('name')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                            <label class="form-label fw-bold">{{ __('app.name') }}</label>
+                            <input type="text" class="form-control bg-light" value="{{ $user->name }}" readonly>
                         </div>
                         <div class="col-md-6">
-                            <label class="form-label fw-bold">{{ __('app.email') }} <span class="text-danger">*</span></label>
-                            <input type="email" name="email" class="form-control @error('email') is-invalid @enderror" value="{{ old('email', $user->email) }}" required dir="ltr">
-                            @error('email')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                            <label class="form-label fw-bold">{{ __('app.email') }}</label>
+                            <input type="email" class="form-control bg-light" value="{{ $user->email }}" readonly dir="ltr">
                         </div>
                         <div class="col-md-6">
                             <label class="form-label fw-bold">{{ __('app.phone') }}</label>
@@ -45,20 +49,12 @@
                             <small class="text-muted">{{ __('app.university_id_readonly') }}</small>
                         </div>
                         <div class="col-md-6">
-                            <label class="form-label fw-bold">{{ __('app.major') }} <span class="text-danger">*</span></label>
-                            <select name="major_id" class="form-select @error('major_id') is-invalid @enderror" required>
-                                @foreach($majors as $major)
-                                    <option value="{{ $major->id }}" @selected(old('major_id', $g->major_id) == $major->id)>
-                                        {{ app()->getLocale() === 'ar' ? $major->name_ar : $major->name_en }}
-                                    </option>
-                                @endforeach
-                            </select>
-                            @error('major_id')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                            <label class="form-label fw-bold">{{ __('app.major') }}</label>
+                            <input type="text" class="form-control bg-light" value="{{ app()->getLocale() === 'ar' ? $g->major?->name_ar : $g->major?->name_en }}" readonly>
                         </div>
                         <div class="col-md-6">
-                            <label class="form-label fw-bold">{{ __('app.graduation_year') }} <span class="text-danger">*</span></label>
-                            <input type="number" name="graduation_year" class="form-control @error('graduation_year') is-invalid @enderror" value="{{ old('graduation_year', $g->graduation_year) }}" required min="1970" max="2100">
-                            @error('graduation_year')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                            <label class="form-label fw-bold">{{ __('app.graduation_year') }}</label>
+                            <input type="text" class="form-control bg-light" value="{{ $g->graduation_year }}" readonly>
                         </div>
                     </div>
 

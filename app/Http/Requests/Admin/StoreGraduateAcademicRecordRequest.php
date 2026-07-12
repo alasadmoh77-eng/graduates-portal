@@ -92,7 +92,7 @@ class StoreGraduateAcademicRecordRequest extends FormRequest
             ],
             'levels.*.semesters.*.subjects.*.name' => ['nullable', 'string', 'max:512'],
             'levels.*.semesters.*.subjects.*.hours' => ['nullable', 'numeric', 'min:0', 'max:30'],
-            'levels.*.semesters.*.subjects.*.score' => ['nullable', 'numeric', 'min:0', 'max:100'],
+            'levels.*.semesters.*.subjects.*.score' => ['nullable', 'numeric', 'between:0,100'],
             'levels.*.semesters.*.subjects.*.rating' => ['nullable', 'string', 'max:64'],
         ];
     }
@@ -109,6 +109,7 @@ class StoreGraduateAcademicRecordRequest extends FormRequest
             'levels.*.semesters.*.subjects.*.score.numeric' => 'درجة المادة يجب أن تكون رقماً.',
             'levels.*.semesters.*.subjects.*.score.min' => 'درجة المادة لا يمكن أن تكون أقل من 0.',
             'levels.*.semesters.*.subjects.*.score.max' => 'درجة المادة لا يمكن أن تتجاوز 100.',
+            'levels.*.semesters.*.subjects.*.score.between' => 'يجب أن تكون درجة المقرر بين 0 و100.',
         ];
     }
 }

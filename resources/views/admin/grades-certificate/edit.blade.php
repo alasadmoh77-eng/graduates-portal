@@ -812,7 +812,7 @@
                                                             <input type="text" class="field-readonly" readonly tabindex="-1" x-model="sub.rating">
                                                         </td>
                                                         <td>
-                                                            <input type="text" x-model="sub.score" inputmode="decimal" @input="sub.score = $event.target.value.replace(/[^0-9.]/g,''); recalculateAll();">
+                                                            <input type="number" x-model="sub.score" min="0" max="100" step="0.01" required @input="recalculateAll();">
                                                         </td>
                                                         <td>
                                                             <input type="text" x-model="sub.hours" :readonly="!!sub.catalog_key" :class="sub.catalog_key ? 'field-readonly' : ''" :tabindex="sub.catalog_key ? -1 : 0" inputmode="decimal" @input="sub.hours = $event.target.value.replace(/[^0-9.]/g,''); recalculateAll();">
@@ -1077,6 +1077,10 @@
                     sub.rating = '';
                     return;
                 }
+                if (s < 0 || s > 100) {
+                    sub.rating = 'غير صالح';
+                    return;
+                }
                 if (s >= 90) sub.rating = 'ممتاز';
                 else if (s >= 80) sub.rating = 'جيد جداً';
                 else if (s >= 70) sub.rating = 'جيد';
@@ -1086,6 +1090,7 @@
 
             ratingFromAverage(avg) {
                 if (!Number.isFinite(avg)) return '';
+                if (avg < 0 || avg > 100) return 'غير صالح';
                 if (avg >= 90) return 'ممتاز';
                 if (avg >= 80) return 'جيد جداً';
                 if (avg >= 70) return 'جيد';

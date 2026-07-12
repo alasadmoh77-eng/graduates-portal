@@ -365,6 +365,7 @@ class AcademicRecordExcelImportService
      */
     private function getSubjectRating(float $score): string
     {
+        if ($score < 0 || $score > 100) return 'غير صالح';
         if ($score >= 90) return 'ممتاز';
         if ($score >= 80) return 'جيد جداً';
         if ($score >= 70) return 'جيد';
@@ -378,6 +379,7 @@ class AcademicRecordExcelImportService
      */
     private function getOverallRating(float $gpa): string
     {
+        if ($gpa < 0 || $gpa > 100) return 'غير صالح';
         if ($gpa >= 90) return 'ممتاز';
         if ($gpa >= 80) return 'جيد جداً';
         if ($gpa >= 70) return 'جيد';
