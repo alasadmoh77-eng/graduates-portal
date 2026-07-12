@@ -216,11 +216,11 @@ Route::middleware(['auth'])->group(function() {
                 $pdf = Barryvdh\DomPDF\Facade\Pdf::loadView('pdf.documents.academic_record.ar', [
                     'request' => (object)[
                         'user' => $graduate,
-                        'tracking_code' => 'PREVIEW-' . strtoupper(Illuminate\Support\Str::random(8)),
+                        'tracking_code' => 'DOC-' . strtoupper(Illuminate\Support\Str::random(8)),
                     ],
-                    'serial_number' => 'SRU-PREVIEW-' . date('Y') . '-00001',
-                    'qr_code' => base64_encode(SimpleSoftwareIO\QrCode\Facades\QrCode::format('svg')->size(200)->margin(1)->generate(rtrim(config('app.url'), '/') . '/verify/PREVIEW-TOKEN')),
-                    'qr_token' => 'PREVIEW-TOKEN',
+                    'serial_number' => 'SRU-DOC-' . date('Y') . '-00001',
+                    'qr_code' => base64_encode(SimpleSoftwareIO\QrCode\Facades\QrCode::format('svg')->size(200)->margin(1)->generate(rtrim(config('app.url'), '/') . '/verify/' . Illuminate\Support\Str::random(40))),
+                    'qr_token' => Illuminate\Support\Str::random(40),
                     'issue_date' => now()->format('Y-m-d'),
                     'academic_record' => $academicRecord,
                 ]);
@@ -237,11 +237,11 @@ Route::middleware(['auth'])->group(function() {
                 $pdf = Barryvdh\DomPDF\Facade\Pdf::loadView('pdf.documents.grades_certificate.ar', [
                     'request' => (object)[
                         'user' => $graduate,
-                        'tracking_code' => 'PREVIEW-' . strtoupper(Illuminate\Support\Str::random(8)),
+                        'tracking_code' => 'DOC-' . strtoupper(Illuminate\Support\Str::random(8)),
                     ],
-                    'serial_number' => 'SRU-PREVIEW-' . date('Y') . '-00001',
-                    'qr_code' => base64_encode(SimpleSoftwareIO\QrCode\Facades\QrCode::format('svg')->size(200)->margin(1)->generate(rtrim(config('app.url'), '/') . '/verify/PREVIEW-TOKEN')),
-                    'qr_token' => 'PREVIEW-TOKEN',
+                    'serial_number' => 'SRU-DOC-' . date('Y') . '-00001',
+                    'qr_code' => base64_encode(SimpleSoftwareIO\QrCode\Facades\QrCode::format('svg')->size(200)->margin(1)->generate(rtrim(config('app.url'), '/') . '/verify/' . Illuminate\Support\Str::random(40))),
+                    'qr_token' => Illuminate\Support\Str::random(40),
                     'issue_date' => now()->format('Y-m-d'),
                     'academic_record' => $academicRecord,
                 ]);
