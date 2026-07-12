@@ -42,10 +42,10 @@
                 <table class="header-table">
                     <tr>
                         <td class="header-left">
-                            <table style="width: 100%; border-collapse: collapse; direction: ltr;">
+                            <table style="width: 100%; border-collapse: collapse; direction: ltr; table-layout: fixed;">
                                 <tr>
-                                    <td class="pdf-header-meta-box" style="vertical-align: top; padding-right: 6px;">
-                                        <table class="doc-meta-box" dir="rtl" style="margin-left: 0; margin-right: auto; direction: rtl;">
+                                    <td class="pdf-header-meta-box" style="vertical-align: top; width: 196px; padding-right: 4px;">
+                                        <table class="doc-meta-box" dir="rtl" style="margin-left: 0; margin-right: auto; direction: rtl; width: 196px;">
                                             <tr>
                                                 <td class="meta-label" style="text-align: right;">{{ ar('تاريخ') }}</td>
                                                 <td class="meta-value" dir="ltr" style="text-align: left;">{{ $issue_date }}</td>
@@ -60,8 +60,8 @@
                                             </tr>
                                         </table>
                                     </td>
-                                    <td class="pdf-header-qr" style="vertical-align: top; width: 72px;">
-                                        <div class="pdf-header-qr-box">
+                                    <td class="pdf-header-qr" style="vertical-align: top; width: 86px; text-align: right; padding-left: 14px;">
+                                        <div class="pdf-header-qr-box" style="display: inline-block;">
                                             <img src="data:image/svg+xml;base64,{{ $qr_code }}" class="qr-img-header" alt="QR">
                                         </div>
                                     </td>
