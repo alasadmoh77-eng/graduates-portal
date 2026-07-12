@@ -42,28 +42,27 @@
                 <table class="header-table">
                     <tr>
                         <td class="header-left">
-                            <table style="width: 100%; border-collapse: collapse;">
+                            <table style="width: 100%; border-collapse: collapse; direction: ltr;">
                                 <tr>
                                     <td class="pdf-header-meta-box" style="vertical-align: top; padding-right: 6px;">
-                                        <table class="doc-meta-box" dir="ltr">
+                                        <table class="doc-meta-box" dir="rtl" style="margin-left: 0; margin-right: auto; direction: rtl;">
                                             <tr>
-                                                <td class="meta-value" dir="ltr">{{ $issue_date }}</td>
-                                                <td class="meta-label" dir="rtl">{{ ar('تاريخ الاصدار ') }}</td>
+                                                <td class="meta-label" style="text-align: right;">{{ ar('تاريخ') }}</td>
+                                                <td class="meta-value" dir="ltr" style="text-align: left;">{{ $issue_date }}</td>
                                             </tr>
                                             <tr>
-                                                <td class="meta-value" dir="ltr">{{ $serial_number }}</td>
-                                                <td class="meta-label" dir="rtl">{{ ar('رقم الوثيقة') }}</td>
+                                                <td class="meta-label" style="text-align: right;">{{ ar('رقم') }}</td>
+                                                <td class="meta-value" dir="ltr" style="text-align: left;">{{ $serial_number }}</td>
                                             </tr>
                                             <tr>
-                                                <td class="meta-value" dir="ltr">{{ $request->tracking_code }}</td>
-                                                <td class="meta-label" dir="rtl">{{ ar('رقم الطلب') }}</td>
+                                                <td class="meta-label" style="text-align: right;">{{ ar('مرجع') }}</td>
+                                                <td class="meta-value" dir="ltr" style="text-align: left;">{{ $request->tracking_code }}</td>
                                             </tr>
                                         </table>
                                     </td>
-                                    <td class="pdf-header-qr" style="vertical-align: top; padding-right: 30px;">
+                                    <td class="pdf-header-qr" style="vertical-align: top; width: 72px;">
                                         <div class="pdf-header-qr-box">
-                                            <img src="data:image/svg+xml;base64,{{ $qr_code }}" class="qr-img-header"
-                                                alt="QR">
+                                            <img src="data:image/svg+xml;base64,{{ $qr_code }}" class="qr-img-header" alt="QR">
                                         </div>
                                     </td>
                                 </tr>
