@@ -32,6 +32,7 @@ RUN composer install \
     && mkdir -p \
         storage/app/private \
         storage/app/public \
+        storage/fonts \
         storage/framework/cache \
         storage/framework/sessions \
         storage/framework/views \

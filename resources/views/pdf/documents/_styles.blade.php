@@ -10,15 +10,13 @@
 
     @font-face {
         font-family: 'PdfArabic';
-        src: url('C:/dompdf_fonts/Amiri-Regular.ttf') format('truetype'),
-             url('{{ storage_path("fonts/Amiri-Regular.ttf") }}') format('truetype');
+        src: url('{{ resource_path("fonts/Amiri-Regular.ttf") }}') format('truetype');
         font-weight: normal;
         font-style: normal;
     }
     @font-face {
         font-family: 'PdfArabic';
-        src: url('C:/dompdf_fonts/Amiri-Bold.ttf') format('truetype'),
-             url('{{ storage_path("fonts/Amiri-Bold.ttf") }}') format('truetype');
+        src: url('{{ resource_path("fonts/Amiri-Bold.ttf") }}') format('truetype');
         font-weight: bold;
         font-style: normal;
     }
