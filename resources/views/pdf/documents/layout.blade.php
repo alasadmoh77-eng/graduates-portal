@@ -42,32 +42,46 @@
                 <table class="header-table">
                     <tr>
                         <td class="header-left">
-                            <table style="width: 100%; border-collapse: collapse; direction: ltr; table-layout: fixed;">
-                                <tr>
-                                    <td class="pdf-header-qr" style="vertical-align: top; width: 72px;">
-                                        <div class="pdf-header-qr-box" style="display: inline-block;">
-                                            <img src="data:image/svg+xml;base64,{{ $qr_code }}" class="qr-img-header" alt="QR">
-                                        </div>
-                                    </td>
-                                    <td style="width: 8px;"></td>
-                                    <td class="pdf-header-meta-box" style="vertical-align: top; width: 196px;">
-                                        <table class="doc-meta-box" dir="rtl" style="margin-left: auto; margin-right: 0; direction: rtl; width: 196px;">
-                                            <tr>
-                                                <td class="meta-label" style="text-align: right;">{{ ar('تاريخ') }}</td>
-                                                <td class="meta-value" dir="ltr" style="text-align: left;">{{ $issue_date }}</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="meta-label" style="text-align: right;">{{ ar('رقم') }}</td>
-                                                <td class="meta-value" dir="ltr" style="text-align: left;">{{ $serial_number }}</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="meta-label" style="text-align: right;">{{ ar('مرجع') }}</td>
-                                                <td class="meta-value" dir="ltr" style="text-align: left;">{{ $request->tracking_code }}</td>
-                                            </tr>
-                                        </table>
-                                    </td>
-                                </tr>
-                            </table>
+                            <div style="position: relative; width: 100%; height: 75px;">
+                                <!-- Document Information Box on far-left -->
+                                <div style="position: absolute; left: 0; top: 0; width: 170px;">
+                                    <table class="doc-meta-box" dir="rtl"
+                                        style="margin: 0; direction: rtl; width: 170px;">
+                                        <tr>
+                                            <td class="meta-label" style="text-align: right; width: 35px;">
+                                                {{ ar('تاريخ الإصدار') }}
+                                            </td>
+                                            <td class="meta-value" dir="ltr" style="text-align: left; width: 135px;">
+                                                {{ $issue_date }}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="meta-label" style="text-align: right; width: 35px;">
+                                                {{ ar('رقم الوثيقة') }}
+                                            </td>
+                                            <td class="meta-value" dir="ltr" style="text-align: left; width: 135px;">
+                                                {{ $serial_number }}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="meta-label" style="text-align: right; width: 35px;">
+                                                {{ ar('رقم الطلب') }}
+                                            </td>
+                                            <td class="meta-value" dir="ltr" style="text-align: left; width: 135px;">
+                                                {{ $request->tracking_code }}
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+
+                                <!-- Independent QR Code positioned absolutely in the empty space -->
+                                <div style="position: absolute; left: 185px; top: 0; width: 72px; height: 72px;">
+                                    <div class="pdf-header-qr-box" style="display: inline-block; margin: 0;">
+                                        <img src="data:image/svg+xml;base64,{{ $qr_code }}" class="qr-img-header"
+                                            style="width: 66px; height: 66px;" alt="QR">
+                                    </div>
+                                </div>
+                            </div>
                         </td>
                         <td class="header-center">
                             <img src="{{ public_path('assets/images/university-logo-pdf.png') }}" alt="SRU"

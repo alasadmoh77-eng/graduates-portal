@@ -99,8 +99,8 @@
                                         @endphp
                                         <tr>
                                             <td class="subj-name">{{ ar($subject->name) }}</td>
-                                            <td>{{ $subject->credit_hours ?? '—' }}</td>
-                                            <td>{{ $subject->score ?? '—' }}</td>
+                                            <td dir="ltr">{{ $subject->credit_hours ?? '—' }}</td>
+                                            <td dir="ltr">{{ $subject->score ?? '—' }}</td>
                                             <td>{{ ar($subject->rating ?? '—') }}</td>
                                         </tr>
                                     @endforeach
@@ -117,8 +117,8 @@
                                     @endphp
                                     <tr class="sem-footer-row">
                                         <td style="text-align:right; padding-right:4px;">{{ ar('المجموع') }}</td>
-                                        <td>{{ $totalHours > 0 ? $totalHours : '—' }}</td>
-                                        <td>{{ $totalHours > 0 ? number_format($avgScore, 2) : '—' }}</td>
+                                        <td dir="ltr">{{ $totalHours > 0 ? $totalHours : '—' }}</td>
+                                        <td dir="ltr">{{ $totalHours > 0 ? number_format($avgScore, 2) : '—' }}</td>
                                         <td>{{ $rating ? ar($rating) : '—' }}</td>
                                     </tr>
                                 </tbody>
@@ -159,8 +159,8 @@
                                         @endphp
                                         <tr>
                                             <td class="subj-name">{{ ar($subject->name) }}</td>
-                                            <td>{{ $subject->credit_hours ?? '—' }}</td>
-                                            <td>{{ $subject->score ?? '—' }}</td>
+                                            <td dir="ltr">{{ $subject->credit_hours ?? '—' }}</td>
+                                            <td dir="ltr">{{ $subject->score ?? '—' }}</td>
                                             <td>{{ ar($subject->rating ?? '—') }}</td>
                                         </tr>
                                     @endforeach
@@ -177,8 +177,8 @@
                                     @endphp
                                     <tr class="sem-footer-row">
                                         <td style="text-align:right; padding-right:4px;">{{ ar('المجموع') }}</td>
-                                        <td>{{ $totalHours > 0 ? $totalHours : '—' }}</td>
-                                        <td>{{ $totalHours > 0 ? number_format($avgScore, 2) : '—' }}</td>
+                                        <td dir="ltr">{{ $totalHours > 0 ? $totalHours : '—' }}</td>
+                                        <td dir="ltr">{{ $totalHours > 0 ? number_format($avgScore, 2) : '—' }}</td>
                                         <td>{{ $rating ? ar($rating) : '—' }}</td>
                                     </tr>
                                 </tbody>
