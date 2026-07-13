@@ -98,7 +98,8 @@
                                             }
                                         @endphp
                                         <tr>
-                                            <td class="subj-name">{{ ar($subject->name) }}</td>
+                                            @php $subjName = preg_replace('/\((\d+)\)/u', "\u{200E}($1)\u{200E}", $subject->name); @endphp
+                                            <td class="subj-name">{{ ar($subjName) }}</td>
                                             <td dir="ltr">{{ $subject->credit_hours ?? '—' }}</td>
                                             <td dir="ltr">{{ $subject->score ?? '—' }}</td>
                                             <td>{{ ar($subject->rating ?? '—') }}</td>
@@ -158,7 +159,8 @@
                                             }
                                         @endphp
                                         <tr>
-                                            <td class="subj-name">{{ ar($subject->name) }}</td>
+                                            @php $subjName = preg_replace('/\((\d+)\)/u', "\u{200E}($1)\u{200E}", $subject->name); @endphp
+                                            <td class="subj-name">{{ ar($subjName) }}</td>
                                             <td dir="ltr">{{ $subject->credit_hours ?? '—' }}</td>
                                             <td dir="ltr">{{ $subject->score ?? '—' }}</td>
                                             <td>{{ ar($subject->rating ?? '—') }}</td>

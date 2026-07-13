@@ -44,38 +44,38 @@
                         <td class="header-left">
                             <div style="position: relative; width: 100%; height: 75px;">
                                 <!-- Document Information Box on far-left -->
-                                <div style="position: absolute; left: 0; top: 0; width: 170px;">
+                                <div style="position: absolute; left: 0; top: -8px; width: 170px;">
                                     <table class="doc-meta-box" dir="rtl"
                                         style="margin: 0; direction: rtl; width: 170px;">
                                         <tr>
-                                            <td class="meta-label" style="text-align: right; width: 35px;">
-                                                {{ ar('تاريخ الإصدار') }}
-                                            </td>
                                             <td class="meta-value" dir="ltr" style="text-align: left; width: 135px;">
                                                 {{ $issue_date }}
                                             </td>
+                                            <td class="meta-label" style="text-align: right; width: 35px;">
+                                                {{ ar('تاريخ الإصدار') }}
+                                            </td>
                                         </tr>
                                         <tr>
-                                            <td class="meta-label" style="text-align: right; width: 35px;">
-                                                {{ ar('رقم الوثيقة') }}
-                                            </td>
                                             <td class="meta-value" dir="ltr" style="text-align: left; width: 135px;">
                                                 {{ $serial_number }}
                                             </td>
+                                            <td class="meta-label" style="text-align: right; width: 35px;">
+                                                {{ ar('رقم الوثيقة') }}
+                                            </td>
                                         </tr>
                                         <tr>
-                                            <td class="meta-label" style="text-align: right; width: 35px;">
-                                                {{ ar('رقم الطلب') }}
-                                            </td>
                                             <td class="meta-value" dir="ltr" style="text-align: left; width: 135px;">
                                                 {{ $request->tracking_code }}
+                                            </td>
+                                            <td class="meta-label" style="text-align: right; width: 35px;">
+                                                {{ ar('رقم الطلب') }}
                                             </td>
                                         </tr>
                                     </table>
                                 </div>
 
                                 <!-- Independent QR Code positioned absolutely in the empty space -->
-                                <div style="position: absolute; left: 185px; top: 0; width: 72px; height: 72px;">
+                                <div style="position: absolute; left: 185px; top: -8px; width: 72px; height: 72px;">
                                     <div class="pdf-header-qr-box" style="display: inline-block; margin: 0;">
                                         <img src="data:image/svg+xml;base64,{{ $qr_code }}" class="qr-img-header"
                                             style="width: 66px; height: 66px;" alt="QR">

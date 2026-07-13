@@ -110,14 +110,14 @@
 
     /* doc-meta-box styling */
     .doc-meta-box {
-        width: 196px;
+        width: 210px;
         border: 1.3px solid #000;
         border-collapse: collapse;
         table-layout: fixed;
         font-size: 7.5px;
         line-height: 1.4;
         background: #fff;
-        direction: ltr;
+        direction: rtl;
         margin-left: 0;
         margin-right: auto;
     }
@@ -138,13 +138,12 @@
     }
 
     .doc-meta-box .meta-value {
-        width: 150px;
+        width: 164px;
         text-align: left;
         direction: ltr;
         unicode-bidi: isolate;
         font-family: 'DejaVu Sans', sans-serif;
         font-size: 7px;
-        overflow: hidden;
     }
 
     /* Separate QR block in the header (sits to the right of the meta box,
