@@ -140,7 +140,7 @@
                                 <strong>{{ __('app.rejection_reason') }}:</strong> {{ $documentRequest->payment_rejection_reason }}
                             </div>
                         @endif
-                        @if(in_array($documentRequest->payment_status, ['pending_review', 'rejected']) && $documentRequest->documentType->payment_required)
+                        @if(in_array($documentRequest->payment_status, ['pending_review', 'rejected']) && $documentRequest->payment_required)
                             <div class="alert alert-warning mt-2 mb-0 small">
                                 <i class="fas fa-exclamation-triangle me-1"></i> {{ __('app.payment_must_be_approved') }}
                             </div>
@@ -152,6 +152,24 @@
                                 </a>
                             </div>
                         @endif
+                    </div>
+                </div>
+            @else
+                <div class="admin-card mb-4 border-success border-opacity-50 bg-success bg-opacity-5">
+                    <div class="p-4">
+                        <h6 class="fw-bold mb-3 text-success"><i class="fas fa-credit-card text-success me-2"></i> رسوم الطلب: مجاني</h6>
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <div class="info-label">حالة الرسوم</div>
+                                <div class="info-value">
+                                    <span class="badge bg-success rounded-pill px-3 py-2">مجانية</span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="info-label">متطلبات الدفع</div>
+                                <div class="info-value text-success fw-bold">لا يتطلب إثبات دفع</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             @endif
@@ -284,6 +302,7 @@
 
                     {{-- APPROVED: show Send for Signatures button --}}
                     @if($documentRequest->status === 'APPROVED')
+                        @if(Auth::user()->canManageDocumentRecovery())
                         <p class="fw-bold mb-3">تم اعتماد الطلب. أرسل الوثيقة للتوقيعات الآن:</p>
                         
                         <form action="{{ route('admin.requests.send-for-signatures', $documentRequest) }}" method="POST" class="mb-3">
@@ -292,6 +311,7 @@
                                 <i class="fas fa-paper-plane me-2"></i> إرسال الوثيقة للتوقيعات
                             </button>
                         </form>
+                        @endif
 
                         @php
                             $docCode = $documentRequest->documentType->code ?? '';
@@ -353,7 +373,7 @@
                     @endif
 
                     {{-- Reissue button for READY or ISSUED documents --}}
-                    @if($issuedDoc && in_array($documentRequest->status, ['READY', 'ISSUED']))
+                    @if($issuedDoc && in_array($documentRequest->status, ['READY', 'ISSUED']) && Auth::user()->canManageDocumentRecovery())
                         <div class="border-top pt-3 mt-3">
                             <p class="fw-bold text-warning small mb-2"><i class="fas fa-exclamation-triangle me-1"></i> إعادة إصدار الوثيقة:</p>
                             <p class="small text-muted mb-2">سيؤدي هذا إلى حذف جميع التوقيعات الحالية وإرسال الوثيقة للتوقيع من جديد. يُستخدم بعد تعديل بيانات السجل الأكاديمي.</p>

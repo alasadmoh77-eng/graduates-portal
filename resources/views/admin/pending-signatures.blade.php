@@ -18,13 +18,6 @@
         </div>
     </div>
 
-    @if(session('success'))
-        <div class="alert alert-success alert-dismissible fade show rounded-3">{{ session('success') }}<button type="button" class="btn-close" data-bs-dismiss="alert"></button></div>
-    @endif
-    @if(session('error'))
-        <div class="alert alert-danger alert-dismissible fade show rounded-3">{{ session('error') }}<button type="button" class="btn-close" data-bs-dismiss="alert"></button></div>
-    @endif
-
     @if(Auth::user()->signer_role)
         <div class="alert alert-primary rounded-3 mb-3">
             <i class="fas fa-id-badge me-1"></i> دورك التوقيعي: <strong>{{ Auth::user()->signer_role }}</strong>

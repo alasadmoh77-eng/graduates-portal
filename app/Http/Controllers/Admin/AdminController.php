@@ -5,7 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Password;
 
@@ -17,11 +18,15 @@ class AdminController extends Controller
     /** List all admin users */
     public function index()
     {
-        $admins = User::whereIn('role', self::ADMIN_ROLES)
-            ->latest()
-            ->paginate(15);
+        $adminsQuery = User::whereIn('role', self::ADMIN_ROLES);
 
-        return view('admin.admins.index', compact('admins'));
+        $totalAdmins = (clone $adminsQuery)->count();
+        $activeAdmins = (clone $adminsQuery)->where('is_active', true)->count();
+        $inactiveAdmins = (clone $adminsQuery)->where('is_active', false)->count();
+
+        $admins = (clone $adminsQuery)->latest()->paginate(15);
+
+        return view('admin.admins.index', compact('admins', 'totalAdmins', 'activeAdmins', 'inactiveAdmins'));
     }
 
     /** Show create form */
@@ -46,7 +51,7 @@ class AdminController extends Controller
         User::create([
             'name'      => $validated['name'],
             'email'     => $validated['email'],
-            'password'  => Hash::make($validated['password']),
+            'password'  => $validated['password'],
             'role'      => $validated['role'],
             'is_active' => (bool) $validated['is_active'],
             'signer_role' => $validated['signer_role'] ?? null,
@@ -100,7 +105,8 @@ class AdminController extends Controller
         ];
 
         if (! empty($validated['password'])) {
-            $data['password'] = Hash::make($validated['password']);
+            $data['password'] = $validated['password'];
+            $data['remember_token'] = Str::random(60);
         }
 
         $admin->update($data);
@@ -158,5 +164,43 @@ class AdminController extends Controller
             : __('app.admin_deactivated_success');
 
         return back()->with('success', $msg);
+    }
+
+    /** Approve a signer's electronic signature */
+    public function approveSignature(User $admin)
+    {
+        if (!in_array($admin->role, self::ADMIN_ROLES)) {
+            abort(404);
+        }
+
+        if (!$admin->signer_role) {
+            return back()->with('error', 'لا يمكن اعتماد توقيع مستخدم لا يملك دور توقيع.');
+        }
+
+        if (!$admin->signature_image || !$admin->hasExistingSignatureFile()) {
+            return back()->with('error', 'لا يمكن اعتماد التوقيع لأن ملف التوقيع غير موجود.');
+        }
+
+        $admin->is_signature_approved = true;
+        $admin->signature_approved_at = now();
+        $admin->signature_approved_by = Auth::id();
+        $admin->save();
+
+        return back()->with('success', 'تم اعتماد التوقيع الإلكتروني بنجاح.');
+    }
+
+    /** Revoke approval of a signer's electronic signature */
+    public function revokeSignature(User $admin)
+    {
+        if (!in_array($admin->role, self::ADMIN_ROLES)) {
+            abort(404);
+        }
+
+        $admin->is_signature_approved = false;
+        $admin->signature_approved_at = null;
+        $admin->signature_approved_by = null;
+        $admin->save();
+
+        return back()->with('success', 'تم إلغاء اعتماد التوقيع الإلكتروني.');
     }
 }

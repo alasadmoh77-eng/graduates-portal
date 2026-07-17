@@ -48,7 +48,7 @@
     
     <div class="col-lg-7 px-4 px-md-5 py-4 z-1">
         <span class="badge bg-warning text-dark fw-bold px-3 py-2 rounded-pill mb-3" style="letter-spacing: 0.5px; font-size: 0.82rem;">
-            {{ app()->getLocale() == 'ar' ? 'المنصة الرسمية المعتمدة' : 'Official Approved Portal' }}
+            {{ app()->getLocale() == 'ar' ? 'المنصة الرسمية-- المعتمدة' : 'Official Approved Portal' }}
         </span>
         <h1 class="display-4 fw-black hero-title mb-3">
             {{ app()->getLocale() == 'ar' ? 'بوابة خريجي جامعة إقليم سبأ' : 'Saba Region University Graduates Portal' }}

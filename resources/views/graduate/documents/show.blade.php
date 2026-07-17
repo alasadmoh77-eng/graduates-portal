@@ -231,6 +231,28 @@
                                 </div>
                             @endif
                         </div>
+                    @else
+                        <div class="mt-4 p-4 rounded-3 border border-success bg-success bg-opacity-5">
+                            <h6 class="fw-bold mb-3 text-success"><i class="fas fa-credit-card me-2"></i> رسوم الوثيقة: مجانية</h6>
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <div class="info-label">حالة الرسوم</div>
+                                    <div class="info-value">
+                                        <span class="badge bg-success rounded-pill px-3 py-2">مجانية</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="info-label">متطلبات الدفع</div>
+                                    <div class="info-value text-success fw-bold">لا يتطلب إثبات دفع</div>
+                                </div>
+                                <div class="col-12 mt-2">
+                                    <div class="small text-muted">
+                                        <i class="fas fa-info-circle me-1"></i>
+                                        تمت إحالة الطلب مباشرة للمراجعة الأكاديمية.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     @endif
 
                     @if($document->admin_note)

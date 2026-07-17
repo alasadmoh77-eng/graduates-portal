@@ -21,10 +21,6 @@
         </div>
     </div>
 
-    @if(session('success'))
-        <div class="alert alert-success alert-dismissible fade show rounded-3">{{ session('success') }}<button type="button" class="btn-close" data-bs-dismiss="alert"></button></div>
-    @endif
-
     {{-- Filters --}}
     <div class="card border-0 shadow-sm rounded-4 mb-4">
         <div class="card-header bg-white border-bottom p-3">

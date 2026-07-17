@@ -58,8 +58,7 @@ class RequestStatusService
 
         // 4. Payment check - block approval/ready/issued if payment is required but not approved
         if (in_array($toStatus, $this->paymentBlockedStatuses)) {
-            $docType = $request->documentType;
-            if ($docType && $docType->payment_required && $request->payment_status !== 'approved') {
+            if ($request->payment_required && $request->payment_status !== 'approved') {
                 throw new Exception(__('app.payment_must_be_approved'));
             }
         }
@@ -85,6 +84,64 @@ class RequestStatusService
             $notifyStatuses = ['APPROVED', 'REJECTED', 'READY', 'ISSUED'];
             if (in_array($toStatus, $notifyStatuses)) {
                 $request->user->notify(new \App\Notifications\RequestStatusChanged($request, $fromStatus, $toStatus));
+            }
+        });
+    }
+
+    /**
+     * Centralized transition of a request to UNDER_REVIEW (Academic Review) status.
+     * Restricts multiple transitions, creates status logs, and notifies active academic admins.
+     */
+    public function moveToAcademicReview(DocumentRequest $request, ?string $note, int $operatorId): void
+    {
+        $fromStatus = $request->status;
+        $toStatus = self::STATUS_UNDER_REVIEW;
+
+        if ($fromStatus === $toStatus) {
+            return;
+        }
+
+        DB::transaction(function () use ($request, $fromStatus, $toStatus, $note, $operatorId) {
+            // 1. Update Request
+            $request->update([
+                'status' => $toStatus,
+                'admin_note' => $note
+            ]);
+
+            // 2. Create Log
+            RequestStatusLog::create([
+                'document_request_id' => $request->id,
+                'admin_id' => $operatorId,
+                'from_status' => $fromStatus,
+                'to_status' => $toStatus,
+                'note' => $note,
+                'created_at' => now(),
+            ]);
+
+            // 3. Resolve active academic admins and send notification exactly once
+            $academicAdmins = \App\Models\User::where('role', 'academic_admin')
+                ->where('is_active', true)
+                ->get();
+
+            if ($academicAdmins->isNotEmpty()) {
+                // Prevent duplicate notifications for this request
+                $alreadyNotifiedIds = DB::table('notifications')
+                    ->where('notifiable_type', \App\Models\User::class)
+                    ->whereIn('notifiable_id', $academicAdmins->pluck('id'))
+                    ->where('data->type', 'academic_review')
+                    ->where('data->document_request_id', $request->id)
+                    ->pluck('notifiable_id')
+                    ->toArray();
+
+                $usersToNotify = $academicAdmins->reject(function ($u) use ($alreadyNotifiedIds) {
+                    return in_array($u->id, $alreadyNotifiedIds);
+                });
+
+                if ($usersToNotify->isNotEmpty()) {
+                    \Illuminate\Support\Facades\Notification::send($usersToNotify, new \App\Notifications\RequestUnderReview($request));
+                }
+            } else {
+                \Illuminate\Support\Facades\Log::warning('No active academic_admin users found to notify about request academic review.');
             }
         });
     }

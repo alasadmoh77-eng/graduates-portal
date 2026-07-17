@@ -134,22 +134,16 @@
                     <h5 class="fw-bold text-dark border-bottom pb-3 mb-4"><i class="fas fa-chart-pie me-2 text-primary"></i> تقرير نتائج معالجة الاستيراد</h5>
                     
                     <div class="row g-3 text-center mb-4">
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                             <div class="bg-success bg-opacity-10 p-3 rounded-4 border border-success border-opacity-25 h-100">
-                                <span class="d-block text-success small fw-bold">الطلاب المستوردين والمحدثين</span>
-                                <span class="fs-2 fw-bold text-success">{{ $result['success_count'] }}</span>
+                                <span class="d-block text-success small fw-bold">عدد الخريجين الذين لديهم حساب وتم استيراد سجلاتهم بالفعل</span>
+                                <span class="fs-2 fw-bold text-success font-monospace" dir="ltr">{{ $result['success_count'] }}</span>
                             </div>
                         </div>
-                        <div class="col-md-4">
-                            <div class="bg-primary bg-opacity-10 p-3 rounded-4 border border-primary border-opacity-25 h-100">
-                                <span class="d-block text-primary small fw-bold">إجمالي سجلات السلوكيات المعدلة</span>
-                                <span class="fs-2 fw-bold text-primary">{{ $result['new_records'] }}</span>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                             <div class="bg-danger bg-opacity-10 p-3 rounded-4 border border-danger border-opacity-25 h-100">
-                                <span class="d-block text-danger small fw-bold">الأخطاء والمخالفات المكتشفة</span>
-                                <span class="fs-2 fw-bold text-danger">{{ $result['error_count'] }}</span>
+                                <span class="d-block text-danger small fw-bold">عدد الخريجين الذين ليس لديهم حساب، ولا يمكن استيراد سجلاتهم</span>
+                                <span class="fs-2 fw-bold text-danger font-monospace" dir="ltr">{{ $result['error_count'] }}</span>
                             </div>
                         </div>
                     </div>

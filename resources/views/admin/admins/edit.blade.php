@@ -210,11 +210,42 @@
                 <p class="text-muted small mb-3">ارسم توقيعك مباشرة بالماوس أو الإصبع (للموبايل). سيظهر توقيعك على الوثائق الرسمية عند التوقيع.</p>
 
                 @if($admin->signature_image)
-                    <div class="mb-3 p-3 bg-light rounded-3 d-flex align-items-center gap-3">
+                    <div class="mb-3 p-3 bg-light rounded-3 d-flex align-items-center gap-3 flex-wrap">
                         <img src="{{ $admin->signatureUrl() }}" alt="توقيعي" style="max-height: 40px; max-width: 120px; border: 1px solid #ddd; padding: 4px; background: white; border-radius: 6px;">
                         <div>
-                            <span class="text-success small fw-bold"><i class="fas fa-check-circle me-1"></i>التوقيع الحالي</span>
+                            @if(!$admin->hasExistingSignatureFile())
+                                <span class="text-danger small fw-bold"><i class="fas fa-exclamation-triangle me-1"></i>الملف مفقود</span>
+                            @elseif($admin->is_signature_approved)
+                                <span class="text-success small fw-bold"><i class="fas fa-check-circle me-1"></i>معتمد
+                                    @if($admin->signature_approved_at)
+                                        <br><small class="text-muted">{{ $admin->signature_approved_at->format('Y-m-d') }}</small>
+                                    @endif
+                                </span>
+                            @else
+                                <span class="text-warning small fw-bold"><i class="fas fa-clock me-1"></i>بانتظار الاعتماد</span>
+                            @endif
                         </div>
+                        @if(in_array(auth()->user()->role, ['admin', 'super_admin']) && $admin->hasExistingSignatureFile())
+                            <div class="ms-auto d-flex gap-1">
+                                @if($admin->is_signature_approved)
+                                    <form action="{{ route('admin.admins.signature.revoke', $admin) }}" method="POST">
+                                        @csrf
+                                        @method('PATCH')
+                                        <button type="submit" class="btn btn-outline-danger btn-sm rounded-pill px-3" onclick="return confirm('هل أنت متأكد من إلغاء اعتماد هذا التوقيع؟')">
+                                            <i class="fas fa-times me-1"></i> إلغاء الاعتماد
+                                        </button>
+                                    </form>
+                                @else
+                                    <form action="{{ route('admin.admins.signature.approve', $admin) }}" method="POST">
+                                        @csrf
+                                        @method('PATCH')
+                                        <button type="submit" class="btn btn-outline-success btn-sm rounded-pill px-3">
+                                            <i class="fas fa-check me-1"></i> اعتماد التوقيع
+                                        </button>
+                                    </form>
+                                @endif
+                            </div>
+                        @endif
                     </div>
                 @else
                     <div class="mb-3 p-3 bg-warning bg-opacity-10 rounded-3">

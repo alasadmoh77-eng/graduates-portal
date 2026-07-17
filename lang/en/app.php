@@ -476,4 +476,10 @@ return array (
   'employer_website' => 'Website',
   'employer_industry' => 'Industry / Sector',
   'employer_location' => 'Location / City',
+
+  // ── Document Fees ─────────────────────────────────────────────────────────
+  'document_fee_updated_success' => 'Document fee updated successfully.',
+  'fee_must_be_greater_than_zero' => 'Fee must be greater than zero.',
+  'document_free_success' => 'Document is now free.',
+  'unauthorized_document_fees' => 'You do not have permission to manage document fees.',
 );

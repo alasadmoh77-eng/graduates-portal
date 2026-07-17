@@ -76,15 +76,11 @@ class PaymentReviewController extends Controller
         ]);
 
         if ($documentRequest->status === 'SUBMITTED') {
-            $documentRequest->update(['status' => 'UNDER_REVIEW']);
-            \App\Models\RequestStatusLog::create([
-                'document_request_id' => $documentRequest->id,
-                'admin_id' => Auth::id(),
-                'from_status' => 'SUBMITTED',
-                'to_status' => 'UNDER_REVIEW',
-                'note' => 'تم اعتماد الدفع. انتقل الطلب للمراجعة الأكاديمية.',
-                'created_at' => now(),
-            ]);
+            app(\App\Services\RequestStatusService::class)->moveToAcademicReview(
+                $documentRequest,
+                'تم اعتماد الدفع. انتقل الطلب للمراجعة الأكاديمية.',
+                Auth::id()
+            );
         }
 
         $documentRequest->user->notify(new PaymentProofApproved($documentRequest));

@@ -35,7 +35,7 @@ class DocumentIssuanceService
         }
 
         // 2. Payment check
-        if ($request->documentType->payment_required && $request->payment_status !== 'approved') {
+        if ($request->payment_required && $request->payment_status !== 'approved') {
             throw new Exception(__('app.payment_must_be_approved'));
         }
 
@@ -111,7 +111,7 @@ class DocumentIssuanceService
             throw new Exception("Document must be in APPROVED status to start signing workflow.");
         }
 
-        if ($request->documentType->payment_required && $request->payment_status !== 'approved') {
+        if ($request->payment_required && $request->payment_status !== 'approved') {
             throw new Exception(__('app.payment_must_be_approved'));
         }
 

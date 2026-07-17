@@ -201,6 +201,9 @@
                                                         <i class="fas fa-user-slash me-1"></i> {{ app()->getLocale() == 'ar' ? 'تجميد الحساب' : 'Freeze Account' }}
                                                     </button>
                                                 </form>
+                                                <button type="button" class="btn btn-outline-primary btn-sm rounded-pill px-3 fw-bold ms-1" data-bs-toggle="modal" data-bs-target="#passwordModal{{ $graduate->id }}">
+                                                    <i class="fas fa-key me-1"></i> {{ app()->getLocale() == 'ar' ? 'تغيير كلمة المرور' : 'Change Password' }}
+                                                </button>
                                             @endif
                                         @else
                                             <span class="badge bg-danger bg-opacity-10 text-danger border border-danger border-opacity-20 px-3 py-2 rounded-pill small mb-1 d-inline-block">
@@ -214,6 +217,9 @@
                                                         <i class="fas fa-unlock me-1"></i> {{ app()->getLocale() == 'ar' ? 'إلغاء التجميد' : 'Unfreeze Account' }}
                                                     </button>
                                                 </form>
+                                                <button type="button" class="btn btn-outline-primary btn-sm rounded-pill px-3 fw-bold ms-1" data-bs-toggle="modal" data-bs-target="#passwordModal{{ $graduate->id }}">
+                                                    <i class="fas fa-key me-1"></i> {{ app()->getLocale() == 'ar' ? 'تغيير كلمة المرور' : 'Change Password' }}
+                                                </button>
                                             @endif
                                         @endif
                                     @else
@@ -242,6 +248,56 @@
         </div>
     </div>
 </div>
+
+{{-- Password Reset Modals --}}
+@foreach($graduates as $graduate)
+    @php
+        $associatedGraduate = $graduate->graduate;
+        $associatedUser = $associatedGraduate ? $associatedGraduate->user : null;
+    @endphp
+    @if($associatedUser && in_array(auth()->user()->role, ['admin', 'super_admin']))
+        <div class="modal fade" id="passwordModal{{ $graduate->id }}" tabindex="-1" data-bs-backdrop="static" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content rounded-4 border-0 shadow">
+                    <div class="modal-header bg-primary text-white rounded-top-4">
+                        <h6 class="modal-title fw-bold"><i class="fas fa-key me-2"></i>تغيير كلمة مرور الخريج</h6>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                    </div>
+                    <form method="POST" action="{{ route('admin.graduate-registry.password', $graduate->id) }}">
+                        @csrf
+                        @method('PATCH')
+                        <div class="modal-body">
+                            <p class="small text-muted mb-3">سيتم استبدال كلمة المرور الحالية، ولن يتمكن الخريج من تسجيل الدخول باستخدام كلمة المرور القديمة.</p>
+                            <div class="mb-3">
+                                <label class="form-label small fw-bold">اسم الخريج</label>
+                                <input type="text" class="form-control" value="{{ $graduate->name }}" readonly disabled>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label small fw-bold">الرقم الجامعي</label>
+                                <input type="text" class="form-control" value="{{ $graduate->university_id }}" readonly disabled>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label small fw-bold">كلمة المرور الجديدة <span class="text-danger">*</span></label>
+                                <input type="password" name="password" class="form-control" placeholder="أدخل كلمة المرور الجديدة" required minlength="8">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label small fw-bold">تأكيد كلمة المرور <span class="text-danger">*</span></label>
+                                <input type="password" name="password_confirmation" class="form-control" placeholder="أعد كتابة كلمة المرور" required minlength="8">
+                            </div>
+                        </div>
+                        <div class="modal-footer border-0">
+                            <button type="button" class="btn btn-secondary rounded-pill px-4" data-bs-dismiss="modal">إلغاء</button>
+                            <button type="submit" class="btn btn-primary rounded-pill px-4 fw-bold">
+                                <i class="fas fa-save me-1"></i> حفظ كلمة المرور
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    @endif
+@endforeach
+
 @endsection
 
 @section('scripts')

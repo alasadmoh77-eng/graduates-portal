@@ -46,6 +46,18 @@ class DocumentSigningService
             return false;
         }
 
+        if (!$user->signature_image) {
+            return false;
+        }
+
+        if (!$user->is_signature_approved) {
+            return false;
+        }
+
+        if (!$user->hasExistingSignatureFile()) {
+            return false;
+        }
+
         return true;
     }
 
@@ -65,7 +77,19 @@ class DocumentSigningService
 
         $currentSigner = $doc->getCurrentSigner();
         if ($currentSigner !== $roleTitle) {
-            throw new Exception('ليس دورك الحالي للتوقيع على هذه الوثيقة');
+            throw new Exception('ليس دورك الحالي لتوقيع هذه الوثيقة');
+        }
+
+        if (!$user->signature_image) {
+            throw new Exception('لا يوجد توقيع إلكتروني محفوظ في حسابك. يرجى مراجعة مدير النظام.');
+        }
+
+        if (!$user->is_signature_approved) {
+            throw new Exception('توقيعك الإلكتروني غير معتمد بعد. يرجى مراجعة مدير النظام لاعتماده.');
+        }
+
+        if (!$user->hasExistingSignatureFile()) {
+            throw new Exception('ملف توقيعك الإلكتروني غير موجود. يرجى مراجعة مدير النظام.');
         }
 
         if (!$this->canSign($user, $doc, $roleTitle)) {
@@ -73,17 +97,34 @@ class DocumentSigningService
         }
 
         $signature = DB::transaction(function () use ($user, $doc, $roleTitle, $ipAddress) {
+            $document = IssuedDocument::query()
+                ->lockForUpdate()
+                ->findOrFail($doc->id);
+
+            $currentSigner = $document->getCurrentSigner();
+            if ($currentSigner !== $roleTitle) {
+                throw new Exception('ليس دورك الحالي لتوقيع هذه الوثيقة');
+            }
+
+            $alreadySigned = DocumentSignature::where('issued_document_id', $document->id)
+                ->where('role_title', $roleTitle)
+                ->exists();
+
+            if ($alreadySigned) {
+                throw new Exception('تم توقيع هذه الوثيقة مسبقاً من هذا الدور');
+            }
+
             $signature = DocumentSignature::create([
-                'issued_document_id' => $doc->id,
+                'issued_document_id' => $document->id,
                 'user_id' => $user->id,
                 'role_title' => $roleTitle,
                 'signed_at' => now(),
                 'ip_address' => $ipAddress,
             ]);
 
-            $doc->load('signatures');
+            $document->load('signatures');
 
-            $this->finalizeIfComplete($doc);
+            $this->finalizeIfComplete($document);
 
             return $signature;
         });
@@ -91,7 +132,7 @@ class DocumentSigningService
         if ($doc->isFullySigned() && $doc->documentRequest->status === 'PENDING_SIGNATURES') {
             $this->statusService->transition(
                 $doc->documentRequest,
-                'ISSUED',
+                'READY',
                 'تم إصدار الوثيقة تلقائياً بعد اكتمال جميع التوقيعات.',
                 $user->id
             );

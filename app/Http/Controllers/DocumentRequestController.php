@@ -73,6 +73,7 @@ class DocumentRequestController extends Controller
 
         $data['fee_amount'] = $documentType->fee_amount;
         $data['currency'] = $documentType->currency;
+        $data['payment_required'] = $documentType->payment_required;
 
         if ($documentType->payment_required) {
             $data['payment_status'] = 'pending_review';
@@ -88,42 +89,51 @@ class DocumentRequestController extends Controller
 
         $docRequest = DocumentRequest::create($data);
 
-        if ($documentType->payment_required && $request->hasFile('payment_proof')) {
-            try {
-                $financeUsers = User::where('role', 'finance_admin')
-                    ->where('is_active', true)
-                    ->get();
+        if ($docRequest->payment_required) {
+            if ($request->hasFile('payment_proof')) {
+                try {
+                    $financeUsers = User::where('role', 'finance_admin')
+                        ->where('is_active', true)
+                        ->get();
 
-                if ($financeUsers->isEmpty()) {
-                    \Illuminate\Support\Facades\Log::warning('No active finance_admin users found to notify about new payment proof.');
-                } else {
-                    $alreadyNotifiedIds = DB::table('notifications')
-                        ->where('notifiable_type', User::class)
-                        ->whereIn('notifiable_id', $financeUsers->pluck('id'))
-                        ->where(function($q) use ($docRequest) {
-                            $q->where(function($sub) use ($docRequest) {
-                                $sub->where('data->type', 'payment_proof_review')
-                                    ->where('data->document_request_id', $docRequest->id);
-                            })->orWhere(function($sub) use ($docRequest) {
-                                $sub->where('data->type', 'new_payment_proof_submitted')
-                                    ->where('data->document_request_id', $docRequest->id);
-                            });
-                        })
-                        ->whereNull('read_at')
-                        ->pluck('notifiable_id')
-                        ->toArray();
+                    if ($financeUsers->isEmpty()) {
+                        \Illuminate\Support\Facades\Log::warning('No active finance_admin users found to notify about new payment proof.');
+                    } else {
+                        $alreadyNotifiedIds = DB::table('notifications')
+                            ->where('notifiable_type', User::class)
+                            ->whereIn('notifiable_id', $financeUsers->pluck('id'))
+                            ->where(function($q) use ($docRequest) {
+                                $q->where(function($sub) use ($docRequest) {
+                                    $sub->where('data->type', 'payment_proof_review')
+                                        ->where('data->document_request_id', $docRequest->id);
+                                })->orWhere(function($sub) use ($docRequest) {
+                                    $sub->where('data->type', 'new_payment_proof_submitted')
+                                        ->where('data->document_request_id', $docRequest->id);
+                                });
+                            })
+                            ->whereNull('read_at')
+                            ->pluck('notifiable_id')
+                            ->toArray();
 
-                    $usersToNotify = $financeUsers->reject(function ($u) use ($alreadyNotifiedIds) {
-                        return in_array($u->id, $alreadyNotifiedIds);
-                    });
+                        $usersToNotify = $financeUsers->reject(function ($u) use ($alreadyNotifiedIds) {
+                            return in_array($u->id, $alreadyNotifiedIds);
+                        });
 
-                    if ($usersToNotify->isNotEmpty()) {
-                        Notification::send($usersToNotify, new NewPaymentProofSubmitted($docRequest));
+                        if ($usersToNotify->isNotEmpty()) {
+                            Notification::send($usersToNotify, new NewPaymentProofSubmitted($docRequest));
+                        }
                     }
+                } catch (\Exception $e) {
+                    \Illuminate\Support\Facades\Log::error('Failed to notify finance admins about new payment proof: ' . $e->getMessage());
                 }
-            } catch (\Exception $e) {
-                \Illuminate\Support\Facades\Log::error('Failed to notify finance admins about new payment proof: ' . $e->getMessage());
             }
+        } else {
+            // Free request transitions to UNDER_REVIEW immediately
+            app(\App\Services\RequestStatusService::class)->moveToAcademicReview(
+                $docRequest,
+                'طلب مستند مجاني. انتقل مباشرة للمراجعة الأكاديمية.',
+                $docRequest->user_id
+            );
         }
 
         return redirect()->route('graduate.documents.index')

@@ -23,6 +23,7 @@ class DocumentRequest extends Model
         'payment_rejection_reason',
         'fee_amount',
         'currency',
+        'payment_required',
     ];
 
     protected function casts(): array
@@ -30,6 +31,7 @@ class DocumentRequest extends Model
         return [
             'payment_reviewed_at' => 'datetime',
             'fee_amount' => 'decimal:2',
+            'payment_required' => 'boolean',
         ];
     }
 

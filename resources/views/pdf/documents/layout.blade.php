@@ -46,28 +46,28 @@
                                 <!-- Document Information Box on far-left -->
                                 <div style="position: absolute; left: 0; top: -8px; width: 170px;">
                                     <table class="doc-meta-box" dir="rtl"
-                                        style="margin: 0; direction: rtl; width: 170px;">
+                                        style="margin: 0; direction: rtl;">
                                         <tr>
-                                            <td class="meta-value" dir="ltr" style="text-align: left; width: 135px;">
+                                            <td class="meta-value" dir="ltr">
                                                 {{ $issue_date }}
                                             </td>
-                                            <td class="meta-label" style="text-align: right; width: 35px;">
+                                            <td class="meta-label">
                                                 {{ ar('تاريخ الإصدار') }}
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td class="meta-value" dir="ltr" style="text-align: left; width: 135px;">
+                                            <td class="meta-value" dir="ltr">
                                                 {{ $serial_number }}
                                             </td>
-                                            <td class="meta-label" style="text-align: right; width: 35px;">
+                                            <td class="meta-label">
                                                 {{ ar('رقم الوثيقة') }}
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td class="meta-value" dir="ltr" style="text-align: left; width: 135px;">
+                                            <td class="meta-value" dir="ltr">
                                                 {{ $request->tracking_code }}
                                             </td>
-                                            <td class="meta-label" style="text-align: right; width: 35px;">
+                                            <td class="meta-label">
                                                 {{ ar('رقم الطلب') }}
                                             </td>
                                         </tr>

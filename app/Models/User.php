@@ -13,7 +13,13 @@ class User extends Authenticatable
     protected $hidden = ['password', 'remember_token'];
 
     protected function casts(): array {
-        return ['email_verified_at' => 'datetime', 'password' => 'hashed', 'is_active' => 'boolean'];
+        return [
+            'email_verified_at' => 'datetime',
+            'password' => 'hashed',
+            'is_active' => 'boolean',
+            'is_signature_approved' => 'boolean',
+            'signature_approved_at' => 'datetime',
+        ];
     }
 
     public function graduate() { return $this->hasOne(Graduate::class); }
@@ -39,5 +45,22 @@ class User extends Authenticatable
         }
         $path = \Illuminate\Support\Facades\Storage::disk('public')->path($this->signature_image);
         return file_exists($path) ? $path : null;
+    }
+
+    public function hasExistingSignatureFile(): bool
+    {
+        return filled($this->signature_image)
+            && \Illuminate\Support\Facades\Storage::disk('public')->exists($this->signature_image);
+    }
+
+    public function signatureApprover()
+    {
+        return $this->belongsTo(User::class, 'signature_approved_by');
+    }
+
+    public function canManageDocumentRecovery(): bool
+    {
+        $authorized = ['المختص الأكاديمي', 'مسجل الكلية', 'مدير إدارة شؤون الخريجين'];
+        return in_array($this->signer_role, $authorized);
     }
 }

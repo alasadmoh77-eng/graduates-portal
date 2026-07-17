@@ -205,6 +205,13 @@
                                                                 {{ number_format($type->fee_amount, 0) }} {{ $type->currency }}
                                                             </span>
                                                         </div>
+                                                    @else
+                                                        <div class="mt-2 small">
+                                                            <span class="badge bg-success text-white rounded-pill">
+                                                                <i class="fas fa-check-circle me-1"></i>
+                                                                {{ app()->getLocale() == 'ar' ? 'مجانية' : 'Free' }}
+                                                            </span>
+                                                        </div>
                                                     @endif
                                                 </div>
                                             </label>
@@ -284,6 +291,26 @@
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="freeDocumentSection" class="mb-5" style="display: none;">
+                    <h5 class="section-title">
+                        <i class="fas fa-info-circle text-success"></i>
+                        {{ app()->getLocale() == 'ar' ? 'معلومات الرسوم' : 'Fee Information' }}
+                    </h5>
+                    <div class="alert alert-success rounded-4 p-4 d-flex align-items-center gap-3">
+                        <div class="bg-success bg-opacity-10 p-3 rounded-circle text-success">
+                            <i class="fas fa-check-circle fa-2x"></i>
+                        </div>
+                        <div>
+                            <h5 class="fw-bold mb-1 text-success">{{ app()->getLocale() == 'ar' ? 'وثيقة مجانية' : 'Free Document' }}</h5>
+                            <p class="mb-0 text-muted fs-6">
+                                {{ app()->getLocale() == 'ar' 
+                                    ? 'هذه الوثيقة مجانية ولا تتطلب رفع إثبات دفع.' 
+                                    : 'This document is free and does not require uploading payment proof.' }}
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -391,16 +418,24 @@
         document.addEventListener('DOMContentLoaded', function () {
             const radios = document.querySelectorAll('.doc-type-radio');
             const paymentSection = document.getElementById('paymentSection');
+            const freeDocumentSection = document.getElementById('freeDocumentSection');
             const displayFee = document.getElementById('displayFee');
 
             function updatePaymentSection() {
                 const selected = document.querySelector('.doc-type-radio:checked');
 
-                if (selected && selected.dataset.paymentRequired === 'true') {
-                    paymentSection.style.display = 'block';
-                    displayFee.textContent = Number(selected.dataset.fee).toLocaleString() + ' ' + selected.dataset.currency;
+                if (selected) {
+                    if (selected.dataset.paymentRequired === 'true') {
+                        paymentSection.style.display = 'block';
+                        freeDocumentSection.style.display = 'none';
+                        displayFee.textContent = Number(selected.dataset.fee).toLocaleString() + ' ' + selected.dataset.currency;
+                    } else {
+                        paymentSection.style.display = 'none';
+                        freeDocumentSection.style.display = 'block';
+                    }
                 } else {
                     paymentSection.style.display = 'none';
+                    freeDocumentSection.style.display = 'none';
                 }
             }
 

@@ -18,6 +18,8 @@
                                 <h6 class="fw-bold mb-1">
                                     @if(isset($notification->data['type']) && $notification->data['type'] === 'new_employer_registered')
                                         {{ app()->getLocale() == 'ar' ? 'طلب تسجيل جهة توظيف جديدة قيد المراجعة' : 'New employer registration request awaiting review.' }}
+                                    @elseif(($notification->data['type'] ?? '') === 'academic_review')
+                                        {{ $notification->data['title'] ?? 'طلب مراجعة أكاديمية جديد' }}
                                     @elseif(($notification->data['type'] ?? '') === 'signature_required')
                                         {{ $notification->data['title'] ?? 'توقيع مطلوب' }}
                                     @elseif(in_array(($notification->data['type'] ?? ''), ['payment_proof_review', 'new_payment_proof_submitted']))
@@ -39,6 +41,14 @@
                                 </p>
                                 <p class="mb-2 small text-muted">
                                     {{ $notification->data['graduate_email'] ?? 'غير محدد' }} &middot; {{ __('app.registration_date') }}: {{ $notification->data['registration_date'] ?? 'غير محدد' }}
+                                </p>
+                            @elseif(($notification->data['type'] ?? '') === 'academic_review')
+                                <p class="mb-2 text-secondary">
+                                    <i class="fas fa-file-invoice text-primary me-1"></i>
+                                    {{ $notification->data['message'] ?? '' }}
+                                </p>
+                                <p class="mb-2 small text-muted">
+                                    {{ app()->getLocale() == 'ar' ? 'نوع الوثيقة' : 'Document Type' }}: {{ $notification->data['document_type'] ?? '' }}
                                 </p>
                             @elseif(($notification->data['type'] ?? '') === 'signature_required')
                                 <p class="mb-2 text-secondary">

@@ -46,11 +46,6 @@
     </div>
 
     {{-- Summary KPI Cards --}}
-    @php
-        $totalAdmins    = $admins->total();
-        $activeAdmins   = \App\Models\User::whereIn('role', ['admin','super_admin','academic_admin','finance_admin'])->where('is_active', true)->count();
-        $inactiveAdmins = $totalAdmins - $activeAdmins;
-    @endphp
     <div class="col-sm-4">
         <div class="card border-0 shadow-sm rounded-4 h-100 overflow-hidden">
             <div class="card-body p-4 d-flex align-items-center gap-3">
@@ -58,7 +53,7 @@
                     <i class="fas fa-users-cog fa-lg"></i>
                 </div>
                 <div>
-                    <h3 class="fw-extrabold mb-0 font-monospace">{{ $totalAdmins }}</h3>
+                    <h3 class="fw-extrabold mb-0 font-monospace"><span dir="ltr">{{ $totalAdmins }}</span></h3>
                     <p class="text-secondary small fw-bold mb-0">{{ __('app.total_admins') }}</p>
                 </div>
             </div>
@@ -72,7 +67,7 @@
                     <i class="fas fa-user-check fa-lg"></i>
                 </div>
                 <div>
-                    <h3 class="fw-extrabold mb-0 font-monospace">{{ $activeAdmins }}</h3>
+                    <h3 class="fw-extrabold mb-0 font-monospace"><span dir="ltr">{{ $activeAdmins }}</span></h3>
                     <p class="text-secondary small fw-bold mb-0">{{ __('app.active_admins') }}</p>
                 </div>
             </div>
@@ -86,7 +81,7 @@
                     <i class="fas fa-user-times fa-lg"></i>
                 </div>
                 <div>
-                    <h3 class="fw-extrabold mb-0 font-monospace">{{ $inactiveAdmins }}</h3>
+                    <h3 class="fw-extrabold mb-0 font-monospace"><span dir="ltr">{{ $inactiveAdmins }}</span></h3>
                     <p class="text-secondary small fw-bold mb-0">{{ __('app.inactive_admins') }}</p>
                 </div>
             </div>
@@ -102,14 +97,14 @@
                     <i class="fas fa-table text-primary"></i>
                     {{ __('app.all_admins_list') }}
                 </h5>
-                <span class="badge bg-primary rounded-pill px-3">{{ $admins->total() }}</span>
+                <span class="badge bg-primary rounded-pill px-3"><span dir="ltr">{{ $totalAdmins }}</span></span>
             </div>
             <div class="card-body p-0">
                 <div class="table-responsive">
                     <table class="table table-hover align-middle mb-0" id="admins-table">
                         <thead class="bg-light">
                             <tr>
-                                <th class="px-4 py-3 fw-bold text-secondary small text-uppercase">#</th>
+                                <th class="px-4 py-3 fw-bold text-secondary small text-uppercase">الرقم</th>
                                 <th class="py-3 fw-bold text-secondary small text-uppercase">{{ __('app.name') }}</th>
                                 <th class="py-3 fw-bold text-secondary small text-uppercase">{{ __('app.email') }}</th>
                                 <th class="py-3 fw-bold text-secondary small text-uppercase">{{ __('app.role') }}</th>
@@ -121,7 +116,7 @@
                         <tbody>
                             @forelse($admins as $admin)
                             <tr class="{{ $admin->id === auth()->id() ? 'table-primary' : '' }}">
-                                <td class="px-4 text-muted small font-monospace">{{ $admin->id }}</td>
+                                <td class="px-4 text-muted small font-monospace" dir="ltr">{{ ($admins->currentPage() - 1) * $admins->perPage() + $loop->iteration }}</td>
                                 <td>
                                     <div class="d-flex align-items-center gap-3">
                                         <div class="admin-avatar">{{ mb_substr($admin->name, 0, 1) }}</div>

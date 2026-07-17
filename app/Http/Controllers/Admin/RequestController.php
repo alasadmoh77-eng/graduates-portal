@@ -114,6 +114,10 @@ class RequestController extends Controller
      */
     public function generatePdf(DocumentRequest $documentRequest)
     {
+        if (!Auth::user()->canManageDocumentRecovery()) {
+            abort(403);
+        }
+
         try {
             $this->issuanceService->issue($documentRequest, Auth::id());
             return back()->with('success', __('app.admin_pdf_generated'));
@@ -127,6 +131,10 @@ class RequestController extends Controller
      */
     public function sendForSignatures(DocumentRequest $documentRequest)
     {
+        if (!Auth::user()->canManageDocumentRecovery()) {
+            abort(403);
+        }
+
         try {
             $this->issuanceService->initiateDraft($documentRequest, Auth::id());
             return back()->with('success', 'تم إرسال الوثيقة لسير التوقيعات. ستظهر في لوحة التوقيعات المعلقة للمسؤولين.');

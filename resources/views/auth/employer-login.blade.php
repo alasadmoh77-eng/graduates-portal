@@ -41,17 +41,10 @@
                     </div>
                 </div>
                 
-                <div class="mb-3 form-check d-flex justify-content-between">
-                    <div>
-                        <input type="checkbox" class="form-check-input" id="remember" name="remember">
-                        <label class="form-check-label" for="remember">{{ __('app.remember_me') }}</label>
-                    </div>
-                    <span class="text-muted small btn-disabled-state"
-                          data-bs-toggle="tooltip"
-                          data-bs-placement="top"
-                          title="{{ __('app.coming_soon') }}">
+                <div class="mb-3 d-flex justify-content-end">
+                    <a href="{{ route('password.forgot') }}" class="text-muted small text-decoration-none">
                         {{ __('app.forgot_password') }}
-                    </span>
+                    </a>
                 </div>
                 
                 <button type="submit" class="btn btn-primary w-100 py-3 rounded-pill fw-bold shadow-sm">

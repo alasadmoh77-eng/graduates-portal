@@ -55,6 +55,9 @@ Route::get('employers/pending', function() {
 
 Route::post('logout', [AuthController::class, 'logout'])->name('logout')->middleware('auth');
 
+// Public forgot-password informational page
+Route::view('password/forgot', 'auth.forgot-password')->name('password.forgot');
+
 // Public verification - محمية بحد معدل الطلبات (30 طلب/دقيقة للتحقق العام)
 Route::middleware('throttle:30,1')->group(function () {
     Route::get('verify/{token}', [VerificationController::class, 'show'])->name('verify.show');
@@ -141,6 +144,8 @@ Route::middleware(['auth'])->group(function() {
             Route::put('admins/{admin}', [AdminController::class, 'update'])->name('admins.update');
             Route::delete('admins/{admin}', [AdminController::class, 'destroy'])->name('admins.destroy');
             Route::patch('admins/{admin}/toggle-status', [AdminController::class, 'toggleStatus'])->name('admins.toggleStatus');
+            Route::patch('admins/{admin}/signature/approve', [AdminController::class, 'approveSignature'])->name('admins.signature.approve');
+            Route::patch('admins/{admin}/signature/revoke', [AdminController::class, 'revokeSignature'])->name('admins.signature.revoke');
 
             // Faculty management (admin + super_admin only)
             Route::get('faculties', [FacultyController::class, 'index'])->name('faculties.index');
@@ -165,8 +170,9 @@ Route::middleware(['auth'])->group(function() {
             Route::post('events/{event}/cancel', [\App\Http\Controllers\EventController::class, 'adminCancel'])->name('events.cancel');
             Route::delete('events/{event}', [\App\Http\Controllers\EventController::class, 'adminDestroy'])->name('events.destroy');
 
-            // Freeze / Unfreeze / Clear Test Data for Graduate Registry
+            // Freeze / Unfreeze / Password Reset / Clear Test Data for Graduate Registry
             Route::patch('graduate-registry/{approvedGraduate}/freeze-account', [\App\Http\Controllers\Admin\ApprovedGraduateController::class, 'freezeAccount'])->name('graduate-registry.freeze-account');
+            Route::patch('graduate-registry/{approvedGraduate}/password', [\App\Http\Controllers\Admin\GraduatePasswordController::class, 'update'])->name('graduate-registry.password');
             Route::patch('graduate-registry/{approvedGraduate}/unfreeze-account', [\App\Http\Controllers\Admin\ApprovedGraduateController::class, 'unfreezeAccount'])->name('graduate-registry.unfreeze-account');
             Route::delete('graduate-registry/clear-test-data', [\App\Http\Controllers\Admin\ApprovedGraduateController::class, 'clearTestData'])->name('graduate-registry.clear-test-data');
         });
@@ -174,6 +180,10 @@ Route::middleware(['auth'])->group(function() {
             // Admin Contact Messages
             Route::get('contact-messages', [\App\Http\Controllers\Admin\ContactMessageController::class, 'index'])->name('contact-messages.index');
             Route::patch('contact-messages/{contactMessage}/read', [\App\Http\Controllers\Admin\ContactMessageController::class, 'markRead'])->name('contact-messages.read');
+
+            // Document Fees Management
+            Route::get('document-fees', [\App\Http\Controllers\Admin\DocumentFeeController::class, 'index'])->name('document-fees.index');
+            Route::post('document-fees/{documentType}', [\App\Http\Controllers\Admin\DocumentFeeController::class, 'update'])->name('document-fees.update');
 
             // Admin Academic management (admin + super_admin + academic_admin)
         Route::middleware('admin.permission:academic')->group(function() {

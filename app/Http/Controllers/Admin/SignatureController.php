@@ -47,7 +47,12 @@ class SignatureController extends Controller
         $filename = 'signatures/' . $user->id . '_' . time() . '.png';
         Storage::disk('public')->put($filename, $decoded);
 
-        $user->update(['signature_image' => $filename]);
+        $user->update([
+            'signature_image' => $filename,
+            'is_signature_approved' => false,
+            'signature_approved_at' => null,
+            'signature_approved_by' => null,
+        ]);
 
         return back()->with('success', 'تم حفظ التوقيع الإلكتروني بنجاح.');
     }
@@ -55,10 +60,10 @@ class SignatureController extends Controller
     public function signDocument(Request $request, IssuedDocument $issuedDocument)
     {
         $user = Auth::user();
-        $roleTitle = $user->signer_role ?? $request->input('role_title');
+        $roleTitle = $user->signer_role;
 
         if (!$roleTitle) {
-            return back()->with('error', 'لم يتم تعيين منصب توقيعي لحسابك. راجع المسؤول العام.');
+            return back()->with('error', 'لا يوجد دور توقيع معتمد لهذا الحساب.');
         }
 
         try {
@@ -136,7 +141,7 @@ class SignatureController extends Controller
     {
         $user = Auth::user();
 
-        if (!in_array($user->role, ['admin', 'super_admin'])) {
+        if (!$user->canManageDocumentRecovery()) {
             abort(403, 'غير مصرح لك بإعادة إصدار الوثائق.');
         }
 

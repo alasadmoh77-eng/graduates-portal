@@ -202,6 +202,11 @@
                                             href="{{ route('admin.requests.index') }}">{{ __('app.manage_requests') }}</a>
                                         @endif
 
+                                        @if(in_array(Auth::user()->role, ['admin','super_admin','finance_admin']))
+                                        <a class="dropdown-item {{ request()->routeIs('admin.document-fees.*') ? 'active' : '' }}"
+                                            href="{{ route('admin.document-fees.index') }}">إدارة رسوم الوثائق</a>
+                                        @endif
+
                                         @if(in_array(Auth::user()->role, ['admin','super_admin']))
                                         <a class="dropdown-item {{ request()->routeIs('admin.jobs.*') ? 'active' : '' }}"
                                             href="{{ route('admin.jobs.index') }}">{{ __('app.manage_jobs') }}</a>
@@ -359,6 +364,14 @@
                         <li class="nav-item">
                             <a class="nav-link {{ request()->routeIs('admin.requests.*') ? 'active-mobile' : '' }}" href="{{ route('admin.requests.index') }}">
                                 <i class="fas fa-file-invoice"></i> {{ __('app.manage_requests') }}
+                            </a>
+                        </li>
+                        @endif
+
+                        @if(in_array(Auth::user()->role, ['admin','super_admin','finance_admin']))
+                        <li class="nav-item">
+                            <a class="nav-link {{ request()->routeIs('admin.document-fees.*') ? 'active-mobile' : '' }}" href="{{ route('admin.document-fees.index') }}">
+                                <i class="fas fa-money-bill-wave"></i> إدارة رسوم الوثائق
                             </a>
                         </li>
                         @endif
